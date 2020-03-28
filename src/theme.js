@@ -8,12 +8,25 @@ breakpoints.xl = breakpoints[3]
 export const customTheme = {
   ...theme,
   breakpoints,
+  fonts: {
+    body: "'Open Sans', sans-serif",
+    heading: "'Merriweather', serif",
+  },
   colors: {
     ...theme.colors,
+    gray: {
+      ...theme.colors.gray,
+      100: '#f2f2f2',
+      200: '#e7ebed',
+      300: '#D0D4DB',
+      500: '#979797',
+      600: '#5F5F5F',
+      700: '#4a4a4a',
+    },
     brand: {
-      900: '#1a365d',
-      800: '#153e75',
-      700: '#2a69ac',
+      900: '#00468C',
+      800: '#2653B0',
+      700: '#a8bfda',
     },
   },
 }
