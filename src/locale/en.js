@@ -1,5 +1,8 @@
 const en = {
   title: 'Online declaration Coronavirus COVID-19',
+  ro: 'Romanian',
+  en: 'English',
+  langSelect: 'Please select a preferred language.',
   intro:
     'This is an official platform pusa la dispozitie de Guvernul Romaniei pentru completarea declaratiei de intrare in tara la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   about: 'About project',
