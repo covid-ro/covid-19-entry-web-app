@@ -8,6 +8,7 @@ export function WhiteBox({ children }) {
       rounded="md"
       bg="white"
       p={[1, 8]}
+      my="4"
       w="100%">
       {children}
     </Box>
