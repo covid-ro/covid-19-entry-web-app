@@ -1,22 +1,16 @@
 import React from 'react'
-import { Box, Heading } from '@chakra-ui/core'
+import { Heading } from '@chakra-ui/core'
 import { LanguageSelector } from '../components/LanguageSelector'
 import { Trans } from '../locale/Trans'
+import { WhiteBox } from '../components/WhiteBox'
+
 export function Home() {
   return (
-    <Box
-      borderColor="gray.200"
-      borderWidth="1px"
-      rounded="md"
-      bg="white"
-      p={[1, 8]}
-      w="100%">
-      <Box>
-        <Heading size="md" lineHeight="32px" fontWeight="400">
-          <Trans id="intro" />
-        </Heading>
-        <LanguageSelector />
-      </Box>
-    </Box>
+    <WhiteBox>
+      <Heading size="md" lineHeight="32px" fontWeight="400">
+        <Trans id="intro" />
+      </Heading>
+      <LanguageSelector />
+    </WhiteBox>
   )
 }

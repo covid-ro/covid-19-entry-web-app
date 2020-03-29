@@ -6,6 +6,8 @@ const ro = {
   intro:
     'Aceasta este o platforma oficiala pusa la dispozitie de Guvernul Romaniei pentru completarea declaratiei de intrare in tara la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   about: 'Despre proiect',
+  start:
+    'Urmeaza sa completati un chestionar ce va genera declaratia pe baza careia puteti intra in tara.\nVa rugam sa completati formularul din aceasta aplicatie cu date reale, declaratia pe proprie raspundere fiind ulterior verificata de autoritatile competente.',
   declaratie: 'Declarație',
   progressHeaderStep: 'din 10',
   form2Label: 'Selectați unul din actele de identitate.',
