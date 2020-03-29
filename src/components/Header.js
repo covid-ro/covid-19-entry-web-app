@@ -4,7 +4,7 @@ import { Menu } from 'react-feather'
 import logo from '../assets/images/gov-ro.svg'
 import { Trans } from '../locale/Trans'
 const MenuItems = ({ children }) => (
-  <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
+  <Text mt={{ base: 4, md: 0 }} mr={6} fontWeight="semibold" display="block">
     {children}
   </Text>
 )
@@ -22,7 +22,7 @@ export function Header(props) {
       px={[2, 4, 10]}
       py="4"
       bg="white"
-      color="brand.800"
+      color="brand.900"
       {...props}>
       <Flex align="center" flexGrow={1}>
         <Image src={logo} alt="Guvernul Romaniei" />
@@ -30,7 +30,7 @@ export function Header(props) {
           as="h1"
           size={['xs', 'lg']}
           color="brand.900"
-          pl="1"
+          ml="4"
           fontWeight="normal"
           maxW="200px">
           <Trans id="title" />
