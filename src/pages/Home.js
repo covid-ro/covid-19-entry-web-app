@@ -8,7 +8,7 @@ export function Home() {
   return (
     <WhiteBox>
       <Heading size="md" lineHeight="32px" fontWeight="400">
-        <Trans id="intro" />
+        <Trans id="infoLabelBegin" />
       </Heading>
       <LanguageSelector />
     </WhiteBox>

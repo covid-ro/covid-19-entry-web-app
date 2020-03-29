@@ -7,7 +7,7 @@ const ro = {
     'Aceasta este o platforma oficiala pusa la dispozitie de Guvernul Romaniei pentru completarea declaratiei de intrare in tara la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   about: 'Despre proiect',
   start:
-    'Urmeaza sa completati un chestionar ce va genera declaratia pe baza careia puteti intra in tara.\nVa rugam sa completati formularul din aceasta aplicatie cu date reale, declaratia pe proprie raspundere fiind ulterior verificata de autoritatile competente.',
+    'Urmează să completați un chestionar ce va genera declarația pe baza căreia puteți intra în țara.',
   declaratie: 'Declarație',
   progressHeaderStep: 'din 10',
   form2Label: 'Selectați unul din actele de identitate.',
@@ -30,7 +30,7 @@ const ro = {
   codValidareSMS: 'Cod validare SMS',
   save: 'Salvează',
   dontReceiveTheCode: 'Nu ai primit codul de validare?',
-  resendSMSCod: 'Retrimite Cod validare \n SMS',
+  resendSMSCod: 'Retrimite Cod validare SMS',
   telefon: 'Telefon',
   validatePhoneNumber: 'Validează numărul de telefon',
   validatePhoneNumberInformationLabel:
@@ -52,7 +52,7 @@ const ro = {
   county: 'Localitate',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
-    'Această aplicație este pusă la dispoziție de Guvernul României și\nstă la baza declarației de intrare în țară la punctele vamale,\nurmare a pandemiei de coronavirus COVID-19.\n\n',
+    'Această aplicație este pusă la dispoziție de Guvernul României și stă la baza declarației de intrare în țară la punctele vamale,urmare a pandemiei de coronavirus COVID-19.',
   infoLabelBold:
     ' Vă rugăm să completați formularul din această aplicație cu date reale, ',
   infoLabelEnd:

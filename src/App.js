@@ -7,8 +7,8 @@ import { Layout } from './components/Layout'
 import { LanguageProvider } from './locale/LanguageContext'
 import { Home } from './pages/Home'
 import { Start } from './pages/Start'
-// const zone = process.env.REACT_APP_ZONE
-// const endpoint = `/client/v4/zones/${zone}/analytics/dashboard?since=2019-04-01T12:23:00Z&until=2020-03-27T12:23:00Z&continuous=false`
+import { SubmitPhone } from './pages/SubmitPhone'
+import { ValidatePhone } from './pages/ValidatePhone'
 
 function App() {
   // const { data, error } = useSWR(endpoint, fetcher, {
@@ -22,6 +22,12 @@ function App() {
         </Route>
         <Route path="/start">
           <Start />
+        </Route>
+        <Route path="/introducere-telefon">
+          <SubmitPhone />
+        </Route>
+        <Route path="/validare-telefon">
+          <ValidatePhone />
         </Route>
       </Layout>
     </LanguageProvider>
