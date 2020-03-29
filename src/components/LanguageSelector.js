@@ -1,10 +1,17 @@
 import React, { useContext } from 'react'
-import { Trans } from '../locale/Trans'
+import { useHistory } from 'react-router-dom'
 import { Flex, Box, Text } from '@chakra-ui/core'
+import { Trans } from '../locale/Trans'
 import { LanguageContext } from '../locale/LanguageContext'
-import { RadioButtonGroup, Button } from '@chakra-ui/core'
+import { Button } from '@chakra-ui/core'
 export function LanguageSelector() {
+  let history = useHistory()
   const languageContext = useContext(LanguageContext)
+  function forwardAction(e, lang) {
+    languageContext.setLanguage(lang)
+    e.stopPropagation()
+    history.push('/start')
+  }
   return (
     <Flex flexDirection="column" alignItems="center">
       <Box w="100%" justifyContent="center" mt="8" mb="16" d="flex">
@@ -23,36 +30,29 @@ export function LanguageSelector() {
         </Text>
       </Box>
       <Trans id="langSelect" />
-      <RadioButtonGroup
+      <Box
         mt="4"
         mb="16"
         d="flex"
         flexDirection="column"
-        justifyContent="center"
-        defaultValue={languageContext.language}
-        onChange={val => languageContext.setLanguage(val)}>
-        <CustomRadio value="ro">
+        justifyContent="center">
+        <Button
+          variantColor="brand"
+          size="lg"
+          mt="8"
+          w="320px"
+          onClick={e => forwardAction(e, 'ro')}>
           <Trans id="ro" />
-        </CustomRadio>
-        <CustomRadio value="en">
+        </Button>
+        <Button
+          variantColor="brand"
+          size="lg"
+          mt="8"
+          w="320px"
+          onClick={e => forwardAction(e, 'en')}>
           <Trans id="en" />
-        </CustomRadio>
-      </RadioButtonGroup>
+        </Button>
+      </Box>
     </Flex>
   )
 }
-const CustomRadio = React.forwardRef((props, ref) => {
-  const { isChecked, isDisabled, value, ...rest } = props
-  return (
-    <Button
-      ref={ref}
-      variantColor={isChecked ? 'brand' : 'brand'}
-      aria-checked={isChecked}
-      role="radio"
-      size="lg"
-      minW="300px"
-      isDisabled={isDisabled}
-      {...rest}
-    />
-  )
-})

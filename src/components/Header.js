@@ -1,7 +1,13 @@
 import React from 'react'
-import { Heading, Flex, Image, Box, Button } from '@chakra-ui/core'
+import { Heading, Flex, Image, Box, Text } from '@chakra-ui/core'
+import { Menu } from 'react-feather'
 import logo from '../assets/images/gov-ro.svg'
 import { Trans } from '../locale/Trans'
+const MenuItems = ({ children }) => (
+  <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
+    {children}
+  </Text>
+)
 export function Header(props) {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
@@ -13,39 +19,33 @@ export function Header(props) {
       borderBottom="1px"
       borderColor="gray.300"
       wrap="wrap"
-      padding="1.5rem 10rem"
+      px={[2, 4, 10]}
+      py="4"
       bg="white"
       color="brand.800"
       {...props}>
-      <Flex align="center" mr={5}>
+      <Flex align="center" flexGrow={1}>
         <Image src={logo} alt="Guvernul Romaniei" />
         <Heading
           as="h1"
-          size="lg"
+          size={['xs', 'lg']}
           color="brand.900"
-          pl="5"
+          pl="1"
           fontWeight="normal"
-          maxW="300px">
+          maxW="200px">
           <Trans id="title" />
         </Heading>
       </Flex>
       <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>
-        <svg
-          fill="white"
-          width="12px"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
+        <Menu size={30} strokeWidth={3} />
       </Box>
-
       <Box
-        display={{ sm: show ? 'block' : 'none', md: 'block' }}
-        mt={{ base: 4, md: 0 }}>
-        <Button bg="transparent" border="1px">
-          <Trans id="about" />
-        </Button>
+        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
+        width={{ sm: 'full', md: 'auto' }}
+        alignItems="center">
+        <MenuItems>Despre proiect</MenuItems>
+        <MenuItems>Parteneri</MenuItems>
+        <MenuItems>Alte informatii</MenuItems>
       </Box>
     </Flex>
   )

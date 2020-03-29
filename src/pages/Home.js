@@ -9,9 +9,9 @@ export function Home() {
       borderWidth="1px"
       rounded="md"
       bg="white"
-      p="8"
+      p={[1, 8]}
       w="100%">
-      <Box maxW="lg" mx="auto">
+      <Box>
         <Heading size="md" lineHeight="32px" fontWeight="400">
           <Trans id="intro" />
         </Heading>
