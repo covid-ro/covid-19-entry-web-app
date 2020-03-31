@@ -41,7 +41,7 @@ export function ValidatePhone() {
     //   },
     //   body: JSON.stringify({ values }),
     // })
-    history.push('/form')
+    history.push('/declaratie')
   }
   const [seconds, decrement] = useState(30)
   const [progress, increment] = useState(0)

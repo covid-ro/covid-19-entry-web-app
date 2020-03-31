@@ -21,7 +21,7 @@ const ro = {
   auto: 'Auto',
   ambulance: 'Ambulanță',
   passport: 'Paşaport',
-  card: 'Carte\nidentitate',
+  card: 'Carte identitate',
   simptom1: 'Febra',
   simptom2: 'Dificultatea \nde a înghiți',
   simptom3: 'Dificultatea \nde a respira',
