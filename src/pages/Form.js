@@ -10,6 +10,7 @@ import {
   FormControl,
   Input,
   RadioButtonGroup,
+  Select,
   Slider,
   Button,
   Flex,
@@ -96,7 +97,7 @@ export function Form(props) {
       </WhiteBox>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Step 1 */}
-        <WhiteBox>
+        <WhiteBox onClick={() => setSlide(1)}>
           <Heading size="md" lineHeight="32px" fontWeight="400">
             <Trans id="form1Label" />
           </Heading>
@@ -208,6 +209,63 @@ export function Form(props) {
             </FormErrorMessage>
           </FormControl>
         </WhiteBox>
+        {/* Step 3 */}
+        <WhiteBox onClick={() => setSlide(3)}>
+          <Heading size="md" lineHeight="32px" fontWeight="400">
+            <Trans id="form3Label" />
+          </Heading>
+          <FormControl isInvalid={errors.travelling_from_country_code}>
+            <FormLabel htmlFor="travelling_from_country_code" mt="8">
+              <Trans id="country" />
+            </FormLabel>
+            <Select
+              placeholder="Alege tara"
+              variant="flushed"
+              ref={register}
+              name="travelling_from_country_code">
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </Select>
+            <FormErrorMessage>
+              {errors.travelling_from_country_code &&
+                errors.travelling_from_country_code.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.travelling_from_city}>
+            <FormLabel htmlFor="travelling_from_city" mt="4">
+              <Trans id="county" />
+            </FormLabel>
+            <Input
+              name="travelling_from_city"
+              variant="flushed"
+              isRequired
+              placeholder="de ex.: Viena"
+              ref={register({ validate: validateName })}
+            />
+            <FormErrorMessage>
+              {errors.travelling_from_city &&
+                errors.travelling_from_city.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.travelling_from_date}>
+            <FormLabel htmlFor="travelling_from_date" mt="4">
+              <Trans id="dataPlecarii" />
+            </FormLabel>
+            <Input
+              type="date"
+              name="travelling_from_date"
+              variant="flushed"
+              isRequired
+              ref={register({ validate: validateCNP })}
+            />
+            <FormErrorMessage>
+              {errors.travelling_from_date &&
+                errors.travelling_from_date.message}
+            </FormErrorMessage>
+          </FormControl>
+        </WhiteBox>
+
         <Box
           mt="4"
           mb="16"
