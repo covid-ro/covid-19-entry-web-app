@@ -100,6 +100,6 @@ const ro = {
     'Te rugăm să transmiți reprezentantului DSP din punctul vamal că ai utilizat aplicația mobilă pentru completarea datelor. Pentru a fi validă, declarația completată va fi imprimată și semnată.',
   data: 'Data',
   transitedCountries: 'Țările prin care ați trecut(inclusiv escale):',
-  selectCountries: 'Selectați țările(selecție multiplă)',
+  selectCountries: 'Selectați țările (selecție multiplă)',
 }
 export default ro

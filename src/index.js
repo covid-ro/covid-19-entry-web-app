@@ -7,13 +7,12 @@ import { customTheme } from './theme'
 import App from './App'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={customTheme}>
-      <CSSReset />
-      <Router>
-        <App />
-      </Router>
-    </ThemeProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <ThemeProvider theme={customTheme}>
+    <CSSReset />
+    <Router>
+      <App />
+    </Router>
+  </ThemeProvider>,
   document.getElementById('root')
 )

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { DevTool } from 'react-hook-form-devtools'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
+import ReactSelect from 'react-select'
 import {
   Heading,
   Box,
@@ -24,7 +25,7 @@ import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
 
 export function Form(props) {
-  let history = useHistory()
+  // let history = useHistory()
   const {
     handleSubmit,
     errors,
@@ -71,7 +72,17 @@ export function Form(props) {
     // history.push('/')
   }
   const documentType = watch('document_type', props.document_type)
-
+  // const [itinerary, setItinerary] = useState(null)
+  const handleSelectChange = (value, action) => {
+    const inputRef = action.name
+    setValue(inputRef, value)
+    // setItinerary(value)
+  }
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ]
   return (
     <Flex flexDirection="column" w="100%">
       <WhiteBox>
@@ -264,7 +275,92 @@ export function Form(props) {
                 errors.travelling_from_date.message}
             </FormErrorMessage>
           </FormControl>
+          <Heading size="md" lineHeight="32px" fontWeight="400" mt="8" mb="4">
+            <Trans id="transitedCountries" />
+          </Heading>
+          <FormControl isInvalid={errors.itinerary_countries}>
+            <ReactSelect
+              placeholder={<Trans id="selectCountries" />}
+              name="itinerary_countries"
+              isMulti
+              options={options}
+              ref={e =>
+                register({ name: 'itinerary_countries', required: true })
+              }
+              onChange={(val, action) => handleSelectChange(val, action)}
+              mt="4"
+            />
+            <FormErrorMessage>
+              {errors.itinerary_countries && errors.itinerary_countries.message}
+            </FormErrorMessage>
+          </FormControl>
         </WhiteBox>
+        {/* Step 4 */}
+        {/* <WhiteBox onClick={() => setSlide(3)}>
+          <Heading size="md" lineHeight="32px" fontWeight="400">
+            <Trans id="form3Label" />
+          </Heading>
+          <FormControl isInvalid={errors.travelling_from_country_code}>
+            <FormLabel htmlFor="travelling_from_country_code" mt="8">
+              <Trans id="country" />
+            </FormLabel>
+            <Select
+              placeholder="Alege tara"
+              variant="flushed"
+              ref={register}
+              name="travelling_from_country_code">
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </Select>
+            <FormErrorMessage>
+              {errors.travelling_from_country_code &&
+                errors.travelling_from_country_code.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.travelling_from_city}>
+            <FormLabel htmlFor="travelling_from_city" mt="4">
+              <Trans id="county" />
+            </FormLabel>
+            <Input
+              name="travelling_from_city"
+              variant="flushed"
+              isRequired
+              placeholder="de ex.: Viena"
+              ref={register({ validate: validateName })}
+            />
+            <FormErrorMessage>
+              {errors.travelling_from_city &&
+                errors.travelling_from_city.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.travelling_from_date}>
+            <FormLabel htmlFor="travelling_from_date" mt="4">
+              <Trans id="dataPlecarii" />
+            </FormLabel>
+            <Input
+              type="date"
+              name="travelling_from_date"
+              variant="flushed"
+              isRequired
+              ref={register({ validate: validateCNP })}
+            />
+            <FormErrorMessage>
+              {errors.travelling_from_date &&
+                errors.travelling_from_date.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={errors.travelling_from_date}>
+            <FormLabel htmlFor="travelling_from_date" mt="4">
+              <Trans id="dataPlecarii" />
+            </FormLabel>
+
+            <FormErrorMessage>
+              {errors.travelling_from_date &&
+                errors.travelling_from_date.message}
+            </FormErrorMessage>
+          </FormControl>
+        </WhiteBox> */}
 
         <Box
           mt="4"

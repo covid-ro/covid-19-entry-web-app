@@ -17,6 +17,7 @@
     "react-hook-form": "^5.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "recharts": "^1.8.5",
     "swr": "^0.1.18"
   },
