@@ -47,7 +47,7 @@ const en = {
   addICInfo: 'Introduceți datele din buletin:',
   form3Label: 'Țara și localitatea din care ați plecat, în ce zi:',
   country: 'Țara',
-  county: 'Localitate',
+  city: 'Localitate',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
     'Această aplicație este pusă la dispoziție de Guvernul României și\nstă la baza declarației de intrare în țară la punctele vamale,\nurmare a pandemiei de coronavirus COVID-19.\n\n',

@@ -49,7 +49,8 @@ const ro = {
   addICInfo: 'Introduceți datele din buletin:',
   form3Label: 'Țara și localitatea din care ați plecat, în ce zi:',
   country: 'Țara',
-  county: 'Localitate',
+  city: 'Localitate',
+  codeError: 'Codul trebuie sa contine 6 cifre',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
     'Această aplicație este pusă la dispoziție de Guvernul României și stă la baza declarației de intrare în țară la punctele vamale,urmare a pandemiei de coronavirus COVID-19.',
@@ -80,11 +81,12 @@ const ro = {
     'Numărul de telefon completat trebuie să fie activ pe toată perioada autoizolării. Veți fi contactat pe acest număr de telefon de către autoritățile responsabile. \n \nOrice omisiune va fi pedepsită conform legii pentru combaterea bolilor contagioase.',
   telefonValid: 'Telefon valid',
   email: 'E-mail',
+  invalidEmail: 'E-mail greșit',
   form1Label: 'Vă rugăm să adăugați datele personale.',
   nume: 'Nume',
   prenume: 'Prenume',
   cnp: 'CNP',
-  form4Label: 'În România mă voi izola la următoarele adrese:',
+  form4Label: 'În România mă voi izola la următoarea adresă:',
   judet: 'Județ',
   localitate: 'Localitate',
   dataSosirii: 'Data sosirii',
@@ -101,5 +103,8 @@ const ro = {
   data: 'Data',
   transitedCountries: 'Țările prin care ați trecut(inclusiv escale):',
   selectCountries: 'Selectați țările (selecție multiplă)',
+  selectCountry: 'Selectați țara',
+  selectCounty: 'Selectați județul',
+  required: 'Câmp obligatoriu',
 }
 export default ro

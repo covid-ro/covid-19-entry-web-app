@@ -1,8 +1,9 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
-export function WhiteBox({ children, onClick }) {
+export function WhiteBox({ children, onClick, pos }) {
   return (
     <Box
+      pos={pos}
       onClick={onClick}
       borderColor="gray.200"
       borderWidth="1px"

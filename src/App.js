@@ -9,7 +9,7 @@ import { Home } from './pages/Home'
 import { Start } from './pages/Start'
 import { SubmitPhone } from './pages/SubmitPhone'
 import { ValidatePhone } from './pages/ValidatePhone'
-import { Form } from './pages/Form'
+import { Declaration } from './pages/Form'
 
 function App() {
   // const { data, error } = useSWR(endpoint, fetcher, {
@@ -31,7 +31,7 @@ function App() {
           <ValidatePhone />
         </Route>
         <Route path="/declaratie">
-          <Form />
+          <Declaration />
         </Route>
       </Layout>
     </LanguageProvider>
