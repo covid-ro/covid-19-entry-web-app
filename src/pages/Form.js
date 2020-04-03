@@ -689,7 +689,75 @@ export function Declaration() {
                 )}
               </Field>
             </WhiteBox>
-
+            {/* Step 6 */}
+            <WhiteBox onClick={() => setSlide(6)}>
+              <Heading size="md" lineHeight="32px" fontWeight="400">
+                <Trans id="form6FirstQuestion" />
+              </Heading>
+              <RadioButtonGroup
+                defaultValue="da"
+                name="question_1_answer"
+                d="flex"
+                flexDirection="row"
+                justifyContent="space-around"
+                my="8"
+                onChange={val => setFieldValue('question_1_answer', val)}
+                isInline>
+                >
+                <CustomRadio value="da">
+                  <Trans id="da" />
+                </CustomRadio>
+                <CustomRadio value="nu">
+                  <Trans id="nu" />
+                </CustomRadio>
+              </RadioButtonGroup>
+            </WhiteBox>
+            {/* Step 7 */}
+            <WhiteBox onClick={() => setSlide(7)}>
+              <Heading size="md" lineHeight="32px" fontWeight="400">
+                <Trans id="form7Label" />
+              </Heading>
+              <RadioButtonGroup
+                defaultValue="da"
+                name="question_2_answer"
+                d="flex"
+                flexDirection="row"
+                justifyContent="space-around"
+                my="8"
+                onChange={val => setFieldValue('question_2_answer', val)}
+                isInline>
+                >
+                <CustomRadio value="da">
+                  <Trans id="da" />
+                </CustomRadio>
+                <CustomRadio value="nu">
+                  <Trans id="nu" />
+                </CustomRadio>
+              </RadioButtonGroup>
+            </WhiteBox>
+            {/* Step 8 */}
+            <WhiteBox onClick={() => setSlide(8)}>
+              <Heading size="md" lineHeight="32px" fontWeight="400">
+                <Trans id="form8Label" />
+              </Heading>
+              <RadioButtonGroup
+                defaultValue="da"
+                name="question_3_answer"
+                d="flex"
+                flexDirection="row"
+                justifyContent="space-around"
+                my="8"
+                onChange={val => setFieldValue('question_3_answer', val)}
+                isInline>
+                >
+                <CustomRadio value="da">
+                  <Trans id="da" />
+                </CustomRadio>
+                <CustomRadio value="nu">
+                  <Trans id="nu" />
+                </CustomRadio>
+              </RadioButtonGroup>
+            </WhiteBox>
             <Box
               mt="4"
               mb="16"
