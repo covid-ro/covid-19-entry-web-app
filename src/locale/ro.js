@@ -81,6 +81,7 @@ const ro = {
     'Numărul de telefon completat trebuie să fie activ pe toată perioada autoizolării. Veți fi contactat pe acest număr de telefon de către autoritățile responsabile. \n \nOrice omisiune va fi pedepsită conform legii pentru combaterea bolilor contagioase.',
   telefonValid: 'Telefon valid',
   email: 'E-mail',
+  emailPlaceholder: 'ion.nicolaescu@tld.ro',
   invalidEmail: 'E-mail greșit',
   form1Label: 'Vă rugăm să adăugați datele personale.',
   nume: 'Nume',

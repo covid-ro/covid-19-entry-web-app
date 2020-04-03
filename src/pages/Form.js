@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Formik, Field, Form } from 'formik'
+import ro from 'date-fns/locale/ro'
 import ReactSelect from 'react-select'
 import {
   Heading,
@@ -528,12 +529,22 @@ export function Declaration() {
                     <FormLabel htmlFor="isolation_addresses.city" mt="4">
                       <Trans id="city" />
                     </FormLabel>
-                    <Input
-                      {...field}
-                      name="isolation_addresses.city"
-                      variant="flushed"
-                      placeholder="de ex.: Viena"
-                    />
+                    <InputGroup>
+                      <Input
+                        {...field}
+                        name="isolation_addresses.city"
+                        variant="flushed"
+                        placeholder="de ex.: Viena"
+                      />
+                      <InputRightElement
+                        children={
+                          !form.errors.city &&
+                          form.touched?.isolation_addresses?.city && (
+                            <Icon name="check" color="green.500" />
+                          )
+                        }
+                      />
+                    </InputGroup>
                     <FormErrorMessage>{form.errors.city}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -554,6 +565,7 @@ export function Declaration() {
                     <Input
                       {...field}
                       type="date"
+                      locale={ro}
                       name="isolation_addresses.city_arrival_date"
                       variant="flushed"
                     />
@@ -601,12 +613,75 @@ export function Declaration() {
                       mt="4">
                       <Trans id="adresaCompleta" />
                     </FormLabel>
-                    <Input
-                      {...field}
-                      name="isolation_addresses.city_full_address"
-                      variant="flushed"
-                      placeholder="de ex.: Str. Emil Custode, nr. 12"
-                    />
+                    <InputGroup>
+                      <Input
+                        {...field}
+                        name="isolation_addresses.city_full_address"
+                        variant="flushed"
+                        placeholder="de ex.: Str. Emil Custode, nr. 12"
+                      />
+                      <InputRightElement
+                        children={
+                          !form.errors.city_full_address &&
+                          form.touched?.isolation_addresses
+                            ?.city_full_address && (
+                            <Icon name="check" color="green.500" />
+                          )
+                        }
+                      />
+                    </InputGroup>
+                    <FormErrorMessage>
+                      {form.errors.city_full_address}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+            </WhiteBox>
+            {/* Step 5 */}
+            <WhiteBox onClick={() => setSlide(5)}>
+              <Heading size="md" lineHeight="32px" fontWeight="400">
+                <Trans id="form5Label" />
+              </Heading>
+              <FormControl isRequired>
+                <FormLabel htmlFor="email" mt="4">
+                  <Trans id="telefon" />
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    isDisabled
+                    variant="flushed"
+                    value="tel from localstorage"
+                  />
+                  <InputRightElement
+                    children={<Icon name="check" color="green.500" />}
+                  />
+                </InputGroup>
+              </FormControl>
+              <Field name="email">
+                {({ field, form }) => (
+                  <FormControl
+                    isInvalid={form.errors.email && form.touched.email}>
+                    <FormLabel htmlFor="email" mt="4">
+                      <Trans id="email" />
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        {...field}
+                        name="email"
+                        variant="flushed"
+                        placeholder={
+                          languageContext.dictionary['emailPlaceholder']
+                        }
+                      />
+                      <InputRightElement
+                        children={
+                          !form.errors.email &&
+                          form.touched.email && (
+                            <Icon name="check" color="green.500" />
+                          )
+                        }
+                      />
+                    </InputGroup>
                     <FormErrorMessage>
                       {form.errors.city_full_address}
                     </FormErrorMessage>
