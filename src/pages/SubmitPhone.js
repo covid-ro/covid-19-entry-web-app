@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
+import Select, { components } from 'react-select'
+import { mapObjIndexed } from 'ramda'
 import { LanguageContext } from '../locale/LanguageContext'
+import countries from '../assets/countries.json'
 
 import {
   Heading,
@@ -9,6 +12,7 @@ import {
   FormErrorMessage,
   FormLabel,
   FormControl,
+  Flex,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -18,10 +22,75 @@ import {
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
+const groupOptionsMethod = (value, key, obj) => {
+  return {
+    label: key,
+    options: value.map(v => {
+      return {
+        label: `${v.country} (+${v.calling_code})`,
+        value: `+${v.calling_code}`,
+      }
+    }),
+  }
+}
+const groupedOptionsPrep = mapObjIndexed(groupOptionsMethod, countries)
+const groupedOptions = Object.entries(groupedOptionsPrep).map(a => a[1])
+
+const groupBadgeStyles = {
+  backgroundColor: '#EBECF0',
+  borderRadius: '2em',
+  color: '#172B4D',
+  display: 'inline-block',
+  fontSize: 12,
+  fontWeight: 'normal',
+  lineHeight: '1',
+  minWidth: 1,
+  padding: '0.16666666666667em 0.5em',
+  textAlign: 'center',
+}
+const formatGroupLabel = data => (
+  <Flex alignItems="center" justifyContent="space-between">
+    <span>{data.label}</span>
+    <span style={groupBadgeStyles}>{data.options.length}</span>
+  </Flex>
+)
 const initialValues = {
-  phone_country_prefix: '40',
+  phone_country_prefix: { label: 'România', value: '+40' },
   phone: '',
 }
+const customStyles = {
+  control: styles => ({
+    ...styles,
+    backgroundColor: 'white',
+    border: 'none',
+    borderRadius: 0,
+    height: '2.5rem',
+    borderBottom: 'solid 2px #e7ebed',
+    ':active': {
+      ...styles[':active'],
+      borderColor: '#3182ce',
+    },
+    ':hover': {
+      ...styles[':hover'],
+      borderColor: '#e7ebed',
+    },
+  }),
+
+  singleValue: styles => ({ ...styles, right: 10 }),
+  container: styles => ({
+    ...styles,
+    width: '100%',
+  }),
+  menu: styles => ({
+    ...styles,
+    display: 'block',
+    width: 'auto',
+  }),
+}
+const SingleValue = props => (
+  <components.SingleValue {...props}>{props.data.value}</components.SingleValue>
+)
+
 export function SubmitPhone() {
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
@@ -37,14 +106,18 @@ export function SubmitPhone() {
           const errors = {}
           if (!values.phone) {
             errors.phone = languageContext.dictionary['required']
+          } else if (!values.phone.match(/^[0-9]+$/)) {
+            errors.phone = languageContext.dictionary['numbersOnly']
           }
           if (!values.phone_country_prefix) {
             errors.phone_country_prefix = languageContext.dictionary['required']
           }
+
           return errors
         }}
         onSubmit={values => {
-          console.log('onSubmit -> values', values)
+          const payload = `${values.phone_country_prefix.value}${values.phone}`
+          console.log('onSubmit -> values', payload)
           // return await fetch('/phone/validate', {
           //   method: 'POST',
           //   headers: {
@@ -73,24 +146,28 @@ export function SubmitPhone() {
                   {({ field, form }) => (
                     <FormControl
                       isRequired
-                      isInvalid={
-                        props.form.errors.phone_country_prefix &&
-                        props.form.touched.phone_country_prefix &&
-                        form.errors.phone &&
-                        form.touched.phone
-                      }>
+                      isInvalid={form.errors.phone && form.touched.phone}>
                       <FormLabel htmlFor="phone" mt="8">
                         <Trans id="telefon" />
                       </FormLabel>
                       <InputGroup>
-                        <InputLeftAddon>
-                          <Input
+                        <InputLeftAddon
+                          w="100px"
+                          px="0"
+                          border="none"
+                          borderImageWidth="0"
+                          backgroundColor="#fff">
+                          <Select
                             {...props.field}
                             name="phone_country_prefix"
-                            variant="flushed"
-                            w="30px"
-                            placeholder="40"
-                            textAlign="right"
+                            options={groupedOptions}
+                            formatGroupLabel={formatGroupLabel}
+                            placeholder={<Trans id="phoneCode" />}
+                            onChange={val =>
+                              setFieldValue('phone_country_prefix', val)
+                            }
+                            components={{ SingleValue }}
+                            styles={customStyles}
                           />
                         </InputLeftAddon>
                         <Input
@@ -99,22 +176,18 @@ export function SubmitPhone() {
                           pl="4"
                           variant="flushed"
                           placeholder="72600000"
+                          w="70%"
                         />
                         <InputRightElement
                           children={
-                            !props.form.errors.phone_country_prefix &&
                             !form.errors.phone &&
-                            !props.form.touched.phone_country_prefix &&
                             form.touched.phone && (
                               <Icon name="check" color="green.500" />
                             )
                           }
                         />
                       </InputGroup>
-                      <FormErrorMessage>
-                        <p>{props.form.errors.phone}</p>
-                        <p>{form.errors.phone}</p>
-                      </FormErrorMessage>
+                      <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>

@@ -35,8 +35,8 @@ const options = [
 const initialValues = {
   surname: '',
   name: '',
-  cnp: '1231',
-  email: 'hi@cezar.eu',
+  cnp: '',
+  email: '',
   border_checkpoint_id: null,
   document_type: 'passport',
   document_series: '',
@@ -52,9 +52,9 @@ const initialValues = {
     city_arrival_date: '',
     city_departure_date: '',
   },
-  question_1_answer: '',
-  question_2_answer: '',
-  question_3_answer: '',
+  q_visited: true,
+  q_contacted: true,
+  q_hospitalized: true,
   symptom_fever: true,
   symptom_swallow: true,
   symptom_breathing: true,
@@ -695,19 +695,19 @@ export function Declaration() {
                 <Trans id="form6FirstQuestion" />
               </Heading>
               <RadioButtonGroup
-                defaultValue="da"
-                name="question_1_answer"
+                value={values.q_visited}
+                name="q_visited"
                 d="flex"
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('question_1_answer', val)}
+                onChange={val => setFieldValue('q_visited', val)}
                 isInline>
                 >
-                <CustomRadio value="da">
+                <CustomRadio value={true}>
                   <Trans id="da" />
                 </CustomRadio>
-                <CustomRadio value="nu">
+                <CustomRadio value={false}>
                   <Trans id="nu" />
                 </CustomRadio>
               </RadioButtonGroup>
@@ -718,19 +718,19 @@ export function Declaration() {
                 <Trans id="form7Label" />
               </Heading>
               <RadioButtonGroup
-                defaultValue="da"
-                name="question_2_answer"
+                value={values.q_contacted}
+                name="q_contacted"
                 d="flex"
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('question_2_answer', val)}
+                onChange={val => setFieldValue('q_contacted', val)}
                 isInline>
                 >
-                <CustomRadio value="da">
+                <CustomRadio value={true}>
                   <Trans id="da" />
                 </CustomRadio>
-                <CustomRadio value="nu">
+                <CustomRadio value={false}>
                   <Trans id="nu" />
                 </CustomRadio>
               </RadioButtonGroup>
@@ -738,25 +738,45 @@ export function Declaration() {
             {/* Step 8 */}
             <WhiteBox onClick={() => setSlide(8)}>
               <Heading size="md" lineHeight="32px" fontWeight="400">
-                <Trans id="form8Label" />
+                <Trans id="form6SecondQuestion" />
               </Heading>
               <RadioButtonGroup
-                defaultValue="da"
-                name="question_3_answer"
+                value={values.q_hospitalized}
+                name="q_hospitalized"
                 d="flex"
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('question_3_answer', val)}
+                onChange={val => setFieldValue('q_hospitalized', val)}
                 isInline>
                 >
-                <CustomRadio value="da">
+                <CustomRadio value={true}>
                   <Trans id="da" />
                 </CustomRadio>
-                <CustomRadio value="nu">
+                <CustomRadio value={false}>
                   <Trans id="nu" />
                 </CustomRadio>
               </RadioButtonGroup>
+            </WhiteBox>
+            {/* Step 9 */}
+            <WhiteBox onClick={() => setSlide(8)}>
+              <Heading size="md" lineHeight="32px" fontWeight="400">
+                <Trans id="form8Label" />
+              </Heading>
+              <Flex flexDirection="row" justifyContent="space-around" my="8">
+                <CustomRadio value={true}>
+                  <Trans id="da" />
+                </CustomRadio>
+                <CustomRadio value={false}>
+                  <Trans id="nu" />
+                </CustomRadio>
+                <CustomRadio value={true}>
+                  <Trans id="da" />
+                </CustomRadio>
+                <CustomRadio value={false}>
+                  <Trans id="nu" />
+                </CustomRadio>
+              </Flex>
             </WhiteBox>
             <Box
               mt="4"

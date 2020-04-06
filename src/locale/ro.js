@@ -32,6 +32,8 @@ const ro = {
   dontReceiveTheCode: 'Nu ai primit codul de validare?',
   resendSMSCod: 'Retrimite Cod validare SMS',
   telefon: 'Telefon',
+  phoneCode: 'Selectează codul de țară',
+  numbersOnly: 'Doar cifre pot fi introduse',
   validatePhoneNumber: 'Validează numărul de telefon',
   validatePhoneNumberInformationLabel:
     'Va rugăm să introduceți un număr de telefon valid, unde puteți fi contactat pe perioada autoizolării. Veți primi pe SMS un cod unic, ce va trebui înscris în câmpul de mai jos.',

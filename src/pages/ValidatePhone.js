@@ -50,7 +50,7 @@ export function ValidatePhone() {
           <Trans id="addSMSCode" />
         </Heading>
         <Formik
-          initialValues={{ phone_validation_code: '' }}
+          initialValues={{ phone_validation_code: '666666' }}
           validate={values => {
             const errors = {}
             if (!values.phone_validation_code) {
@@ -100,7 +100,6 @@ export function ValidatePhone() {
                       <Input
                         {...field}
                         name="phone_validation_code"
-                        defaultValue="666666"
                         variant="flushed"
                         placeholder="123456"
                       />
