@@ -106,7 +106,7 @@ const customStyles = {
 
 export function Declaration() {
   const languageContext = useContext(LanguageContext)
-  const maxStep = 10
+  const maxStep = 12
   const [step, setSlide] = useState(1)
   return (
     <Flex flexDirection="column" w="100%">
@@ -713,11 +713,12 @@ export function Declaration() {
                   <Trans id="form5Label" />
                 </Heading>
                 <FormControl isRequired>
-                  <FormLabel htmlFor="email" mt="4">
+                  <FormLabel htmlFor="phone" mt="4">
                     <Trans id="telefon" />
                   </FormLabel>
                   <InputGroup>
                     <Input
+                      name="phone"
                       isDisabled
                       variant="flushed"
                       value="tel from localstorage"
@@ -752,12 +753,19 @@ export function Declaration() {
                           }
                         />
                       </InputGroup>
-                      <FormErrorMessage>
-                        {form.errors.city_full_address}
-                      </FormErrorMessage>
+                      <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
+                <Heading
+                  size="md"
+                  lineHeight="32px"
+                  fontWeight="400"
+                  color="brand.500"
+                  mt="8">
+                  <Trans id="alertLabel" />
+                </Heading>
+                <Trans id="alertMessage" />
               </WhiteBox>
               {/* Step 6 */}
               <WhiteBox onClick={() => setSlide(6)}>
@@ -861,6 +869,71 @@ export function Declaration() {
                   </CustomCheckBox>
                 </CheckboxGroup>
               </WhiteBox>
+              {/* Step 10 */}
+              <WhiteBox onClick={() => setSlide(10)}>
+                <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <Trans id="form9Label" />
+                </Heading>
+                <RadioButtonGroup
+                  value={values.vehicle_type}
+                  name="vehicle_type"
+                  d="flex"
+                  flexDirection="row"
+                  justifyContent="space-around"
+                  my="8"
+                  onChange={(val) => setFieldValue('vehicle_type', val)}
+                  isInline>
+                  >
+                  <CustomRadio value="auto">
+                    <Trans id="auto" />
+                  </CustomRadio>
+                  <CustomRadio value="ambulance">
+                    <Trans id="ambulance" />
+                  </CustomRadio>
+                </RadioButtonGroup>
+              </WhiteBox>
+              {/* Step 11 */}
+              <WhiteBox onClick={() => setSlide(11)}>
+                <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <Trans id="form9Label2" />
+                </Heading>
+
+                <Field name="vehicle_registration_no">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={
+                        form.errors.vehicle_registration_no &&
+                        form.touched.vehicle_registration_no
+                      }>
+                      <FormLabel htmlFor="vehicle_registration_no" mt="4">
+                        <Trans id="labelAutomobil" />
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          {...field}
+                          name="vehicle_registration_no"
+                          variant="flushed"
+                          placeholder={
+                            languageContext.dictionary['placeholderAutomobil']
+                          }
+                        />
+                        <InputRightElement
+                          children={
+                            !form.errors.vehicle_registration_no &&
+                            form.touched.vehicle_registration_no && (
+                              <Icon name="check" color="green.500" />
+                            )
+                          }
+                        />
+                      </InputGroup>
+                      <FormErrorMessage>
+                        {form.errors.vehicle_registration_no}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+              </WhiteBox>
+
               <Box
                 mt="4"
                 mb="16"
