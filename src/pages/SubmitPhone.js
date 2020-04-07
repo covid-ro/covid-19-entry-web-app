@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import Select, { components } from 'react-select'
-import { mapObjIndexed } from 'ramda'
 import { LanguageContext } from '../locale/LanguageContext'
-import countries from '../assets/countries.json'
+import { groupedPhoneCodes } from '../assets/data/groupedCountries'
 
 import {
   Heading,
@@ -22,19 +21,6 @@ import {
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
-const groupOptionsMethod = (value, key, obj) => {
-  return {
-    label: key,
-    options: value.map(v => {
-      return {
-        label: `${v.country} (+${v.calling_code})`,
-        value: `+${v.calling_code}`,
-      }
-    }),
-  }
-}
-const groupedOptionsPrep = mapObjIndexed(groupOptionsMethod, countries)
-const groupedOptions = Object.entries(groupedOptionsPrep).map(a => a[1])
 
 const groupBadgeStyles = {
   backgroundColor: '#EBECF0',
@@ -160,7 +146,7 @@ export function SubmitPhone() {
                           <Select
                             {...props.field}
                             name="phone_country_prefix"
-                            options={groupedOptions}
+                            options={groupedPhoneCodes}
                             formatGroupLabel={formatGroupLabel}
                             placeholder={<Trans id="phoneCode" />}
                             onChange={val =>

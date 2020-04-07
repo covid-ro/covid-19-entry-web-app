@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Formik, Field, Form } from 'formik'
 import ro from 'date-fns/locale/ro'
-import ReactSelect from 'react-select'
+import ReactSelect, { components } from 'react-select'
 import {
   Heading,
   Box,
@@ -22,6 +22,7 @@ import {
   SliderThumb,
   Text,
 } from '@chakra-ui/core'
+import { groupedCountries } from '../assets/data/groupedCountries'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
@@ -63,6 +64,55 @@ const initialValues = {
   vehicle_type: 'auto',
   vehicle_registration_no: '',
 }
+const groupBadgeStyles = {
+  backgroundColor: '#EBECF0',
+  borderRadius: '2em',
+  color: '#172B4D',
+  display: 'inline-block',
+  fontSize: 12,
+  fontWeight: 'normal',
+  lineHeight: '1',
+  minWidth: 1,
+  padding: '0.16666666666667em 0.5em',
+  textAlign: 'center',
+}
+const formatGroupLabel = data => (
+  <Flex alignItems="center" justifyContent="space-between">
+    <span>{data.label}</span>
+    <span style={groupBadgeStyles}>{data.options.length}</span>
+  </Flex>
+)
+const customStyles = {
+  control: styles => ({
+    ...styles,
+    backgroundColor: 'white',
+    border: 'none',
+    borderRadius: 0,
+    height: '2.5rem',
+    borderBottom: 'solid 2px #e7ebed',
+    ':active': {
+      ...styles[':active'],
+      borderColor: '#3182ce',
+    },
+    ':hover': {
+      ...styles[':hover'],
+      borderColor: '#e7ebed',
+    },
+  }),
+  container: styles => ({
+    ...styles,
+    width: '100%',
+  }),
+  menu: styles => ({
+    ...styles,
+    display: 'block',
+    width: '100%',
+  }),
+}
+// const SingleValue = props => (
+//   <components.SingleValue {...props}>{props.data.label}</components.SingleValue>
+// )
+
 export function Declaration() {
   const languageContext = useContext(LanguageContext)
   const maxStep = 10
@@ -109,6 +159,13 @@ export function Declaration() {
           if (!values.document_number) {
             errors.document_number = languageContext.dictionary['required']
           }
+          if (!values.travelling_from_country_code) {
+            errors.travelling_from_country_code =
+              languageContext.dictionary['required']
+          }
+          // if (values.itinerary_countries.length === 0) {
+          //   errors.itinerary_countries = languageContext.dictionary['required']
+          // }
           if (!values.travelling_from_city) {
             errors.travelling_from_city = languageContext.dictionary['required']
           }
@@ -156,7 +213,14 @@ export function Declaration() {
           // })
           // history.push('/')}
         }}>
-        {({ values, errors, handleSubmit, isSubmitting, setFieldValue }) => (
+        {({
+          values,
+          errors,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             {/* Step 1 */}
             <WhiteBox onClick={() => setSlide(1)}>
@@ -366,18 +430,26 @@ export function Declaration() {
                     <FormLabel htmlFor="travelling_from_country_code" mt="8">
                       <Trans id="country" />
                     </FormLabel>
-                    <Select
+                    <ReactSelect
                       {...field}
                       placeholder={languageContext.dictionary['selectCountry']}
-                      variant="flushed"
-                      isRequired
-                      name="travelling_from_country_code">
-                      {options.map(option => (
-                        <option value={option.value} key={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </Select>
+                      name="travelling_from_country_code"
+                      isClearable={true}
+                      formatGroupLabel={formatGroupLabel}
+                      options={groupedCountries}
+                      onChange={val =>
+                        setFieldValue('travelling_from_country_code', val)
+                      }
+                      onBlur={() =>
+                        setFieldTouched(
+                          'travelling_from_country_code',
+                          true,
+                          true
+                        )
+                      }
+                      mt="4"
+                      styles={customStyles}
+                    />
                     <FormErrorMessage>
                       {form.errors.travelling_from_country_code}
                     </FormErrorMessage>
@@ -464,6 +536,7 @@ export function Declaration() {
               <Field name="itinerary_countries">
                 {({ field, form }) => (
                   <FormControl
+                    isRequired
                     isInvalid={
                       form.errors.itinerary_countries &&
                       form.touched.itinerary_countries
@@ -473,11 +546,17 @@ export function Declaration() {
                       placeholder={<Trans id="selectCountries" />}
                       name="itinerary_countries"
                       isMulti
-                      options={options}
+                      isClearable={true}
+                      formatGroupLabel={formatGroupLabel}
+                      options={groupedCountries}
                       onChange={val =>
                         setFieldValue('itinerary_countries', val)
                       }
+                      onBlur={() =>
+                        setFieldTouched('itinerary_countries', true, true)
+                      }
                       mt="4"
+                      styles={customStyles}
                     />
                     <FormErrorMessage>
                       {form.errors.itinerary_countries}
