@@ -34,7 +34,7 @@ const groupBadgeStyles = {
   padding: '0.16666666666667em 0.5em',
   textAlign: 'center',
 }
-const formatGroupLabel = data => (
+const formatGroupLabel = (data) => (
   <Flex alignItems="center" justifyContent="space-between">
     <span>{data.label}</span>
     <span style={groupBadgeStyles}>{data.options.length}</span>
@@ -45,35 +45,30 @@ const initialValues = {
   phone: '',
 }
 const customStyles = {
-  control: styles => ({
+  control: (styles, state) => ({
     ...styles,
     backgroundColor: 'white',
     border: 'none',
     borderRadius: 0,
     height: '2.5rem',
-    borderBottom: 'solid 2px #e7ebed',
-    ':active': {
-      ...styles[':active'],
-      borderColor: '#3182ce',
-    },
+    borderBottom: state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
     ':hover': {
       ...styles[':hover'],
-      borderColor: '#e7ebed',
+      borderColor: '#3182ce',
     },
   }),
 
-  singleValue: styles => ({ ...styles, right: 10 }),
-  container: styles => ({
+  singleValue: (styles) => ({ ...styles, right: 10 }),
+  container: (styles) => ({
     ...styles,
     width: '100%',
   }),
-  menu: styles => ({
+  menu: (styles) => ({
     ...styles,
-    display: 'block',
     width: 'auto',
   }),
 }
-const SingleValue = props => (
+const SingleValue = (props) => (
   <components.SingleValue {...props}>{props.data.value}</components.SingleValue>
 )
 
@@ -88,7 +83,7 @@ export function SubmitPhone() {
       </Heading>
       <Formik
         initialValues={initialValues}
-        validate={values => {
+        validate={(values) => {
           const errors = {}
           if (!values.phone) {
             errors.phone = languageContext.dictionary['required']
@@ -101,7 +96,7 @@ export function SubmitPhone() {
 
           return errors
         }}
-        onSubmit={values => {
+        onSubmit={(values) => {
           const payload = `${values.phone_country_prefix.value}${values.phone}`
           console.log('onSubmit -> values', payload)
           // return await fetch('/phone/validate', {
@@ -127,7 +122,7 @@ export function SubmitPhone() {
         }) => (
           <Form>
             <Field name="phone_country_prefix">
-              {props => (
+              {(props) => (
                 <Field name="phone">
                   {({ field, form }) => (
                     <FormControl
@@ -149,7 +144,7 @@ export function SubmitPhone() {
                             options={groupedPhoneCodes}
                             formatGroupLabel={formatGroupLabel}
                             placeholder={<Trans id="phoneCode" />}
-                            onChange={val =>
+                            onChange={(val) =>
                               setFieldValue('phone_country_prefix', val)
                             }
                             components={{ SingleValue }}

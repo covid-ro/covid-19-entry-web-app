@@ -76,36 +76,32 @@ const groupBadgeStyles = {
   padding: '0.16666666666667em 0.5em',
   textAlign: 'center',
 }
-const formatGroupLabel = data => (
+const formatGroupLabel = (data) => (
   <Flex alignItems="center" justifyContent="space-between">
     <span>{data.label}</span>
     <span style={groupBadgeStyles}>{data.options.length}</span>
   </Flex>
 )
 const customStyles = {
-  control: styles => ({
+  control: (styles, state) => ({
     ...styles,
     backgroundColor: 'white',
     border: 'none',
     borderRadius: 0,
     height: '2.5rem',
-    borderBottom: 'solid 2px #e7ebed',
-    ':active': {
-      ...styles[':active'],
-      borderColor: '#3182ce',
-    },
+    boxShadow: 'none',
+    borderBottom: state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
     ':hover': {
       ...styles[':hover'],
-      borderColor: '#e7ebed',
+      borderColor: '#3182ce',
     },
   }),
-  container: styles => ({
+  container: (styles, state) => ({
     ...styles,
     width: '100%',
   }),
-  menu: styles => ({
+  menu: (styles) => ({
     ...styles,
-    display: 'block',
     width: '100%',
   }),
 }
@@ -142,7 +138,7 @@ export function Declaration() {
       </WhiteBox>
       <Formik
         initialValues={initialValues}
-        validate={values => {
+        validate={(values) => {
           const errors = {}
           if (!values.surname) {
             errors.surname = languageContext.dictionary['required']
@@ -153,9 +149,6 @@ export function Declaration() {
           if (!values.cnp) {
             errors.cnp = languageContext.dictionary['required']
           }
-          // if (!values.document_series) {
-          //   errors.document_series = languageContext.dictionary['required']
-          // }
           if (!values.document_number) {
             errors.document_number = languageContext.dictionary['required']
           }
@@ -199,7 +192,7 @@ export function Declaration() {
         onSubmit={(values, { setSubmitting }) => {
           const payload = {
             ...values,
-            itinerary_countries: values.itinerary_countries.map(c => c.value),
+            itinerary_countries: values.itinerary_countries.map((c) => c.value),
             isolation_addresses: [values.isolation_addresses],
           }
           console.log('onSubmit -> values', payload)
@@ -324,7 +317,7 @@ export function Declaration() {
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('document_type', val)}
+                onChange={(val) => setFieldValue('document_type', val)}
                 isInline>
                 >
                 <CustomRadio value="passport">
@@ -437,7 +430,7 @@ export function Declaration() {
                       isClearable={true}
                       formatGroupLabel={formatGroupLabel}
                       options={groupedCountries}
-                      onChange={val =>
+                      onChange={(val) =>
                         setFieldValue('travelling_from_country_code', val)
                       }
                       onBlur={() =>
@@ -549,7 +542,7 @@ export function Declaration() {
                       isClearable={true}
                       formatGroupLabel={formatGroupLabel}
                       options={groupedCountries}
-                      onChange={val =>
+                      onChange={(val) =>
                         setFieldValue('itinerary_countries', val)
                       }
                       onBlur={() =>
@@ -587,7 +580,7 @@ export function Declaration() {
                       variant="flushed"
                       isRequired
                       name="isolation_addresses.county">
-                      {options.map(option => (
+                      {options.map((option) => (
                         <option value={option.value} key={option.value}>
                           {option.label}
                         </option>
@@ -780,7 +773,7 @@ export function Declaration() {
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('q_visited', val)}
+                onChange={(val) => setFieldValue('q_visited', val)}
                 isInline>
                 >
                 <CustomRadio value={true}>
@@ -803,7 +796,7 @@ export function Declaration() {
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('q_contacted', val)}
+                onChange={(val) => setFieldValue('q_contacted', val)}
                 isInline>
                 >
                 <CustomRadio value={true}>
@@ -826,7 +819,7 @@ export function Declaration() {
                 flexDirection="row"
                 justifyContent="space-around"
                 my="8"
-                onChange={val => setFieldValue('q_hospitalized', val)}
+                onChange={(val) => setFieldValue('q_hospitalized', val)}
                 isInline>
                 >
                 <CustomRadio value={true}>
