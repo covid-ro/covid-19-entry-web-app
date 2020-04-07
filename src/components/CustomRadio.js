@@ -5,7 +5,6 @@ export const CustomRadio = React.forwardRef((props, ref) => {
   return (
     <Button
       ref={register}
-      // name={name}
       variant="outline"
       variantColor={isChecked ? 'brand' : 'gray'}
       aria-checked={isChecked}
