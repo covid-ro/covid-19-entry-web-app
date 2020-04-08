@@ -117,12 +117,12 @@ const customStyles = {
 }
 
 export function Declaration() {
-  const { data, errors } = useSWR('/border/checkpoint', fetcher)
+  const { data } = useSWR('/border/checkpoint', fetcher)
   const sigCanvas = useRef({})
   const clear = () => sigCanvas.current.clear()
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 13
+  const maxStep = 14
   const [step, setSlide] = useState(1)
   const [showDialog, setShowDialog] = React.useState(false)
   const open = () => setShowDialog(true)
