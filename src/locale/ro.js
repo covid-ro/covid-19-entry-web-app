@@ -29,6 +29,9 @@ const ro = {
   addSMSCode: 'Introduceți codul primit prin SMS',
   codValidareSMS: 'Cod validare SMS',
   save: 'Salvează',
+  sign: 'Deschide panoul de semnătură',
+  saveSignature: 'Salvează semnătura',
+  clear: 'Încearcă din nou',
   dontReceiveTheCode: 'Nu ai primit codul de validare?',
   resendSMSCod: 'Retrimite Cod validare SMS',
   telefon: 'Telefon',
@@ -69,10 +72,12 @@ const ro = {
   finisScreenThirdLine:
     'Continuă procedura de mai jos, respectând câmpurile ce te vor ghida în completarea corectă a formularului. În cazul minorilor, numărul de telefon necesar pentru validare va fi a unuia din aparținători. ',
 
-  form10Label: 'Traseul urmărit este:',
-  form10Placeholder:
+  form10Title: 'Traseul urmărit este:',
+  form13Title: 'Localitate de intrare in tara',
+  form13Label: 'Punctul vamal',
+  form10Label:
     'Introduceți câteva din localitățile de pe drum, diferențiate prin virgulă.',
-
+  form10Placeholder: 'Localitate 1, localitate 2, ...',
   form7Label:
     'Ați venit în contact direct cu persoane suferinde din cauza infecției  cu noul coronavirus (COVID-19) la serviciu, în vecinătatea locuinței sau vizitând unități medicale ori alte genuri de locuri în ultimele 14 zile?',
   form6FirstQuestion:
@@ -105,9 +110,13 @@ const ro = {
   endScreenThirdLine:
     'Te rugăm să transmiți reprezentantului DSP din punctul vamal că ai utilizat aplicația mobilă pentru completarea datelor. Pentru a fi validă, declarația completată va fi imprimată și semnată.',
   data: 'Data',
+  signatureTitle:
+    'Semnatura dumneavoastra (in cazul minorilor, apartinatorii vor semna pentru ei):',
+  signatureLabel: 'Folositi mouse-ul sau degetul pentru a semna',
   transitedCountries: 'Țările prin care ați trecut(inclusiv escale):',
   selectCountries: 'Selectați țările (selecție multiplă)',
   selectCountry: 'Selectați țara',
+  selectBorder: 'Selectați punctul vamal de intrare',
   selectCounty: 'Selectați județul',
   required: 'Câmp obligatoriu',
 }

@@ -1,0 +1,6 @@
+.signatureCanvas {
+  border: 1px dotted #3585cf;
+  border-bottom: 2px solid #3585cf;
+  width: 100%;
+  min-height: 400px;
+}

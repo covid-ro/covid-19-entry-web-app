@@ -1,7 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { Formik, Field, Form } from 'formik'
+import { Dialog } from '@reach/dialog'
 import ro from 'date-fns/locale/ro'
 import ReactSelect from 'react-select'
+import SignaturePad from 'react-signature-canvas'
+import fetcher from '../utils/fetcher'
+import useSWR from 'swr'
 import {
   Heading,
   Box,
@@ -9,6 +13,8 @@ import {
   FormLabel,
   CheckboxGroup,
   FormControl,
+  CloseButton,
+  VisuallyHidden,
   Input,
   InputGroup,
   InputRightElement,
@@ -22,7 +28,10 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Text,
+  ButtonGroup,
 } from '@chakra-ui/core'
+import '../assets/css/sigStyles.css'
+import '@reach/dialog/styles.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
@@ -40,7 +49,7 @@ const initialValues = {
   name: '',
   cnp: '',
   email: '',
-  border_checkpoint_id: null,
+  border_checkpoint_id: '',
   document_type: 'passport',
   document_series: '',
   document_number: '',
@@ -61,6 +70,7 @@ const initialValues = {
   symptoms: [],
   vehicle_type: 'auto',
   vehicle_registration_no: '',
+  signature: '',
 }
 const groupBadgeStyles = {
   backgroundColor: '#EBECF0',
@@ -105,9 +115,16 @@ const customStyles = {
 }
 
 export function Declaration() {
+  const { data, errors } = useSWR('/border/checkpoint', fetcher)
+  const sigCanvas = useRef({})
+  const clear = () => sigCanvas.current.clear()
+
   const languageContext = useContext(LanguageContext)
-  const maxStep = 12
+  const maxStep = 13
   const [step, setSlide] = useState(1)
+  const [showDialog, setShowDialog] = React.useState(false)
+  const open = () => setShowDialog(true)
+  const close = () => setShowDialog(false)
   return (
     <Flex flexDirection="column" w="100%">
       <WhiteBox pos="sticky">
@@ -182,6 +199,9 @@ export function Declaration() {
           ) {
             errors.email = languageContext.dictionary['invalidEmail']
           }
+          if (values.signature === '') {
+            errors.signature = languageContext.dictionary['required']
+          }
           return errors
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -189,6 +209,7 @@ export function Declaration() {
             ...values,
             itinerary_countries: values.itinerary_countries.map((c) => c.value),
             isolation_addresses: [values.isolation_addresses],
+            border_checkpoint_id: values.border_checkpoint_id.id,
           }
           console.log('onSubmit -> values', payload)
           // return await fetch('/phone/validate', {
@@ -209,6 +230,8 @@ export function Declaration() {
           setFieldValue,
           setFieldTouched,
         }) => {
+          console.log(values.signature)
+
           return (
             <Form>
               {/* Step 1 */}
@@ -933,7 +956,169 @@ export function Declaration() {
                   )}
                 </Field>
               </WhiteBox>
+              {/* Step 12 */}
+              <WhiteBox onClick={() => setSlide(12)}>
+                <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <Trans id="form10Title" />
+                </Heading>
 
+                <Field name="travel_route">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={
+                        form.errors.travel_route && form.touched.travel_route
+                      }>
+                      <FormLabel htmlFor="travel_route" mt="4">
+                        <Trans id="form10Label" />
+                      </FormLabel>
+                      <InputGroup>
+                        <Input
+                          {...field}
+                          name="travel_route"
+                          variant="flushed"
+                          placeholder={
+                            languageContext.dictionary['form10Placeholder']
+                          }
+                        />
+                        <InputRightElement
+                          children={
+                            !form.errors.travel_route &&
+                            form.touched.travel_route && (
+                              <Icon name="check" color="green.500" />
+                            )
+                          }
+                        />
+                      </InputGroup>
+                      <FormErrorMessage>
+                        {form.errors.travel_route}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+              </WhiteBox>
+              {/* Step 13 */}
+              <WhiteBox onClick={() => setSlide(13)}>
+                <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <Trans id="form13Title" />
+                </Heading>
+
+                <Field name="border_checkpoint_id">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={
+                        form.errors.border_checkpoint_id &&
+                        form.touched.border_checkpoint_id
+                      }>
+                      <FormLabel htmlFor="border_checkpoint_id" mt="4">
+                        <Trans id="form13Label" />
+                      </FormLabel>
+                      <ReactSelect
+                        {...field}
+                        placeholder={languageContext.dictionary['selectBorder']}
+                        name="border_checkpoint_id"
+                        isClearable={true}
+                        options={data?.data}
+                        getOptionLabel={(option) => option['name']}
+                        getOptionValue={(option) => option['id']}
+                        onChange={(val) =>
+                          setFieldValue('border_checkpoint_id', val)
+                        }
+                        onBlur={() =>
+                          setFieldTouched('border_checkpoint_id', true, true)
+                        }
+                        mt="4"
+                        styles={customStyles}
+                      />
+                      <FormErrorMessage>
+                        {form.errors.border_checkpoint_id}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+              </WhiteBox>
+              {/* Step 14 */}
+              <WhiteBox onClick={() => setSlide(14)}>
+                <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <Trans id="signatureTitle" />
+                </Heading>
+
+                <Field name="signature">
+                  {({ field, form }) => (
+                    <FormControl
+                      isRequired
+                      isInvalid={
+                        form.errors.signature && form.touched.signature
+                      }>
+                      <Button
+                        variantColor="brand"
+                        variant="outline"
+                        size="lg"
+                        mt="8"
+                        onClick={() => setShowDialog(true)}>
+                        <Trans id="sign" />
+                        {!form.errors.signature && form.touched.signature && (
+                          <Icon name="check" color="green.500" ml="4" />
+                        )}
+                      </Button>
+                      <Dialog isOpen={showDialog} onDismiss={close}>
+                        <CloseButton onClick={close}>
+                          <VisuallyHidden>Close</VisuallyHidden>
+                          <span aria-hidden>×</span>
+                        </CloseButton>
+                        <SignaturePad
+                          ref={sigCanvas}
+                          onBegin={() =>
+                            setFieldTouched('signature', true, true)
+                          }
+                          canvasProps={{
+                            className: 'signatureCanvas',
+                          }}
+                        />
+                        <ButtonGroup spacing={4}>
+                          <Button
+                            variantColor="gray"
+                            variant="outline"
+                            size="lg"
+                            mt="8"
+                            onClick={clear}>
+                            <Trans id="clear" />
+                          </Button>
+                          <Button
+                            variantColor="brand"
+                            size="lg"
+                            mt="8"
+                            onClick={() => {
+                              setFieldValue(
+                                'signature',
+                                sigCanvas.current
+                                  .getTrimmedCanvas()
+                                  .toDataURL('image/png')
+                              )
+                              close()
+                            }}>
+                            <Trans id="saveSignature" />
+                          </Button>
+                        </ButtonGroup>
+                      </Dialog>
+                      {values.signature ? (
+                        <img
+                          src={values.signature}
+                          alt="my signature"
+                          style={{
+                            display: 'block',
+                            marginTop: '18px',
+                            width: '300px',
+                          }}
+                        />
+                      ) : null}
+
+                      <FormErrorMessage>
+                        {form.errors.signature}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+              </WhiteBox>
               <Box
                 mt="4"
                 mb="16"
