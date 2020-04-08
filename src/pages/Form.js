@@ -1,6 +1,7 @@
 import React, { useState, useContext, useRef } from 'react'
 import { Formik, Field, Form } from 'formik'
-import { Dialog } from '@reach/dialog'
+import { Persist } from 'formik-persist'
+import { DialogOverlay, DialogContent } from '@reach/dialog'
 import ro from 'date-fns/locale/ro'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
@@ -57,6 +58,7 @@ const initialValues = {
   travelling_from_city: '',
   travelling_from_date: '',
   itinerary_countries: [],
+  travel_route: '',
   isolation_addresses: {
     city: '',
     county: '',
@@ -230,8 +232,6 @@ export function Declaration() {
           setFieldValue,
           setFieldTouched,
         }) => {
-          console.log(values.signature)
-
           return (
             <Form>
               {/* Step 1 */}
@@ -1054,52 +1054,65 @@ export function Declaration() {
                         variant="outline"
                         size="lg"
                         mt="8"
-                        onClick={() => setShowDialog(true)}>
+                        onClick={open}>
                         <Trans id="sign" />
                         {!form.errors.signature && form.touched.signature && (
                           <Icon name="check" color="green.500" ml="4" />
                         )}
                       </Button>
-                      <Dialog isOpen={showDialog} onDismiss={close}>
-                        <CloseButton onClick={close}>
-                          <VisuallyHidden>Close</VisuallyHidden>
-                          <span aria-hidden>×</span>
-                        </CloseButton>
-                        <SignaturePad
-                          ref={sigCanvas}
-                          onBegin={() =>
-                            setFieldTouched('signature', true, true)
-                          }
-                          canvasProps={{
-                            className: 'signatureCanvas',
-                          }}
-                        />
-                        <ButtonGroup spacing={4}>
-                          <Button
-                            variantColor="gray"
-                            variant="outline"
-                            size="lg"
-                            mt="8"
-                            onClick={clear}>
-                            <Trans id="clear" />
-                          </Button>
-                          <Button
-                            variantColor="brand"
-                            size="lg"
-                            mt="8"
-                            onClick={() => {
-                              setFieldValue(
-                                'signature',
-                                sigCanvas.current
-                                  .getTrimmedCanvas()
-                                  .toDataURL('image/png')
-                              )
-                              close()
-                            }}>
-                            <Trans id="saveSignature" />
-                          </Button>
-                        </ButtonGroup>
-                      </Dialog>
+                      <DialogOverlay isOpen={showDialog} onDismiss={close}>
+                        <DialogContent
+                          aria-label="signature"
+                          style={{
+                            border: 'solid 2px #3585cf',
+                            borderRadius: '8px',
+                            position: 'relative',
+                          }}>
+                          <CloseButton
+                            onClick={close}
+                            pos="absolute"
+                            backgroundColor="#fff"
+                            right="10px"
+                            top="10px">
+                            <VisuallyHidden>Close</VisuallyHidden>
+                            <span aria-hidden>×</span>
+                          </CloseButton>
+                          <SignaturePad
+                            ref={sigCanvas}
+                            onBegin={() =>
+                              setFieldTouched('signature', true, true)
+                            }
+                            canvasProps={{
+                              className: 'signatureCanvas',
+                            }}
+                          />
+                          <ButtonGroup spacing={4}>
+                            <Button
+                              variantColor="gray"
+                              variant="outline"
+                              size="lg"
+                              mt="8"
+                              onClick={clear}>
+                              <Trans id="clear" />
+                            </Button>
+                            <Button
+                              variantColor="brand"
+                              size="lg"
+                              mt="8"
+                              onClick={() => {
+                                setFieldValue(
+                                  'signature',
+                                  sigCanvas.current
+                                    .getTrimmedCanvas()
+                                    .toDataURL('image/png')
+                                )
+                                close()
+                              }}>
+                              <Trans id="saveSignature" />
+                            </Button>
+                          </ButtonGroup>
+                        </DialogContent>
+                      </DialogOverlay>
                       {values.signature ? (
                         <img
                           src={values.signature}
@@ -1136,6 +1149,7 @@ export function Declaration() {
                   <Trans id="trimite" />
                 </Button>
               </Box>
+              <Persist name="declaration" />
             </Form>
           )
         }}
