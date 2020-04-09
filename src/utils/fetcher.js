@@ -5,7 +5,6 @@ export default async function (...args) {
     headers: {
       'X-API-KEY': process.env.REACT_APP_API_KEY,
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
   })
   return res.json()
