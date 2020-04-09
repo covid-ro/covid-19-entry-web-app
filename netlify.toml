@@ -5,6 +5,12 @@
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "/api"
+  to = "https://covid-api-dev.citizennext.ro"
+  status = 200
+  force = true
+
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
   for = "/*"
