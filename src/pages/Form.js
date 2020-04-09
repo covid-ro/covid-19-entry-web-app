@@ -21,7 +21,7 @@ import {
   InputRightElement,
   Icon,
   RadioButtonGroup,
-  Select,
+  // Select,
   Slider,
   Button,
   Flex,
@@ -34,17 +34,13 @@ import {
 import '../assets/css/sigStyles.css'
 import '@reach/dialog/styles.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
+
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
 import { CustomCheckBox } from '../components/CustomCheckBox'
 import { LanguageContext } from '../locale/LanguageContext'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]
 const initialValues = {
   surname: '',
   name: '',
@@ -118,6 +114,28 @@ const customStyles = {
 
 export function Declaration() {
   const { data } = useSWR('/border/checkpoint', fetcher)
+  const judete = useSWR('/data/judete.json', fetcher)
+
+  const counties =
+    judete.data &&
+    judete.data.judete.map((j) => {
+      return {
+        value: j.nume,
+        label: j.nume,
+      }
+    })
+  const citiesByCounty = (county) => {
+    if (judete.data && county && county !== '') {
+      const citiesArray = judete.data.judete.filter(
+        (j) => j.nume === county.value
+      )
+      const cities = citiesArray[0].localitati
+      return cities.map((c) => {
+        return { value: c.nume, label: c.nume }
+      })
+    }
+    return []
+  }
   const sigCanvas = useRef({})
   const clear = () => sigCanvas.current.clear()
 
@@ -595,18 +613,28 @@ export function Declaration() {
                       <FormLabel htmlFor="isolation_addresses.county" mt="8">
                         <Trans id="judet" />
                       </FormLabel>
-                      <Select
+                      <ReactSelect
                         {...field}
                         placeholder={languageContext.dictionary['selectCounty']}
                         variant="flushed"
                         isRequired
-                        name="isolation_addresses.county">
-                        {options.map((option) => (
-                          <option value={option.value} key={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </Select>
+                        isClearable={true}
+                        options={counties}
+                        // getOptionLabel={(option) => option['name']}
+                        // getOptionValue={(option) => option['id']}
+                        onChange={(val) =>
+                          setFieldValue('isolation_addresses.county', val)
+                        }
+                        onBlur={() =>
+                          setFieldTouched(
+                            'isolation_addresses.county',
+                            true,
+                            true
+                          )
+                        }
+                        mt="4"
+                        styles={customStyles}
+                      />
                       <FormErrorMessage>{form.errors.county}</FormErrorMessage>
                     </FormControl>
                   )}
@@ -622,22 +650,32 @@ export function Declaration() {
                       <FormLabel htmlFor="isolation_addresses.city" mt="4">
                         <Trans id="city" />
                       </FormLabel>
-                      <InputGroup>
-                        <Input
-                          {...field}
-                          name="isolation_addresses.city"
-                          variant="flushed"
-                          placeholder="de ex.: Viena"
-                        />
-                        <InputRightElement
-                          children={
-                            !form.errors.city &&
-                            form.touched?.isolation_addresses?.city && (
-                              <Icon name="check" color="green.500" />
-                            )
-                          }
-                        />
-                      </InputGroup>
+                      <ReactSelect
+                        {...field}
+                        placeholder={
+                          languageContext.dictionary['placeholderCity']
+                        }
+                        variant="flushed"
+                        isRequired
+                        isClearable={true}
+                        options={citiesByCounty(
+                          values.isolation_addresses.county
+                        )}
+                        // getOptionLabel={(option) => option['name']}
+                        // getOptionValue={(option) => option['id']}
+                        onChange={(val) =>
+                          setFieldValue('isolation_addresses.city', val)
+                        }
+                        onBlur={() =>
+                          setFieldTouched(
+                            'isolation_addresses.city',
+                            true,
+                            true
+                          )
+                        }
+                        mt="4"
+                        styles={customStyles}
+                      />
                       <FormErrorMessage>{form.errors.city}</FormErrorMessage>
                     </FormControl>
                   )}

@@ -18,6 +18,7 @@ const ro = {
   form9Label2: 'Introduceți numărul automobilului cu care vă deplasați:',
   da: 'DA',
   nu: 'NU',
+  placeholderCity: 'de ex.: Viena',
   auto: 'Auto',
   ambulance: 'Ambulanță',
   passport: 'Paşaport',

@@ -7,14 +7,13 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@reach/dialog": "^0.10.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "date-fns": "^2.11.1",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.4",
     "formik-persist": "^1.1.0",
+    "fs-extra": "^9.0.0",
     "isomorphic-unfetch": "^3.0.0",
+    "path": "^0.12.7",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-datepicker": "^2.14.1",
@@ -25,10 +24,12 @@
     "react-select": "^3.1.0",
     "react-signature-canvas": "^1.0.3",
     "recharts": "^1.8.5",
+    "source-map-explorer": "^2.4.2",
     "swr": "^0.1.18"
   },
   "proxy": "https://covid-api-dev.citizennext.ro",
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -49,5 +50,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2"
+  }
 }

@@ -3,7 +3,7 @@ import { mapObjIndexed } from 'ramda'
 const groupOptionsPhone = (value, key, obj) => {
   return {
     label: key,
-    options: value.map(v => {
+    options: value.map((v) => {
       return {
         label: `${v.country} (+${v.calling_code})`,
         value: `+${v.calling_code}`,
@@ -12,12 +12,14 @@ const groupOptionsPhone = (value, key, obj) => {
   }
 }
 const groupedOptionsPhonePrep = mapObjIndexed(groupOptionsPhone, countries)
-const groupedPhoneCodes = Object.entries(groupedOptionsPhonePrep).map(a => a[1])
+const groupedPhoneCodes = Object.entries(groupedOptionsPhonePrep).map(
+  (a) => a[1]
+)
 
 const groupOptionsCountry = (value, key, obj) => {
   return {
     label: key,
-    options: value.map(v => {
+    options: value.map((v) => {
       return {
         label: v.country,
         value: v.country,
@@ -27,6 +29,6 @@ const groupOptionsCountry = (value, key, obj) => {
 }
 const groupedOptionsCountryPrep = mapObjIndexed(groupOptionsCountry, countries)
 const groupedCountries = Object.entries(groupedOptionsCountryPrep).map(
-  a => a[1]
+  (a) => a[1]
 )
 export { groupedPhoneCodes, groupedCountries }
