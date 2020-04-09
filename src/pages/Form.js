@@ -111,7 +111,7 @@ const customStyles = {
 }
 const proxy = process.env.REACT_APP_PROXY
 export function Declaration() {
-  const { data } = useSWR(`${proxy}/border/checkpoint`, fetcher)
+  const { data } = useSWR(`/api/border/checkpoint`, fetcher)
   const judete = useSWR('/data/judete.json', fetcher)
 
   const counties =
