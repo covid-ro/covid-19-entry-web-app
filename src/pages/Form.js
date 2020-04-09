@@ -21,7 +21,6 @@ import {
   InputRightElement,
   Icon,
   RadioButtonGroup,
-  // Select,
   Slider,
   Button,
   Flex,
@@ -34,7 +33,6 @@ import {
 import '../assets/css/sigStyles.css'
 import '@reach/dialog/styles.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
-
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
@@ -111,9 +109,9 @@ const customStyles = {
     width: '100%',
   }),
 }
-
+const api = process.env.REACT_APP_API
 export function Declaration() {
-  const { data } = useSWR('/border/checkpoint', fetcher)
+  const { data } = useSWR(`${api}/border/checkpoint`, fetcher)
   const judete = useSWR('/data/judete.json', fetcher)
 
   const counties =

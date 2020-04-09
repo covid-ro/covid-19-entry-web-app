@@ -25,7 +25,8 @@
     "react-signature-canvas": "^1.0.3",
     "recharts": "^1.8.5",
     "source-map-explorer": "^2.4.2",
-    "swr": "^0.1.18"
+    "swr": "^0.1.18",
+    "unfetch": "^4.1.0"
   },
   "proxy": "https://covid-api-dev.citizennext.ro",
   "scripts": {
