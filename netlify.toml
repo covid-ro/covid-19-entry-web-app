@@ -4,12 +4,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
-[[redirects]]
-  from = "/api"
-  to = "REACT_APP_API"
-  status = 200
-  force = true # COMMENT: ensure that we always redirect
-  headers = {X-API-KEY = "REACT_APP_API_KEY"}
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
