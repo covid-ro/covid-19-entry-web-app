@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { useHistory, Link as RLink } from 'react-router-dom'
 import { LanguageContext } from '../locale/LanguageContext'
@@ -18,6 +18,7 @@ import {
   Button,
   Progress,
   Flex,
+  useToast,
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
@@ -25,6 +26,8 @@ import { useCountdown } from '../utils/useCountdown'
 const api = process.env.REACT_APP_API
 
 export function ValidatePhone() {
+  const toast = useToast()
+
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
   const [progress, minutes, seconds] = useCountdown(30)
@@ -53,12 +56,12 @@ export function ValidatePhone() {
             }
             return errors
           }}
-          onSubmit={async (values) => {
+          onSubmit={async (values, { setSubmitting }) => {
             const local = JSON.parse(localStorage.getItem('phone'))
             const payload = {
               ...values,
-              phone_country_prefix: local.values.phone_country_prefix.value,
-              phone: local.values.phone,
+              phone_country_prefix: local.phone_country_prefix,
+              phone: local.phone,
             }
             try {
               const request = await fetch(`${api}/phone/check`, {
@@ -72,25 +75,39 @@ export function ValidatePhone() {
               const response = await request.json()
               if (response.status === 'success') {
                 localStorage.setItem('token', response.token)
-                history.push('/declaratie')
+                toast({
+                  title: <Trans id="success" />,
+                  description: <Trans id="validateSuccess" />,
+                  status: 'success',
+                  duration: 2000,
+                  isClosable: true,
+                })
+                setTimeout(() => {
+                  setSubmitting(false)
+                  history.push('/declaratie')
+                }, 3000)
               } else {
-                console.log(response.status)
+                setSubmitting(false)
+                toast({
+                  title: <Trans id="error" />,
+                  description: response.message,
+                  status: 'error',
+                  isClosable: true,
+                  duration: null,
+                })
               }
             } catch (error) {
-              console.log(error.message)
+              setSubmitting(false)
+              toast({
+                title: <Trans id="error" />,
+                description: error.message,
+                status: 'error',
+                isClosable: true,
+                duration: null,
+              })
             }
           }}>
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            setFieldValue,
-            setFieldTouched,
-          }) => (
+          {({ isSubmitting }) => (
             <Form>
               <Field name="phone_validation_code">
                 {({ field, form }) => (

@@ -11,6 +11,7 @@ import useSWR from 'swr'
 import {
   Heading,
   Box,
+  useToast,
   FormErrorMessage,
   FormLabel,
   CheckboxGroup,
@@ -43,12 +44,11 @@ import { LanguageContext } from '../locale/LanguageContext'
 const phoneJson = JSON.parse(localStorage.getItem('phone')) || ''
 
 const phoneWithoutZero =
-  phoneJson.values &&
-  (phoneJson.values.phone.substring(0, 1) === '0'
-    ? phoneJson.values.phone.substring(1, phoneJson.values.phone.length)
-    : phoneJson.values.phone)
-const phone = phoneJson.values
-  ? `${phoneJson.values.phone_country_prefix.value}${phoneWithoutZero}`
+  phoneJson && phoneJson.phone.substring(0, 1) === '0'
+    ? phoneJson.phone.substring(1, phoneJson.phone.length)
+    : phoneJson.phone
+const phone = phoneJson
+  ? `${phoneJson.phone_country_prefix}${phoneWithoutZero}`
   : ''
 
 const declarationCode =
@@ -127,6 +127,7 @@ const customStyles = {
 const api = process.env.REACT_APP_API
 export function Declaration() {
   let history = useHistory()
+  const toast = useToast()
 
   const borders = useSWR(`${api}/border/checkpoint`, fetcher, {
     revalidateOnFocus: false,
@@ -189,7 +190,7 @@ export function Declaration() {
                 <SliderThumb />
               </Slider>
               <Text ml="auto" color="brand.800">
-                {step} din {maxStep}
+                {step}/{maxStep}
               </Text>
             </Flex>
           </WhiteBox>
@@ -254,7 +255,7 @@ export function Declaration() {
               }
               return errors
             }}
-            onSubmit={async (values, { resetForm }) => {
+            onSubmit={async (values, { resetForm, setSubmitting }) => {
               const payload = {
                 ...values,
                 travelling_from_country_code:
@@ -290,7 +291,6 @@ export function Declaration() {
                     errors: {},
                     dirty: false,
                   })
-                  localStorage.setItem('declaration', null)
                   localStorage.removeItem('phone')
                   localStorage.removeItem('token')
                   localStorage.setItem(
@@ -300,14 +300,36 @@ export function Declaration() {
                       response.declaration_code,
                     ])
                   )
+                  toast({
+                    title: <Trans id="success" />,
+                    description: <Trans id="declarationSuccess" />,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                  })
                   setTimeout(() => {
+                    setSubmitting(false)
                     history.push('/success')
-                  }, 500)
+                  }, 3000)
                 } else {
-                  console.log(response.status)
+                  setSubmitting(false)
+                  toast({
+                    title: <Trans id="error" />,
+                    description: response.message,
+                    status: 'error',
+                    isClosable: true,
+                    duration: null,
+                  })
                 }
               } catch (error) {
-                console.log(error.message)
+                setSubmitting(false)
+                toast({
+                  title: <Trans id="error" />,
+                  description: error.message,
+                  status: 'error',
+                  isClosable: true,
+                  duration: null,
+                })
               }
             }}>
             {({ values, errors, setFieldValue, setFieldTouched }) => {

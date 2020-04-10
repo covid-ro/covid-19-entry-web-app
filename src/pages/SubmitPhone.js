@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
-import { Persist } from 'formik-persist'
 import Select, { components } from 'react-select'
 import { LanguageContext } from '../locale/LanguageContext'
 import { groupedPhoneCodes } from '../assets/data/groupedCountries'
@@ -18,6 +17,7 @@ import {
   InputLeftAddon,
   InputRightElement,
   Icon,
+  useToast,
   Button,
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
@@ -75,6 +75,7 @@ const SingleValue = (props) => (
 const api = process.env.REACT_APP_API
 
 export function SubmitPhone() {
+  const toast = useToast()
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
 
@@ -98,7 +99,7 @@ export function SubmitPhone() {
 
           return errors
         }}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { setSubmitting }) => {
           const payload = {
             ...values,
             phone_country_prefix: values.phone_country_prefix.value,
@@ -114,25 +115,46 @@ export function SubmitPhone() {
             })
             const response = await request.json()
             if (response.status === 'success') {
-              history.push('/validare-telefon')
+              toast({
+                title: <Trans id="sms" />,
+                description: <Trans id="smsDescription" />,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+              })
+              localStorage.setItem(
+                'phone',
+                JSON.stringify({
+                  phone_country_prefix: values.phone_country_prefix.value,
+                  phone: values.phone,
+                })
+              )
+              setTimeout(() => {
+                setSubmitting(false)
+                history.push('/validare-telefon')
+              }, 3000)
             } else {
-              console.log(response.status)
+              setSubmitting(false)
+              toast({
+                title: <Trans id="error" />,
+                description: response.message,
+                status: 'error',
+                isClosable: true,
+                duration: null,
+              })
             }
           } catch (error) {
-            console.log(error.message)
+            setSubmitting(false)
+            toast({
+              title: <Trans id="error" />,
+              description: error.message,
+              status: 'error',
+              isClosable: true,
+              duration: null,
+            })
           }
         }}>
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          setFieldValue,
-          setFieldTouched,
-        }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form>
             <Field name="phone_country_prefix">
               {(props) => (
@@ -187,7 +209,6 @@ export function SubmitPhone() {
                 </Field>
               )}
             </Field>
-
             <Box
               mt="4"
               mb="16"
@@ -200,11 +221,11 @@ export function SubmitPhone() {
                 size="lg"
                 mt="8"
                 w="320px"
+                isLoading={isSubmitting}
                 type="submit">
                 <Trans id="validatePhoneNumber" />
               </Button>
             </Box>
-            <Persist name="phone" />
           </Form>
         )}
       </Formik>

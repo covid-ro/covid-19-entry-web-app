@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import { Route } from 'react-router-dom'
 // import useSWR from 'swr'
@@ -45,4 +46,4 @@ function App() {
     </LanguageProvider>
   )
 }
-export default App
+export default hot(App)
