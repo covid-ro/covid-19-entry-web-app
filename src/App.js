@@ -11,6 +11,7 @@ import { SubmitPhone } from './pages/SubmitPhone'
 import { ValidatePhone } from './pages/ValidatePhone'
 import { Declaration } from './pages/Form'
 import { Success } from './pages/Success'
+import { End } from './pages/End'
 
 function App() {
   // const { data, error } = useSWR(endpoint, fetcher, {
@@ -36,6 +37,9 @@ function App() {
         </Route>
         <Route path="/success">
           <Success />
+        </Route>
+        <Route path="/multumim">
+          <End />
         </Route>
       </Layout>
     </LanguageProvider>

@@ -40,12 +40,19 @@ import { CustomRadio } from '../components/CustomRadio'
 import { CustomCheckBox } from '../components/CustomCheckBox'
 import { LanguageContext } from '../locale/LanguageContext'
 
-const phoneJson = JSON.parse(localStorage.getItem('phone'))
+const phoneJson = JSON.parse(localStorage.getItem('phone')) || ''
+
 const phoneWithoutZero =
-  phoneJson.values.phone.substring(0, 1) === '0'
+  phoneJson.values &&
+  (phoneJson.values.phone.substring(0, 1) === '0'
     ? phoneJson.values.phone.substring(1, phoneJson.values.phone.length)
-    : phoneJson.values.phone
-const phone = `${phoneJson.values.phone_country_prefix.value}${phoneWithoutZero}`
+    : phoneJson.values.phone)
+const phone = phoneJson.values
+  ? `${phoneJson.values.phone_country_prefix.value}${phoneWithoutZero}`
+  : ''
+
+const declarationCode =
+  JSON.parse(localStorage.getItem('declaration_code')) || []
 const initialValues = {
   surname: '',
   phone: phone,
@@ -247,7 +254,7 @@ export function Declaration() {
               }
               return errors
             }}
-            onSubmit={async (values) => {
+            onSubmit={async (values, { resetForm }) => {
               const payload = {
                 ...values,
                 travelling_from_country_code:
@@ -264,7 +271,6 @@ export function Declaration() {
                 ],
                 border_checkpoint_id: values.border_checkpoint_id.id,
               }
-              console.log('onSubmit -> values', payload)
 
               try {
                 const request = await fetch(`${api}/declaration`, {
@@ -278,34 +284,36 @@ export function Declaration() {
                 })
                 const response = await request.json()
                 if (response.status === 'success') {
-                  history.push('/success')
+                  resetForm({
+                    values: initialValues,
+                    touched: {},
+                    errors: {},
+                    dirty: false,
+                  })
+                  localStorage.setItem('declaration', null)
+                  localStorage.removeItem('phone')
+                  localStorage.removeItem('token')
+                  localStorage.setItem(
+                    'declaration_code',
+                    JSON.stringify([
+                      ...declarationCode,
+                      response.declaration_code,
+                    ])
+                  )
+                  setTimeout(() => {
+                    history.push('/success')
+                  }, 500)
                 } else {
                   console.log(response.status)
                 }
               } catch (error) {
                 console.log(error.message)
               }
-              // return await fetch('/phone/validate', {
-              //   method: 'POST',
-              //   headers: {
-              //     'X-API-KEY': process.env.REACT_APP_API_KEY,
-              //     'Content-Type': 'application/json',
-              //   },
-              //   body: JSON.stringify({ values }),
-              // })
-              // history.push('/')}
             }}>
-            {({
-              values,
-              errors,
-              handleSubmit,
-              isSubmitting,
-              setFieldValue,
-              setFieldTouched,
-            }) => {
+            {({ values, errors, setFieldValue, setFieldTouched }) => {
               return (
                 <Form>
-                  {/* Step 1 */}
+                  {/* Step 1 - name, surname, CNP */}
                   <WhiteBox onClick={() => setSlide(1)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form1Label" />
@@ -401,7 +409,7 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 2 */}
+                  {/* Step 2 - pasaport/buletin serie numar*/}
                   <WhiteBox onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form2Label" />
@@ -503,7 +511,7 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 3 */}
+                  {/* Step 3 - travelling from*/}
                   <WhiteBox onClick={() => setSlide(3)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form3Label" />
@@ -658,7 +666,7 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 4 */}
+                  {/* Step 4 - isolation address*/}
                   <WhiteBox onClick={() => setSlide(4)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form4Label" />
@@ -854,7 +862,7 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 5 */}
+                  {/* Step 5 - phone email*/}
                   <WhiteBox onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form5Label" />
@@ -924,7 +932,7 @@ export function Declaration() {
                     </Heading>
                     <Trans id="alertMessage" />
                   </WhiteBox>
-                  {/* Step 6 */}
+                  {/* Step 6 - visited*/}
                   <WhiteBox onClick={() => setSlide(6)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form6FirstQuestion" />

@@ -21,29 +21,19 @@ import {
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
+import { useCountdown } from '../utils/useCountdown'
 const api = process.env.REACT_APP_API
 
 export function ValidatePhone() {
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
-
-  const [seconds, decrement] = useState(30)
-  const [progress, increment] = useState(0)
-  useEffect(() => {
-    if (seconds > 0) {
-      const progressLevel = setInterval(() => {
-        increment(progress + 3.3333333)
-        decrement(seconds - 1)
-      }, 1000)
-      return () => clearInterval(progressLevel)
-    }
-  }, [progress, seconds])
+  const [progress, minutes, seconds] = useCountdown(30)
   return (
     <Flex flexDirection="column" w="100%">
       <WhiteBox>
         <Flex flexDirection="row" width="100%" alignItems="center">
           <Progress value={progress} height="2px" w="90%" grow={1} />
-          <Text ml="auto">00:{seconds < 10 ? `0${seconds}` : seconds}</Text>
+          <Text ml="auto">{`${minutes}:${seconds}`}</Text>
         </Flex>
       </WhiteBox>
       <WhiteBox>
@@ -147,7 +137,7 @@ export function ValidatePhone() {
                   size="lg"
                   mt="8"
                   w="320px"
-                  disabled={seconds === 0}
+                  disabled={progress === 100}
                   isLoading={isSubmitting}
                   type="submit">
                   <Trans id="save" />

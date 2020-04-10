@@ -200,7 +200,6 @@ export function SubmitPhone() {
                 size="lg"
                 mt="8"
                 w="320px"
-                isLoading={isSubmitting}
                 type="submit">
                 <Trans id="validatePhoneNumber" />
               </Button>

@@ -121,5 +121,6 @@ const ro = {
   selectBorder: 'Selectați punctul vamal de intrare',
   selectCounty: 'Selectați județul',
   required: 'Câmp obligatoriu',
+  yourCodesLabel: 'Codurile dumeavoastra de inregistrare sunt:',
 }
 export default ro
