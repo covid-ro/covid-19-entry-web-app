@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { useHistory, Link as RLink } from 'react-router-dom'
-import { LanguageContext } from '../locale/LanguageContext'
-
 import {
   Heading,
   Box,
@@ -20,17 +18,20 @@ import {
   Flex,
   useToast,
 } from '@chakra-ui/core'
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage'
+
+import { LanguageContext } from '../locale/LanguageContext'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { useCountdown } from '../utils/useCountdown'
 const api = process.env.REACT_APP_API
 
 export function ValidatePhone() {
-  const toast = useToast()
-
   let history = useHistory()
+  const toast = useToast()
   const languageContext = useContext(LanguageContext)
   const [progress, minutes, seconds] = useCountdown(30)
+  const [local] = useLocalStorage('phone')
   return (
     <Flex flexDirection="column" w="100%">
       <WhiteBox>
@@ -57,11 +58,10 @@ export function ValidatePhone() {
             return errors
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            const local = JSON.parse(localStorage.getItem('phone'))
             const payload = {
               ...values,
-              phone_country_prefix: local.phone_country_prefix,
-              phone: local.phone,
+              phone_country_prefix: local?.phone_country_prefix,
+              phone: local?.phone,
             }
             try {
               const request = await fetch(`${api}/phone/check`, {
@@ -74,7 +74,7 @@ export function ValidatePhone() {
               })
               const response = await request.json()
               if (response.status === 'success') {
-                localStorage.setItem('token', response.token)
+                writeStorage('token', response.token)
                 toast({
                   title: <Trans id="success" />,
                   description: <Trans id="validateSuccess" />,

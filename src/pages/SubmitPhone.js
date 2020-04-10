@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import Select, { components } from 'react-select'
+import { writeStorage } from '@rehooks/local-storage'
 import { LanguageContext } from '../locale/LanguageContext'
 import { groupedPhoneCodes } from '../assets/data/groupedCountries'
 
@@ -122,13 +123,10 @@ export function SubmitPhone() {
                 duration: 2000,
                 isClosable: true,
               })
-              localStorage.setItem(
-                'phone',
-                JSON.stringify({
-                  phone_country_prefix: values.phone_country_prefix.value,
-                  phone: values.phone,
-                })
-              )
+              writeStorage('phone', {
+                phone_country_prefix: values.phone_country_prefix.value,
+                phone: values.phone,
+              })
               setTimeout(() => {
                 setSubmitting(false)
                 history.push('/validare-telefon')
