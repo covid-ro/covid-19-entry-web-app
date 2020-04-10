@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Flex, Box, Text } from '@chakra-ui/core'
+import { Flex, Box, Link } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Button } from '@chakra-ui/core'
@@ -15,19 +15,19 @@ export function LanguageSelector() {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Box w="100%" justifyContent="center" mt="8" mb="16" d="flex">
-        <Text
+        <Link
           fontWeight="semibold"
           color={languageContext.language === 'ro' ? 'brand.800' : 'gray.700'}
           onClick={() => languageContext.setLanguage('ro')}>
           RO
-        </Text>{' '}
+        </Link>{' '}
         |{' '}
-        <Text
+        <Link
           fontWeight="semibold"
           color={languageContext.language === 'en' ? 'brand.800' : 'gray.700'}
           onClick={() => languageContext.setLanguage('en')}>
           EN
-        </Text>
+        </Link>
       </Box>
       <Trans id="langSelect" />
       <Box
@@ -41,7 +41,7 @@ export function LanguageSelector() {
           size="lg"
           mt="8"
           w="320px"
-          onClick={e => forwardAction(e, 'ro')}>
+          onClick={(e) => forwardAction(e, 'ro')}>
           <Trans id="ro" />
         </Button>
         <Button
@@ -49,7 +49,7 @@ export function LanguageSelector() {
           size="lg"
           mt="8"
           w="320px"
-          onClick={e => forwardAction(e, 'en')}>
+          onClick={(e) => forwardAction(e, 'en')}>
           <Trans id="en" />
         </Button>
       </Box>

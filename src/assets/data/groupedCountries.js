@@ -22,7 +22,7 @@ const groupOptionsCountry = (value, key, obj) => {
     options: value.map((v) => {
       return {
         label: v.country,
-        value: v.country,
+        value: v.iso,
       }
     }),
   }

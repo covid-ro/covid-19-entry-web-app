@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
+import { Persist } from 'formik-persist'
 import Select, { components } from 'react-select'
 import { LanguageContext } from '../locale/LanguageContext'
 import { groupedPhoneCodes } from '../assets/data/groupedCountries'
@@ -71,6 +72,7 @@ const customStyles = {
 const SingleValue = (props) => (
   <components.SingleValue {...props}>{props.data.value}</components.SingleValue>
 )
+const api = process.env.REACT_APP_API
 
 export function SubmitPhone() {
   let history = useHistory()
@@ -96,18 +98,29 @@ export function SubmitPhone() {
 
           return errors
         }}
-        onSubmit={(values) => {
-          const payload = `${values.phone_country_prefix.value}${values.phone}`
-          console.log('onSubmit -> values', payload)
-          // return await fetch('/phone/validate', {
-          //   method: 'POST',
-          //   headers: {
-          //     'X-API-KEY': process.env.REACT_APP_API_KEY,
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify({ values }),
-          // })
-          history.push('/validare-telefon')
+        onSubmit={async (values) => {
+          const payload = {
+            ...values,
+            phone_country_prefix: values.phone_country_prefix.value,
+          }
+          try {
+            const request = await fetch(`${api}/phone/validate`, {
+              method: 'POST',
+              headers: {
+                'X-API-KEY': process.env.REACT_APP_API_KEY,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(payload),
+            })
+            const response = await request.json()
+            if (response.status === 'success') {
+              history.push('/validare-telefon')
+            } else {
+              console.log(response.status)
+            }
+          } catch (error) {
+            console.log(error.message)
+          }
         }}>
         {({
           values,
@@ -192,6 +205,7 @@ export function SubmitPhone() {
                 <Trans id="validatePhoneNumber" />
               </Button>
             </Box>
+            <Persist name="phone" />
           </Form>
         )}
       </Formik>

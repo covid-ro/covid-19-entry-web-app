@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
+const api = process.env.REACT_APP_API
 
 export function ValidatePhone() {
   let history = useHistory()
@@ -51,7 +52,7 @@ export function ValidatePhone() {
         </Heading>
         <Formik
           initialValues={{ phone_validation_code: '' }}
-          validate={values => {
+          validate={(values) => {
             const errors = {}
             if (!values.phone_validation_code) {
               errors.phone_validation_code =
@@ -62,17 +63,32 @@ export function ValidatePhone() {
             }
             return errors
           }}
-          onSubmit={values => {
-            console.log('onSubmit -> values', values)
-            // return await fetch('/phone/validate', {
-            //   method: 'POST',
-            //   headers: {
-            //     'X-API-KEY': process.env.REACT_APP_API_KEY,
-            //     'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify({ values }),
-            // })
-            history.push('/declaratie')
+          onSubmit={async (values) => {
+            const local = JSON.parse(localStorage.getItem('phone'))
+            const payload = {
+              ...values,
+              phone_country_prefix: local.values.phone_country_prefix.value,
+              phone: local.values.phone,
+            }
+            try {
+              const request = await fetch(`${api}/phone/check`, {
+                method: 'POST',
+                headers: {
+                  'X-API-KEY': process.env.REACT_APP_API_KEY,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+              })
+              const response = await request.json()
+              if (response.status === 'success') {
+                localStorage.setItem('token', response.token)
+                history.push('/declaratie')
+              } else {
+                console.log(response.status)
+              }
+            } catch (error) {
+              console.log(error.message)
+            }
           }}>
           {({
             values,
