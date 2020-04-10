@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Flex, Image, Box, Text } from '@chakra-ui/core'
 import { Menu } from 'react-feather'
-import logo from '../assets/images/gov-ro.svg'
+import logo from '../assets/images/gov-ro.png'
 import { Trans } from '../locale/Trans'
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} fontWeight="semibold" display="block">
@@ -14,6 +14,9 @@ export function Header(props) {
   return (
     <Flex
       as="nav"
+      pos="sticky"
+      top="0"
+      zIndex="sticky"
       align="center"
       justify="space-between"
       borderBottom="1px"
@@ -25,7 +28,7 @@ export function Header(props) {
       color="brand.900"
       {...props}>
       <Flex align="center" flexGrow={1}>
-        <Image src={logo} alt="Guvernul Romaniei" />
+        <Image src={logo} alt="Guvernul Romaniei" height="50px" />
         <Heading
           as="h1"
           size={['xs', 'lg']}

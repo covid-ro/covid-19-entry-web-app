@@ -31,7 +31,7 @@ const ro = {
   addSMSCode: 'Introduceți codul primit prin SMS',
   codValidareSMS: 'Cod validare SMS',
   save: 'Salvează',
-  sign: 'Deschide panoul de semnătură',
+  sign: 'Semnați aici',
   saveSignature: 'Salvează semnătura',
   clear: 'Încearcă din nou',
   dontReceiveTheCode: 'Nu ai primit codul de validare?',

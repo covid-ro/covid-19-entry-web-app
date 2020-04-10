@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from 'react'
 import { languageOptions, dictionaryList } from './languages'
-
+import { writeStorage } from '@rehooks/local-storage'
 // create the language context with default language, romanian
-const storedLanguage = localStorage.getItem('lang')
+const storedLanguage = localStorage.getItem('lang') || languageOptions[0].id
 export const LanguageContext = createContext({
-  language: storedLanguage ? storedLanguage : languageOptions[0].id,
+  language: storedLanguage,
   dictionary: storedLanguage
     ? dictionaryList[storedLanguage]
     : dictionaryList[languageOptions[0].id],
@@ -18,10 +18,10 @@ export function LanguageProvider(props) {
   const provider = {
     language,
     dictionary,
-    setLanguage: selectedLanguage => {
+    setLanguage: (selectedLanguage) => {
       setLanguage(selectedLanguage) // it will update the language in state
       setDictionary(dictionaryList[selectedLanguage])
-      localStorage.setItem('lang', selectedLanguage)
+      writeStorage('lang', selectedLanguage)
     },
   }
 

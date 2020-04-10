@@ -13,14 +13,14 @@ export function CustomCheckBox({ children, value, onChange, ...rest }) {
 
       {/* This is the control box with a check icon as children */}
       <ControlBox
-        w="260px"
         height="120px"
         borderWidth="1px"
         borderRadius="4px"
         textAlign="center"
         fontWeight="semibold"
         fontSize="18px"
-        px="30px"
+        my="auto"
+        w="100%"
         cursor="pointer"
         py={['40px', '60px', '80px', '80px']}
         _checked={{ borderColor: 'brand.500' }}>

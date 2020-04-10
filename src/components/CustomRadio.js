@@ -10,8 +10,8 @@ export const CustomRadio = React.forwardRef((props, ref) => {
       aria-checked={isChecked}
       role="radio"
       size="lg"
-      w="260px"
-      px="40px"
+      my="auto"
+      w="100%"
       py={['40px', '60px', '80px', '80px']}
       isDisabled={isDisabled}
       {...rest}

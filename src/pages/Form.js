@@ -1,7 +1,6 @@
 import React, { useState, useContext, useRef } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
-import { Persist } from 'formik-persist'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import ro from 'date-fns/locale/ro'
 import ReactSelect from 'react-select'
@@ -40,49 +39,8 @@ import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
 import { CustomCheckBox } from '../components/CustomCheckBox'
 import { LanguageContext } from '../locale/LanguageContext'
+const api = process.env.REACT_APP_API
 
-const phoneJson = JSON.parse(localStorage.getItem('phone')) || ''
-
-const phoneWithoutZero =
-  phoneJson && phoneJson.phone.substring(0, 1) === '0'
-    ? phoneJson.phone.substring(1, phoneJson.phone.length)
-    : phoneJson.phone
-const phone = phoneJson
-  ? `${phoneJson.phone_country_prefix}${phoneWithoutZero}`
-  : ''
-
-const declarationCode =
-  JSON.parse(localStorage.getItem('declaration_code')) || []
-const initialValues = {
-  surname: '',
-  phone: phone,
-  name: '',
-  cnp: '',
-  email: '',
-  border_checkpoint_id: '',
-  document_type: 'passport',
-  document_series: '',
-  document_number: '',
-  travelling_from_country_code: '',
-  travelling_from_city: '',
-  travelling_from_date: '',
-  itinerary_countries: [],
-  travel_route: '',
-  isolation_addresses: {
-    city: '',
-    county: '',
-    city_full_address: '',
-    city_arrival_date: '',
-    city_departure_date: '',
-  },
-  q_visited: true,
-  q_contacted: true,
-  q_hospitalized: true,
-  symptoms: [],
-  vehicle_type: 'auto',
-  vehicle_registration_no: '',
-  signature: '',
-}
 const groupBadgeStyles = {
   backgroundColor: '#EBECF0',
   borderRadius: '2em',
@@ -95,12 +53,6 @@ const groupBadgeStyles = {
   padding: '0.16666666666667em 0.5em',
   textAlign: 'center',
 }
-const formatGroupLabel = (data) => (
-  <Flex alignItems="center" justifyContent="space-between">
-    <span>{data.label}</span>
-    <span style={groupBadgeStyles}>{data.options.length}</span>
-  </Flex>
-)
 const customStyles = {
   control: (styles, state) => ({
     ...styles,
@@ -124,10 +76,59 @@ const customStyles = {
     width: '100%',
   }),
 }
-const api = process.env.REACT_APP_API
+const formatGroupLabel = (data) => (
+  <Flex alignItems="center" justifyContent="space-between">
+    <span>{data.label}</span>
+    <span style={groupBadgeStyles}>{data.options.length}</span>
+  </Flex>
+)
+
 export function Declaration() {
   let history = useHistory()
   const toast = useToast()
+  const sigCanvas = useRef({})
+  function getFormattedPhone(phone) {
+    if (!phone) {
+      history.push('/introducere-telefon')
+    } else {
+      const phoneJson = JSON.parse(phone)
+      const phoneWithoutZero =
+        phoneJson.phone.substring(0, 1) === '0'
+          ? phoneJson.phone.substring(1, phoneJson.phone.length)
+          : phoneJson.phone
+      return `${phoneJson.phone_country_prefix}${phoneWithoutZero}`
+    }
+  }
+  const initialValues = {
+    surname: '',
+    phone: getFormattedPhone(localStorage.getItem('phone')),
+    name: '',
+    cnp: '',
+    email: '',
+    border_checkpoint_id: '',
+    document_type: 'passport',
+    document_series: '',
+    document_number: '',
+    travelling_from_country_code: '',
+    travelling_from_city: '',
+    travelling_from_date: '',
+    itinerary_countries: [],
+    travel_route: '',
+    isolation_addresses: {
+      city: '',
+      county: '',
+      city_full_address: '',
+      city_arrival_date: '',
+      city_departure_date: '',
+    },
+    q_visited: true,
+    q_contacted: true,
+    q_hospitalized: true,
+    symptoms: [],
+    vehicle_type: 'auto',
+    vehicle_registration_no: '',
+    signature: '',
+  }
 
   const borders = useSWR(`${api}/border/checkpoint`, fetcher, {
     revalidateOnFocus: false,
@@ -135,7 +136,9 @@ export function Declaration() {
   const judete = useSWR('/data/judete.json', fetcher, {
     revalidateOnFocus: false,
   })
-
+  const declarationCode =
+    JSON.parse(localStorage.getItem('declaration_code')) || []
+  const token = localStorage.getItem('token')
   const counties =
     judete.data &&
     judete.data.judete.map((j) => {
@@ -156,24 +159,23 @@ export function Declaration() {
     }
     return []
   }
-  const sigCanvas = useRef({})
+
   const clear = () => sigCanvas.current.clear()
+  const [showDialog, setShowDialog] = React.useState(false)
+  const open = () => setShowDialog(true)
+  const close = () => setShowDialog(false)
 
   const languageContext = useContext(LanguageContext)
   const maxStep = 14
   const [step, setSlide] = useState(1)
-  const [showDialog, setShowDialog] = React.useState(false)
-  const open = () => setShowDialog(true)
-  const close = () => setShowDialog(false)
-  const token = localStorage.getItem('token')
 
   return (
     <>
       {!token || token === '' ? (
         <Redirect to="/introducere-telefon" />
       ) : (
-        <Flex flexDirection="column" w="100%">
-          <WhiteBox pos="sticky">
+        <Box w="100%">
+          <WhiteBox pos="sticky" top="90px" zIndex="sticky">
             <Flex flexDirection="row" width="100%" alignItems="center">
               <Slider
                 defaultValue={0}
@@ -332,7 +334,13 @@ export function Declaration() {
                 })
               }
             }}>
-            {({ values, errors, setFieldValue, setFieldTouched }) => {
+            {({
+              values,
+              errors,
+              setFieldValue,
+              setFieldTouched,
+              isSubmitting,
+            }) => {
               return (
                 <Form>
                   {/* Step 1 - name, surname, CNP */}
@@ -439,12 +447,14 @@ export function Declaration() {
                     <RadioButtonGroup
                       defaultValue="passport"
                       name="document_type"
-                      d="flex"
-                      flexDirection="row"
-                      justifyContent="space-around"
+                      d="grid"
                       my="8"
-                      onChange={(val) => setFieldValue('document_type', val)}
-                      isInline>
+                      gridTemplateColumns="1fr 1fr"
+                      gridGap="1rem"
+                      w="100%"
+                      isInline
+                      justifyContent="space-between"
+                      onChange={(val) => setFieldValue('document_type', val)}>
                       >
                       <CustomRadio value="passport">
                         <Trans id="passport" />
@@ -962,12 +972,14 @@ export function Declaration() {
                     <RadioButtonGroup
                       value={values.q_visited}
                       name="q_visited"
-                      d="flex"
-                      flexDirection="row"
-                      justifyContent="space-around"
-                      my="8"
-                      onChange={(val) => setFieldValue('q_visited', val)}
-                      isInline>
+                      d="grid"
+                      mt="8"
+                      gridTemplateColumns="1fr 1fr"
+                      gridGap="1rem"
+                      w="100%"
+                      isInline
+                      justifyContent="space-between"
+                      onChange={(val) => setFieldValue('q_visited', val)}>
                       >
                       <CustomRadio value={true}>
                         <Trans id="da" />
@@ -985,12 +997,14 @@ export function Declaration() {
                     <RadioButtonGroup
                       value={values.q_contacted}
                       name="q_contacted"
-                      d="flex"
-                      flexDirection="row"
-                      justifyContent="space-around"
-                      my="8"
-                      onChange={(val) => setFieldValue('q_contacted', val)}
-                      isInline>
+                      d="grid"
+                      mt="8"
+                      gridTemplateColumns="1fr 1fr"
+                      gridGap="1rem"
+                      w="100%"
+                      isInline
+                      justifyContent="space-between"
+                      onChange={(val) => setFieldValue('q_contacted', val)}>
                       >
                       <CustomRadio value={true}>
                         <Trans id="da" />
@@ -1008,17 +1022,19 @@ export function Declaration() {
                     <RadioButtonGroup
                       value={values.q_hospitalized}
                       name="q_hospitalized"
-                      d="flex"
-                      flexDirection="row"
-                      justifyContent="space-around"
-                      my="8"
-                      onChange={(val) => setFieldValue('q_hospitalized', val)}
-                      isInline>
+                      d="grid"
+                      mt="8"
+                      gridTemplateColumns="1fr 1fr"
+                      gridGap="1rem"
+                      w="100%"
+                      isInline
+                      justifyContent="space-between"
+                      onChange={(val) => setFieldValue('q_hospitalized', val)}>
                       >
-                      <CustomRadio value={true}>
+                      <CustomRadio value={true} mb="0">
                         <Trans id="da" />
                       </CustomRadio>
-                      <CustomRadio value={false}>
+                      <CustomRadio value={false} mb="0">
                         <Trans id="nu" />
                       </CustomRadio>
                     </RadioButtonGroup>
@@ -1031,27 +1047,25 @@ export function Declaration() {
 
                     <CheckboxGroup
                       name="symptoms"
-                      isInline
                       d="grid"
                       mt="8"
                       gridTemplateColumns="1fr 1fr"
-                      gridGap="20px"
-                      justifyContent="space-around"
-                      justifyItems="center"
+                      gridGap="1rem"
+                      justifyContent="space-between"
                       w="100%"
                       onChange={(val) => {
                         setFieldValue('symptoms', val)
                       }}>
-                      <CustomCheckBox value="fever" justifySelf="center">
+                      <CustomCheckBox value="fever">
                         <Trans id="simptom1" />
                       </CustomCheckBox>
-                      <CustomCheckBox value="swallow" justifySelf="center">
+                      <CustomCheckBox value="swallow">
                         <Trans id="simptom2" />
                       </CustomCheckBox>
-                      <CustomCheckBox value="breath" justifySelf="center">
+                      <CustomCheckBox value="breath">
                         <Trans id="simptom3" />
                       </CustomCheckBox>
-                      <CustomCheckBox value="cough" justifySelf="center">
+                      <CustomCheckBox value="cough">
                         <Trans id="simptom4" />
                       </CustomCheckBox>
                     </CheckboxGroup>
@@ -1064,12 +1078,14 @@ export function Declaration() {
                     <RadioButtonGroup
                       value={values.vehicle_type}
                       name="vehicle_type"
-                      d="flex"
-                      flexDirection="row"
-                      justifyContent="space-around"
-                      my="8"
-                      onChange={(val) => setFieldValue('vehicle_type', val)}
-                      isInline>
+                      d="grid"
+                      mt="8"
+                      gridTemplateColumns="1fr 1fr"
+                      gridGap="1rem"
+                      w="100%"
+                      isInline
+                      justifyContent="space-between"
+                      onChange={(val) => setFieldValue('vehicle_type', val)}>
                       >
                       <CustomRadio value="auto">
                         <Trans id="auto" />
@@ -1239,13 +1255,17 @@ export function Declaration() {
                                 <Icon name="check" color="green.500" ml="4" />
                               )}
                           </Button>
-                          <DialogOverlay isOpen={showDialog} onDismiss={close}>
+                          <DialogOverlay
+                            isOpen={showDialog}
+                            onDismiss={close}
+                            style={{ zIndex: 1400 }}>
                             <DialogContent
                               aria-label="signature"
                               style={{
                                 border: 'solid 2px #3585cf',
                                 borderRadius: '8px',
                                 position: 'relative',
+                                minWidth: 370,
                               }}>
                               <CloseButton
                                 onClick={close}
@@ -1323,17 +1343,16 @@ export function Declaration() {
                       size="lg"
                       mt="8"
                       w="320px"
-                      // isLoading={isSubmitting}
+                      isLoading={isSubmitting}
                       type="submit">
                       <Trans id="trimite" />
                     </Button>
                   </Box>
-                  <Persist name="declaration" />
                 </Form>
               )
             }}
           </Formik>
-        </Flex>
+        </Box>
       )}
     </>
   )
