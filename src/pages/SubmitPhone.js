@@ -219,6 +219,7 @@ export function SubmitPhone() {
                 size="lg"
                 mt="8"
                 w="320px"
+                // isDisabled={}
                 isLoading={isSubmitting}
                 type="submit">
                 <Trans id="validatePhoneNumber" />

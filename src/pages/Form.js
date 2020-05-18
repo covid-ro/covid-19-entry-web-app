@@ -13,7 +13,6 @@ import {
   useToast,
   FormErrorMessage,
   FormLabel,
-  CheckboxGroup,
   FormControl,
   CloseButton,
   VisuallyHidden,
@@ -37,7 +36,6 @@ import { groupedCountries } from '../assets/data/groupedCountries'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
-import { CustomCheckBox } from '../components/CustomCheckBox'
 import { LanguageContext } from '../locale/LanguageContext'
 const api = process.env.REACT_APP_API
 
@@ -56,12 +54,12 @@ const groupBadgeStyles = {
 const customStyles = {
   control: (styles, state) => ({
     ...styles,
-    backgroundColor: 'white',
-    border: 'none',
-    borderRadius: 0,
-    height: '2.5rem',
-    boxShadow: 'none',
-    borderBottom: state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
+    'backgroundColor': 'white',
+    'border': 'none',
+    'borderRadius': 0,
+    'height': '2.5rem',
+    'boxShadow': 'none',
+    'borderBottom': state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
     ':hover': {
       ...styles[':hover'],
       borderColor: '#3182ce',
@@ -105,7 +103,6 @@ export function Declaration() {
     name: '',
     cnp: '',
     email: '',
-    border_checkpoint_id: '',
     document_type: 'passport',
     document_series: '',
     document_number: '',
@@ -118,21 +115,11 @@ export function Declaration() {
       city: '',
       county: '',
       city_full_address: '',
-      city_arrival_date: '',
-      city_departure_date: '',
     },
-    q_visited: true,
-    q_contacted: true,
-    q_hospitalized: true,
-    symptoms: [],
     vehicle_type: 'auto',
     vehicle_registration_no: '',
     signature: '',
   }
-
-  const borders = useSWR(`${api}/border/checkpoint`, fetcher, {
-    revalidateOnFocus: false,
-  })
   const judete = useSWR('/data/judete.json', fetcher, {
     revalidateOnFocus: false,
   })
@@ -166,7 +153,7 @@ export function Declaration() {
   const close = () => setShowDialog(false)
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 14
+  const maxStep = 8
   const [step, setSlide] = useState(1)
 
   return (
@@ -216,9 +203,6 @@ export function Declaration() {
                 errors.travelling_from_country_code =
                   languageContext.dictionary['required']
               }
-              // if (values.itinerary_countries.length === 0) {
-              //   errors.itinerary_countries = languageContext.dictionary['required']
-              // }
               if (!values.travelling_from_city) {
                 errors.travelling_from_city =
                   languageContext.dictionary['required']
@@ -232,14 +216,6 @@ export function Declaration() {
               }
               if (!values.isolation_addresses.city) {
                 errors.city = languageContext.dictionary['required']
-              }
-              if (!values.isolation_addresses.city_arrival_date) {
-                errors.city_arrival_date =
-                  languageContext.dictionary['required']
-              }
-              if (!values.isolation_addresses.city_departure_date) {
-                errors.city_departure_date =
-                  languageContext.dictionary['required']
               }
               if (!values.isolation_addresses.city_full_address) {
                 errors.city_full_address =
@@ -262,9 +238,6 @@ export function Declaration() {
                 ...values,
                 travelling_from_country_code:
                   values.travelling_from_country_code.value,
-                itinerary_countries: values.itinerary_countries.map(
-                  (c) => c.value
-                ),
                 isolation_addresses: [
                   {
                     ...values.isolation_addresses,
@@ -272,14 +245,13 @@ export function Declaration() {
                     county: values.isolation_addresses.county.value,
                   },
                 ],
-                border_checkpoint_id: values.border_checkpoint_id.id,
               }
 
               try {
                 const request = await fetch(`${api}/declaration`, {
                   method: 'POST',
                   headers: {
-                    Authorization: `Bearer ${token}`,
+                    'Authorization': `Bearer ${token}`,
                     'X-API-KEY': process.env.REACT_APP_API_KEY,
                     'Content-Type': 'application/json',
                   },
@@ -638,6 +610,8 @@ export function Declaration() {
                             <Input
                               {...field}
                               type="date"
+                              locale={ro}
+                              pattern="\d{4}-\d{2}-\d{2}"
                               value={values.travelling_from_date}
                               name="travelling_from_date"
                               variant="flushed"
@@ -654,45 +628,6 @@ export function Declaration() {
                           </InputGroup>
                           <FormErrorMessage>
                             {form.errors.travelling_from_date}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Heading
-                      size="md"
-                      lineHeight="32px"
-                      fontWeight="400"
-                      mt="8"
-                      mb="4">
-                      <Trans id="transitedCountries" />
-                    </Heading>
-                    <Field name="itinerary_countries">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.itinerary_countries &&
-                            form.touched.itinerary_countries
-                          }>
-                          <ReactSelect
-                            {...field}
-                            placeholder={<Trans id="selectCountries" />}
-                            name="itinerary_countries"
-                            isMulti
-                            isClearable={true}
-                            formatGroupLabel={formatGroupLabel}
-                            options={groupedCountries}
-                            onChange={(val) =>
-                              setFieldValue('itinerary_countries', val)
-                            }
-                            onBlur={() =>
-                              setFieldTouched('itinerary_countries', true, true)
-                            }
-                            mt="4"
-                            styles={customStyles}
-                          />
-                          <FormErrorMessage>
-                            {form.errors.itinerary_countries}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -805,58 +740,6 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                    <Field name="isolation_addresses.city_arrival_date">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.city_arrival_date &&
-                            form.touched?.isolation_addresses?.city_arrival_date
-                          }>
-                          <FormLabel
-                            htmlFor="isolation_addresses.city_arrival_date"
-                            mt="4">
-                            <Trans id="dataSosirii" />
-                          </FormLabel>
-                          <Input
-                            {...field}
-                            type="date"
-                            locale={ro}
-                            name="isolation_addresses.city_arrival_date"
-                            variant="flushed"
-                          />
-                          <FormErrorMessage>
-                            {form.errors.city_arrival_date}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="isolation_addresses.city_departure_date">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.city_departure_date &&
-                            form.touched?.isolation_addresses
-                              ?.city_departure_date
-                          }>
-                          <FormLabel
-                            htmlFor="isolation_addresses.city_departure_date"
-                            mt="4">
-                            <Trans id="dataPlecarii" />
-                          </FormLabel>
-                          <Input
-                            type="date"
-                            {...field}
-                            name="isolation_addresses.city_departure_date"
-                            variant="flushed"
-                          />
-                          <FormErrorMessage>
-                            {form.errors.city_departure_date}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
                     <Field name="isolation_addresses.city_full_address">
                       {({ field, form }) => (
                         <FormControl
@@ -901,7 +784,7 @@ export function Declaration() {
                     </Heading>
                     <Field name="phone">
                       {({ field, form }) => (
-                        <FormControl isRequired>
+                        <FormControl>
                           <FormLabel htmlFor="phone" mt="4">
                             <Trans id="telefon" />
                           </FormLabel>
@@ -964,114 +847,8 @@ export function Declaration() {
                     </Heading>
                     <Trans id="alertMessage" />
                   </WhiteBox>
-                  {/* Step 6 - visited*/}
+                  {/* Step 6 */}
                   <WhiteBox onClick={() => setSlide(6)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form6FirstQuestion" />
-                    </Heading>
-                    <RadioButtonGroup
-                      value={values.q_visited}
-                      name="q_visited"
-                      d="grid"
-                      mt="8"
-                      gridTemplateColumns="1fr 1fr"
-                      gridGap="1rem"
-                      w="100%"
-                      isInline
-                      justifyContent="space-between"
-                      onChange={(val) => setFieldValue('q_visited', val)}>
-                      >
-                      <CustomRadio value={true}>
-                        <Trans id="da" />
-                      </CustomRadio>
-                      <CustomRadio value={false}>
-                        <Trans id="nu" />
-                      </CustomRadio>
-                    </RadioButtonGroup>
-                  </WhiteBox>
-                  {/* Step 7 */}
-                  <WhiteBox onClick={() => setSlide(7)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form7Label" />
-                    </Heading>
-                    <RadioButtonGroup
-                      value={values.q_contacted}
-                      name="q_contacted"
-                      d="grid"
-                      mt="8"
-                      gridTemplateColumns="1fr 1fr"
-                      gridGap="1rem"
-                      w="100%"
-                      isInline
-                      justifyContent="space-between"
-                      onChange={(val) => setFieldValue('q_contacted', val)}>
-                      >
-                      <CustomRadio value={true}>
-                        <Trans id="da" />
-                      </CustomRadio>
-                      <CustomRadio value={false}>
-                        <Trans id="nu" />
-                      </CustomRadio>
-                    </RadioButtonGroup>
-                  </WhiteBox>
-                  {/* Step 8 */}
-                  <WhiteBox onClick={() => setSlide(8)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form6SecondQuestion" />
-                    </Heading>
-                    <RadioButtonGroup
-                      value={values.q_hospitalized}
-                      name="q_hospitalized"
-                      d="grid"
-                      mt="8"
-                      gridTemplateColumns="1fr 1fr"
-                      gridGap="1rem"
-                      w="100%"
-                      isInline
-                      justifyContent="space-between"
-                      onChange={(val) => setFieldValue('q_hospitalized', val)}>
-                      >
-                      <CustomRadio value={true} mb="0">
-                        <Trans id="da" />
-                      </CustomRadio>
-                      <CustomRadio value={false} mb="0">
-                        <Trans id="nu" />
-                      </CustomRadio>
-                    </RadioButtonGroup>
-                  </WhiteBox>
-                  {/* Step 9 */}
-                  <WhiteBox onClick={() => setSlide(9)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form8Label" />
-                    </Heading>
-
-                    <CheckboxGroup
-                      name="symptoms"
-                      d="grid"
-                      mt="8"
-                      gridTemplateColumns="1fr 1fr"
-                      gridGap="1rem"
-                      justifyContent="space-between"
-                      w="100%"
-                      onChange={(val) => {
-                        setFieldValue('symptoms', val)
-                      }}>
-                      <CustomCheckBox value="fever">
-                        <Trans id="simptom1" />
-                      </CustomCheckBox>
-                      <CustomCheckBox value="swallow">
-                        <Trans id="simptom2" />
-                      </CustomCheckBox>
-                      <CustomCheckBox value="breath">
-                        <Trans id="simptom3" />
-                      </CustomCheckBox>
-                      <CustomCheckBox value="cough">
-                        <Trans id="simptom4" />
-                      </CustomCheckBox>
-                    </CheckboxGroup>
-                  </WhiteBox>
-                  {/* Step 10 */}
-                  <WhiteBox onClick={() => setSlide(10)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label" />
                     </Heading>
@@ -1095,8 +872,8 @@ export function Declaration() {
                       </CustomRadio>
                     </RadioButtonGroup>
                   </WhiteBox>
-                  {/* Step 11 */}
-                  <WhiteBox onClick={() => setSlide(11)}>
+                  {/* Step 7 */}
+                  <WhiteBox onClick={() => setSlide(7)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label2" />
                     </Heading>
@@ -1138,100 +915,8 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 12 */}
-                  <WhiteBox onClick={() => setSlide(12)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form10Title" />
-                    </Heading>
-
-                    <Field name="travel_route">
-                      {({ field, form }) => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.travel_route &&
-                            form.touched.travel_route
-                          }>
-                          <FormLabel htmlFor="travel_route" mt="4">
-                            <Trans id="form10Label" />
-                          </FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              name="travel_route"
-                              variant="flushed"
-                              placeholder={
-                                languageContext.dictionary['form10Placeholder']
-                              }
-                            />
-                            <InputRightElement
-                              children={
-                                !form.errors.travel_route &&
-                                form.touched.travel_route && (
-                                  <Icon name="check" color="green.500" />
-                                )
-                              }
-                            />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.travel_route}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </WhiteBox>
-                  {/* Step 13 */}
-                  <WhiteBox onClick={() => setSlide(13)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form13Title" />
-                    </Heading>
-
-                    <Field name="border_checkpoint_id">
-                      {({ field, form }) => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.border_checkpoint_id &&
-                            form.touched.border_checkpoint_id
-                          }>
-                          <FormLabel htmlFor="border_checkpoint_id" mt="4">
-                            <Trans id="form13Label" />
-                          </FormLabel>
-                          <ReactSelect
-                            {...field}
-                            placeholder={
-                              languageContext.dictionary['selectBorder']
-                            }
-                            name="border_checkpoint_id"
-                            isClearable={true}
-                            isLoading={!borders.data}
-                            options={
-                              !borders.error
-                                ? borders?.data?.data
-                                : [{ id: 0, name: <Trans id="errorData" /> }]
-                            }
-                            getOptionLabel={(option) => option['name']}
-                            getOptionValue={(option) => option['id']}
-                            onChange={(val) =>
-                              setFieldValue('border_checkpoint_id', val)
-                            }
-                            onBlur={() =>
-                              setFieldTouched(
-                                'border_checkpoint_id',
-                                true,
-                                true
-                              )
-                            }
-                            mt="4"
-                            styles={customStyles}
-                          />
-                          <FormErrorMessage>
-                            {form.errors.border_checkpoint_id}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </WhiteBox>
-                  {/* Step 14 */}
-                  <WhiteBox onClick={() => setSlide(14)}>
+                  {/* Step 8 */}
+                  <WhiteBox onClick={() => setSlide(8)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
