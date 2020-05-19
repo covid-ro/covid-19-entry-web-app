@@ -286,10 +286,26 @@ export function Declaration() {
                     history.push('/success')
                   }, 3000)
                 } else {
+                  let message
+                  switch (response.message) {
+                    case 'Invalid value for parameter: cnp':
+                      message = languageContext.dictionary['incorrectCNP']
+                      break
+                    case 'Invalid value for parameter: document_series':
+                      message = languageContext.dictionary['incorrectSerie']
+                      break
+                    case 'Invalid value for parameter: document_number':
+                      message = languageContext.dictionary['incorrectNumber']
+                      break
+                    case 'Unauthorized':
+                      message = languageContext.dictionary['unauthorized']
+                      break
+                    default:
+                  }
                   setSubmitting(false)
                   toast({
                     title: <Trans id="error" />,
-                    description: response.message,
+                    description: message,
                     status: 'error',
                     isClosable: true,
                     duration: null,
@@ -784,7 +800,7 @@ export function Declaration() {
                     </Heading>
                     <Field name="phone">
                       {({ field, form }) => (
-                        <FormControl>
+                        <FormControl isRequired>
                           <FormLabel htmlFor="phone" mt="4">
                             <Trans id="telefon" />
                           </FormLabel>
@@ -809,6 +825,7 @@ export function Declaration() {
                     <Field name="email">
                       {({ field, form }) => (
                         <FormControl
+                          isRequired
                           isInvalid={form.errors.email && form.touched.email}>
                           <FormLabel htmlFor="email" mt="4">
                             <Trans id="email" />
