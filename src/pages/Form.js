@@ -238,11 +238,12 @@ export function Declaration() {
               if (values.signature === '') {
                 errors.signature = languageContext.dictionary['required']
               }
-              if (!values.accept_personal_data) {
-                errors.signature = languageContext.dictionary['required']
+              if (values.accept_personal_data === false) {
+                errors.accept_personal_data =
+                  languageContext.dictionary['required']
               }
-              if (!values.accept_read_law) {
-                errors.signature = languageContext.dictionary['required']
+              if (values.accept_read_law === false) {
+                errors.accept_read_law = languageContext.dictionary['required']
               }
               return errors
             }}
@@ -253,7 +254,7 @@ export function Declaration() {
                   values.travelling_from_country_code.value,
                 travelling_from_date: format(
                   values.travelling_from_date,
-                  'dd-MM-yyyy'
+                  'yyyy-MM-dd'
                 ),
                 isolation_addresses: [
                   {
