@@ -76,7 +76,7 @@ const ro = {
   codeError: 'Codul trebuie sa contine 6 cifre',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
-    'Această aplicație este pusă la dispoziție de Guvernul României și stă la baza declarației de intrare în țară la punctele vamale,urmare a pandemiei de coronavirus COVID-19.',
+    'Această aplicație este pusă la dispoziție de Guvernul României și stă la baza declarației de intrare în țară la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   infoLabelBold:
     ' Vă rugăm să completați formularul din această aplicație cu date reale, ',
   infoLabelEnd:
