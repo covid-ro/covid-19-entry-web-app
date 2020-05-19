@@ -44,6 +44,12 @@ const ro = {
   unauthorized: 'Neautentificat',
   incorrectSerie: 'Serie document incorectă',
   incorrectNumber: 'Număr document incorect',
+  acceptanceTitle: 'Un ultim pas',
+  acceptanceLabel: 'Declar pe propria răspundere că:',
+  acceptPersonalData:
+    'Sunt de acord ca datele cu caracter personal și informațiile furnizate să fie prelucrate de către autoritățile competente',
+  acceptReadLaw:
+    'Am luat la cunoștiință de prevederile art. 326 din Codul Penal cu privire la falsul în declarații și cele ale art. 352 din Codul Penal cu privire la zădărnicirea combaterii bolilor.',
   validatePhoneNumberInformationLabel:
     'Va rugăm să introduceți un număr de telefon valid, unde puteți fi contactat pe perioada autoizolării. Veți primi pe SMS un cod unic, ce va trebui înscris în câmpul de mai jos.',
   countriesCrossed: 'Tări tranzitate',

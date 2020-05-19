@@ -10,6 +10,7 @@ import useSWR from 'swr'
 import {
   Heading,
   Box,
+  Checkbox,
   useToast,
   FormErrorMessage,
   FormLabel,
@@ -119,6 +120,8 @@ export function Declaration() {
     vehicle_type: 'auto',
     vehicle_registration_no: '',
     signature: '',
+    accept_personal_data: false,
+    accept_read_law: false,
   }
   const judete = useSWR('/data/judete.json', fetcher, {
     revalidateOnFocus: false,
@@ -153,7 +156,7 @@ export function Declaration() {
   const close = () => setShowDialog(false)
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 8
+  const maxStep = 9
   const [step, setSlide] = useState(1)
 
   return (
@@ -1028,6 +1031,57 @@ export function Declaration() {
 
                           <FormErrorMessage>
                             {form.errors.signature}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </WhiteBox>
+                  {/* Step 9 */}
+                  <WhiteBox onClick={() => setSlide(9)}>
+                    <Heading size="md" lineHeight="32px" fontWeight="400">
+                      <Trans id="acceptanceTitle" />
+                    </Heading>
+                    <Heading size="sm" lineHeight="32px" fontWeight="600">
+                      <Trans id="acceptanceLabel" />
+                    </Heading>
+                    <Field name="accept_personal_data">
+                      {({ field, form }) => (
+                        <FormControl
+                          isRequired
+                          isInvalid={
+                            form.errors.accept_personal_data &&
+                            form.touched.accept_personal_data
+                          }>
+                          <Checkbox
+                            {...field}
+                            size="lg"
+                            variantColor="brand"
+                            mt={4}>
+                            <Trans id="acceptPersonalData" />
+                          </Checkbox>
+                          <FormErrorMessage>
+                            {form.errors.accept_personal_data}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="accept_read_law">
+                      {({ field, form }) => (
+                        <FormControl
+                          isRequired
+                          isInvalid={
+                            form.errors.accept_read_law &&
+                            form.touched.accept_read_law
+                          }>
+                          <Checkbox
+                            {...field}
+                            size="lg"
+                            variantColor="brand"
+                            mt={6}>
+                            <Trans id="acceptReadLaw" />
+                          </Checkbox>
+                          <FormErrorMessage>
+                            {form.errors.accept_read_law}
                           </FormErrorMessage>
                         </FormControl>
                       )}
