@@ -93,7 +93,7 @@ const ro = {
   finisScreenThirdLine:
     'Continuă procedura de mai jos, respectând câmpurile ce te vor ghida în completarea corectă a formularului. În cazul minorilor, numărul de telefon necesar pentru validare va fi a unuia din aparținători. ',
 
-  form10Title: 'Traseul urmărit este:',
+  form10Title: 'Localități prin care ați trecut',
   form13Title: 'Localitate de intrare in tara',
   form13Label: 'Punctul vamal',
   form10Label:

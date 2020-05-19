@@ -162,7 +162,7 @@ export function Declaration() {
   const close = () => setShowDialog(false)
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 10
+  const maxStep = 9
   const [step, setSlide] = useState(1)
 
   return (
@@ -733,6 +733,47 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
+                    <Heading
+                      size="md"
+                      mt="8"
+                      lineHeight="32px"
+                      fontWeight="400">
+                      <Trans id="form10Title" />
+                    </Heading>
+                    <Field name="travel_route">
+                      {({ field, form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.travel_route &&
+                            form.touched.travel_route
+                          }>
+                          <FormLabel htmlFor="travel_route" mt="4">
+                            <Trans id="form10Label" />
+                          </FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              name="travel_route"
+                              variant="flushed"
+                              placeholder={
+                                languageContext.dictionary['form10Placeholder']
+                              }
+                            />
+                            <InputRightElement
+                              children={
+                                !form.errors.travel_route &&
+                                form.touched.travel_route && (
+                                  <Icon name="check" color="green.500" />
+                                )
+                              }
+                            />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.travel_route}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
                   </WhiteBox>
                   {/* Step 4 - isolation address*/}
                   <WhiteBox p={[1, 8]} onClick={() => setSlide(4)}>
@@ -1017,49 +1058,8 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
-                  {/* Step 8 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(8)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form10Title" />
-                    </Heading>
-
-                    <Field name="travel_route">
-                      {({ field, form }) => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.travel_route &&
-                            form.touched.travel_route
-                          }>
-                          <FormLabel htmlFor="travel_route" mt="4">
-                            <Trans id="form10Label" />
-                          </FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              name="travel_route"
-                              variant="flushed"
-                              placeholder={
-                                languageContext.dictionary['form10Placeholder']
-                              }
-                            />
-                            <InputRightElement
-                              children={
-                                !form.errors.travel_route &&
-                                form.touched.travel_route && (
-                                  <Icon name="check" color="green.500" />
-                                )
-                              }
-                            />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.travel_route}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </WhiteBox>
                   {/* Step 9 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(9)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(8)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
@@ -1160,7 +1160,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 10 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(10)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(9)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
