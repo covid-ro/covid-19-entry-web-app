@@ -315,10 +315,14 @@ export function Declaration() {
                     case 'Invalid value for parameter: document_number':
                       message = languageContext.dictionary['incorrectNumber']
                       break
+                    case 'Invalid value for parameter: travelling_from_date':
+                      message = languageContext.dictionary['incorrectDate']
+                      break
                     case 'Unauthorized':
                       message = languageContext.dictionary['unauthorized']
                       break
                     default:
+                      message = languageContext.dictionary['unknownError']
                   }
                   setSubmitting(false)
                   toast({
