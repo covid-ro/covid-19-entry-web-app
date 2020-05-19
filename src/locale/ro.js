@@ -71,9 +71,9 @@ const ro = {
   error: 'Eroare!',
   success: 'Success!',
   declarationSuccess: 'Declaratia dumneavoastra a fost salvata cu success',
-  validateSuccess: 'Numarul de telefon a fost validat cu success',
+  validateSuccess: 'Numărul de telefon a fost validat cu success.',
   city: 'Localitate',
-  codeError: 'Codul trebuie sa contine 6 cifre',
+  codeError: 'Codul trebuie să contină 6 cifre.',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
     'Această aplicație este pusă la dispoziție de Guvernul României și stă la baza declarației de intrare în țară la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
@@ -114,7 +114,7 @@ const ro = {
   cnp: 'CNP',
   sms: 'SMS trimis',
   smsDescription:
-    'In curand veti primi un cod de 6 cifre pe telefonul dumneavoastra',
+    'În curând veți primi un cod de 6 cifre pe numărul de telefon introdus',
   form4Label: 'În România mă voi izola la următoarea adresă:',
   judet: 'Județ',
   localitate: 'Localitate',
