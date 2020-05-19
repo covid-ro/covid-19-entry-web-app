@@ -1,5 +1,5 @@
 const ro = {
-  title: 'Declaratie Online Coronavirus COVID-19',
+  title: 'Declarație Online Coronavirus COVID-19',
   ro: 'Română',
   en: 'Engleză',
   langSelect: 'Vă rugăm să selectați o limbă.',
