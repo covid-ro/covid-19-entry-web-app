@@ -40,6 +40,7 @@ const ro = {
   phoneCode: 'Selectează codul de țară',
   numbersOnly: 'Doar cifre pot fi introduse',
   validatePhoneNumber: 'Validează numărul de telefon',
+  incorrectCode: 'Codul introdus este incorect sau a expirat',
   incorrectCNP: 'CNP incorect',
   unauthorized: 'Neautentificat',
   incorrectDate: 'Data introdusă este incorectă',

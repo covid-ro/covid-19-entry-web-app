@@ -90,6 +90,8 @@ export function Declaration() {
   let history = useHistory()
   const toast = useToast()
   const sigCanvas = useRef({})
+  const [disabled, setDisabled] = useState(false)
+
   function getFormattedPhone(phone) {
     if (!phone) {
       history.push('/introducere-telefon')
@@ -169,7 +171,7 @@ export function Declaration() {
         <Redirect to="/introducere-telefon" />
       ) : (
         <Box w="100%">
-          <WhiteBox pos="sticky" top="90px" zIndex="sticky">
+          <WhiteBox py={1} px={[1, 8]} pos="sticky" top="90px" zIndex="sticky">
             <Flex flexDirection="row" width="100%" alignItems="center">
               <Slider
                 defaultValue={0}
@@ -300,7 +302,7 @@ export function Declaration() {
                     isClosable: true,
                   })
                   setTimeout(() => {
-                    setSubmitting(false)
+                    setDisabled(true)
                     history.push('/success')
                   }, 3000)
                 } else {
@@ -324,7 +326,7 @@ export function Declaration() {
                     default:
                       message = languageContext.dictionary['unknownError']
                   }
-                  setSubmitting(false)
+                  setDisabled(false)
                   toast({
                     title: <Trans id="error" />,
                     description: message,
@@ -335,6 +337,7 @@ export function Declaration() {
                 }
               } catch (error) {
                 setSubmitting(false)
+                setDisabled(false)
                 toast({
                   title: <Trans id="error" />,
                   description: error.message,
@@ -355,7 +358,7 @@ export function Declaration() {
               return (
                 <Form>
                   {/* Step 1 - name, surname, CNP */}
-                  <WhiteBox onClick={() => setSlide(1)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(1)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form1Label" />
                     </Heading>
@@ -451,7 +454,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 2 - pasaport/buletin serie numar*/}
-                  <WhiteBox onClick={() => setSlide(2)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form2Label" />
                     </Heading>
@@ -555,7 +558,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 3 - travelling from*/}
-                  <WhiteBox onClick={() => setSlide(3)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(3)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form3Label" />
                     </Heading>
@@ -677,7 +680,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 4 - isolation address*/}
-                  <WhiteBox onClick={() => setSlide(4)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(4)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form4Label" />
                     </Heading>
@@ -821,7 +824,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 5 - phone email*/}
-                  <WhiteBox onClick={() => setSlide(5)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form5Label" />
                     </Heading>
@@ -892,7 +895,7 @@ export function Declaration() {
                     <Trans id="alertMessage" />
                   </WhiteBox>
                   {/* Step 6 */}
-                  <WhiteBox onClick={() => setSlide(6)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label" />
                     </Heading>
@@ -917,7 +920,7 @@ export function Declaration() {
                     </RadioButtonGroup>
                   </WhiteBox>
                   {/* Step 7 */}
-                  <WhiteBox onClick={() => setSlide(7)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(7)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label2" />
                     </Heading>
@@ -960,7 +963,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 8 */}
-                  <WhiteBox onClick={() => setSlide(8)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(8)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
@@ -1061,7 +1064,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 9 */}
-                  <WhiteBox onClick={() => setSlide(9)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(9)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
@@ -1123,6 +1126,7 @@ export function Declaration() {
                       size="lg"
                       mt="8"
                       w="320px"
+                      disabled={disabled}
                       isLoading={isSubmitting}
                       onClick={handleSubmit}
                       type="submit">

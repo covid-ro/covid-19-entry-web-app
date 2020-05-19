@@ -14,7 +14,7 @@ export function LanguageSelector() {
   }
   return (
     <Flex flexDirection="column" alignItems="center">
-      <Box w="100%" justifyContent="center" mt="8" mb="16" d="flex">
+      <Box w="100%" justifyContent="center" mt="8" mb="6" d="flex">
         <Link
           fontWeight="semibold"
           color={languageContext.language === 'ro' ? 'brand.800' : 'gray.700'}
@@ -35,12 +35,13 @@ export function LanguageSelector() {
         mb="16"
         d="flex"
         flexDirection="column"
-        justifyContent="center">
+        justifyContent="center"
+        alignItems="center">
         <Button
           variantColor="brand"
           size="lg"
           mt="8"
-          w="320px"
+          w="300px"
           onClick={(e) => forwardAction(e, 'ro')}>
           <Trans id="ro" />
         </Button>
@@ -48,7 +49,7 @@ export function LanguageSelector() {
           variantColor="brand"
           size="lg"
           mt="8"
-          w="320px"
+          w="300px"
           onClick={(e) => forwardAction(e, 'en')}>
           <Trans id="en" />
         </Button>

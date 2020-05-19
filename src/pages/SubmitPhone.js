@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import Select, { components } from 'react-select'
@@ -49,11 +49,11 @@ const initialValues = {
 const customStyles = {
   control: (styles, state) => ({
     ...styles,
-    backgroundColor: 'white',
-    border: 'none',
-    borderRadius: 0,
-    height: '2.5rem',
-    borderBottom: state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
+    'backgroundColor': 'white',
+    'border': 'none',
+    'borderRadius': 0,
+    'height': '2.5rem',
+    'borderBottom': state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
     ':hover': {
       ...styles[':hover'],
       borderColor: '#3182ce',
@@ -79,9 +79,9 @@ export function SubmitPhone() {
   const toast = useToast()
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
-
+  const [disabled, setDisabled] = useState(false)
   return (
-    <WhiteBox>
+    <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="400">
         <Trans id="validatePhoneNumberInformationLabel" />
       </Heading>
@@ -127,12 +127,13 @@ export function SubmitPhone() {
                 phone_country_prefix: values.phone_country_prefix.value,
                 phone: values.phone,
               })
+              setDisabled(true)
               setTimeout(() => {
-                setSubmitting(false)
                 history.push('/validare-telefon')
               }, 3000)
             } else {
               setSubmitting(false)
+              setDisabled(false)
               toast({
                 title: <Trans id="error" />,
                 description: response.message,
@@ -143,6 +144,7 @@ export function SubmitPhone() {
             }
           } catch (error) {
             setSubmitting(false)
+            setDisabled(false)
             toast({
               title: <Trans id="error" />,
               description: error.message,
@@ -218,8 +220,8 @@ export function SubmitPhone() {
                 variantColor="brand"
                 size="lg"
                 mt="8"
-                w="320px"
-                // isDisabled={}
+                w="300px"
+                disabled={disabled}
                 isLoading={isSubmitting}
                 type="submit">
                 <Trans id="validatePhoneNumber" />

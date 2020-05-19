@@ -43,8 +43,8 @@ export function Header(props) {
         <Menu size={30} strokeWidth={3} />
       </Box>
       <Box
-        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
-        width={{ sm: 'full', md: 'auto' }}
+        display={{ xs: show ? 'block' : 'none', md: 'flex' }}
+        width={{ xs: 'full', md: 'auto' }}
         alignItems="center">
         <MenuItems>Despre proiect</MenuItems>
         <MenuItems>Parteneri</MenuItems>

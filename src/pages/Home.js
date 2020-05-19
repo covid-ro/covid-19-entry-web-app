@@ -6,7 +6,7 @@ import { WhiteBox } from '../components/WhiteBox'
 
 export function Home() {
   return (
-    <WhiteBox>
+    <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="400">
         <Trans id="infoLabelBegin" />
       </Heading>

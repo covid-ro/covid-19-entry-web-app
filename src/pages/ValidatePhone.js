@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { useHistory, Link as RLink } from 'react-router-dom'
 import {
@@ -30,17 +30,18 @@ export function ValidatePhone() {
   let history = useHistory()
   const toast = useToast()
   const languageContext = useContext(LanguageContext)
+  const [disabled, setDisabled] = useState(false)
   const [progress, minutes, seconds] = useCountdown(30)
   const [local] = useLocalStorage('phone')
   return (
     <Flex flexDirection="column" w="100%">
-      <WhiteBox>
+      <WhiteBox p={[1, 8]}>
         <Flex flexDirection="row" width="100%" alignItems="center">
           <Progress value={progress} height="2px" w="90%" grow={1} />
           <Text ml="auto">{`${minutes}:${seconds}`}</Text>
         </Flex>
       </WhiteBox>
-      <WhiteBox>
+      <WhiteBox p={[1, 8]}>
         <Heading size="md" lineHeight="32px" fontWeight="400">
           <Trans id="addSMSCode" />
         </Heading>
@@ -83,14 +84,23 @@ export function ValidatePhone() {
                   isClosable: true,
                 })
                 setTimeout(() => {
-                  setSubmitting(false)
+                  setDisabled(true)
                   history.push('/declaratie')
                 }, 3000)
               } else {
                 setSubmitting(false)
+                setDisabled(false)
+                let message
+                switch (response.message) {
+                  case 'Invalid value for parameter: code':
+                    message = languageContext.dictionary['incorrectCode']
+                    break
+                  default:
+                    message = languageContext.dictionary['unknownError']
+                }
                 toast({
                   title: <Trans id="error" />,
-                  description: response.message,
+                  description: message,
                   status: 'error',
                   isClosable: true,
                   duration: null,
@@ -98,6 +108,7 @@ export function ValidatePhone() {
               }
             } catch (error) {
               setSubmitting(false)
+              setDisabled(false)
               toast({
                 title: <Trans id="error" />,
                 description: error.message,
@@ -153,8 +164,8 @@ export function ValidatePhone() {
                   variantColor="brand"
                   size="lg"
                   mt="8"
-                  w="320px"
-                  disabled={progress === 100}
+                  w="300px"
+                  disabled={progress === 100 || disabled}
                   isLoading={isSubmitting}
                   type="submit">
                   <Trans id="save" />

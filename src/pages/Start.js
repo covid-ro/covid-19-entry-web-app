@@ -5,7 +5,7 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 export function Start() {
   return (
-    <WhiteBox>
+    <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="regular">
         <Trans id="start" />
       </Heading>
@@ -23,7 +23,7 @@ export function Start() {
         alignItems="center"
         justifyContent="center">
         <Link to="/introducere-telefon">
-          <Button variantColor="brand" size="lg" mt="8" w="320px">
+          <Button variantColor="brand" size="lg" mt="8" w="300px">
             <Trans id="completeDeclaration" />
           </Button>
         </Link>

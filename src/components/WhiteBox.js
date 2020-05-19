@@ -9,7 +9,8 @@ export function WhiteBox({ children, onClick, ...rest }) {
       borderWidth="1px"
       rounded="md"
       bg="white"
-      p={[1, 8]}
+      // py={[1, 8]}
+      // px={[1, 8]}
       my="4"
       w="100%">
       {children}
