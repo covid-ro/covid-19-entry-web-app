@@ -1,8 +1,11 @@
 import React, { useState, useContext, useRef } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import ro from 'date-fns/locale/ro'
+import format from 'date-fns/format'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -33,6 +36,7 @@ import {
 } from '@chakra-ui/core'
 import '../assets/css/sigStyles.css'
 import '@reach/dialog/styles.css'
+import '../assets/css/datepicker.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
@@ -234,6 +238,12 @@ export function Declaration() {
               if (values.signature === '') {
                 errors.signature = languageContext.dictionary['required']
               }
+              if (!values.accept_personal_data) {
+                errors.signature = languageContext.dictionary['required']
+              }
+              if (!values.accept_read_law) {
+                errors.signature = languageContext.dictionary['required']
+              }
               return errors
             }}
             onSubmit={async (values, { resetForm, setSubmitting }) => {
@@ -241,6 +251,10 @@ export function Declaration() {
                 ...values,
                 travelling_from_country_code:
                   values.travelling_from_country_code.value,
+                travelling_from_date: format(
+                  values.travelling_from_date,
+                  'dd-MM-yyyy'
+                ),
                 isolation_addresses: [
                   {
                     ...values.isolation_addresses,
@@ -330,6 +344,7 @@ export function Declaration() {
               errors,
               setFieldValue,
               setFieldTouched,
+              handleSubmit,
               isSubmitting,
             }) => {
               return (
@@ -626,16 +641,20 @@ export function Declaration() {
                             <Trans id="dataPlecarii" />
                           </FormLabel>
                           <InputGroup>
-                            <Input
-                              {...field}
-                              type="date"
+                            <DatePicker
+                              selected={form.values.travelling_from_date}
                               locale={ro}
-                              pattern="\d{4}-\d{2}-\d{2}"
-                              value={values.travelling_from_date}
                               name="travelling_from_date"
-                              variant="flushed"
                               isRequired
+                              dateFormat="dd/MM/yyyy"
+                              onChange={(date) =>
+                                setFieldValue('travelling_from_date', date)
+                              }
+                              placeholderText={
+                                languageContext.dictionary['selectDate']
+                              }
                             />
+
                             <InputRightElement
                               children={
                                 !form.errors.travelling_from_date &&
@@ -1100,6 +1119,7 @@ export function Declaration() {
                       mt="8"
                       w="320px"
                       isLoading={isSubmitting}
+                      onClick={handleSubmit}
                       type="submit">
                       <Trans id="trimite" />
                     </Button>

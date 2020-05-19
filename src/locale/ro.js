@@ -44,6 +44,7 @@ const ro = {
   unauthorized: 'Neautentificat',
   incorrectSerie: 'Serie document incorectă',
   incorrectNumber: 'Număr document incorect',
+  selectDate: 'Selectați data',
   acceptanceTitle: 'Un ultim pas',
   acceptanceLabel: 'Declar pe propria răspundere că:',
   acceptPersonalData:
