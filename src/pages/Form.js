@@ -208,6 +208,13 @@ export function Declaration() {
               if (!values.document_number) {
                 errors.document_number = languageContext.dictionary['required']
               }
+              if (
+                values.document_series &&
+                !/^[a-z]+$/i.test(values.document_series)
+              ) {
+                errors.document_series =
+                  languageContext.dictionary['incorrectSerie']
+              }
               if (!values.travelling_from_country_code) {
                 errors.travelling_from_country_code =
                   languageContext.dictionary['required']
@@ -501,6 +508,12 @@ export function Declaration() {
                             <InputGroup>
                               <Input
                                 {...field}
+                                onChange={(e) =>
+                                  setFieldValue(
+                                    'document_series',
+                                    e.target.value.toUpperCase()
+                                  )
+                                }
                                 name="document_series"
                                 variant="flushed"
                                 isRequired

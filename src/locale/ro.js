@@ -44,8 +44,9 @@ const ro = {
   incorrectCNP: 'CNP incorect',
   unauthorized: 'Neautentificat',
   incorrectDate: 'Data introdusă este incorectă',
-  incorrectSerie: 'Serie document incorectă',
-  incorrectNumber: 'Număr document incorect',
+  incorrectSerie: 'Seria este incorectă. Doar litere sunt permise. de ex.: AA',
+  incorrectNumber:
+    'Numărul este incorect. Doar cifre sunt permise. de ex.: 123456',
   unknownError: 'Ne pare rău! Mai încearca odata!',
   selectDate: 'Selectați data',
   acceptanceTitle: 'Un ultim pas',
