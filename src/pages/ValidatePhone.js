@@ -83,8 +83,8 @@ export function ValidatePhone() {
                   duration: 2000,
                   isClosable: true,
                 })
+                setDisabled(true)
                 setTimeout(() => {
-                  setDisabled(true)
                   history.push('/declaratie')
                 }, 3000)
               } else {

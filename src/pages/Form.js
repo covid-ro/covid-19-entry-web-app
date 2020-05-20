@@ -233,16 +233,19 @@ export function Declaration() {
                 errors.travelling_from_date =
                   languageContext.dictionary['required']
               }
-              if (!values.isolation_addresses.county) {
-                errors.county = languageContext.dictionary['required']
+              if (
+                values.cnp.lastIndexOf('7', 0) === 0 ||
+                values.cnp.lastIndexOf('8', 0) === 0 ||
+                !values.home_isolated
+              ) {
+                if (!values.isolation_addresses.county) {
+                  errors.county = languageContext.dictionary['required']
+                }
+                if (!values.isolation_addresses.city) {
+                  errors.city = languageContext.dictionary['required']
+                }
               }
-              if (!values.isolation_addresses.city) {
-                errors.city = languageContext.dictionary['required']
-              }
-              if (!values.isolation_addresses.city_full_address) {
-                errors.city_full_address =
-                  languageContext.dictionary['required']
-              }
+
               if (!values.email) {
                 errors.email = languageContext.dictionary['required']
               } else if (
@@ -302,7 +305,6 @@ export function Declaration() {
                     dirty: false,
                   })
                   localStorage.removeItem('phone')
-                  localStorage.removeItem('token')
                   localStorage.setItem(
                     'declaration_code',
                     JSON.stringify([
@@ -321,8 +323,8 @@ export function Declaration() {
                     duration: 2000,
                     isClosable: true,
                   })
+                  setDisabled(true)
                   setTimeout(() => {
-                    setDisabled(true)
                     history.push('/success')
                   }, 3000)
                 } else {
@@ -839,7 +841,6 @@ export function Declaration() {
                           {({ field, form }) => (
                             <FormControl
                               w="100%"
-                              isRequired
                               isInvalid={
                                 form.errors.county &&
                                 form.touched?.isolation_addresses?.county
@@ -894,7 +895,6 @@ export function Declaration() {
                           {({ field, form }) => (
                             <FormControl
                               w="100%"
-                              isRequired
                               isInvalid={
                                 form.errors.city &&
                                 form.touched?.isolation_addresses?.city
@@ -947,7 +947,6 @@ export function Declaration() {
                         <Field name="isolation_addresses.street">
                           {({ field, form }) => (
                             <FormControl
-                              isRequired
                               isInvalid={
                                 form.errors.street &&
                                 form.touched?.isolation_addresses?.street
@@ -984,7 +983,6 @@ export function Declaration() {
                         <Field name="isolation_addresses.number">
                           {({ field, form }) => (
                             <FormControl
-                              isRequired
                               isInvalid={
                                 form.errors.number &&
                                 form.touched?.isolation_addresses?.number
@@ -1021,7 +1019,6 @@ export function Declaration() {
                           {({ field, form }) => (
                             <FormControl
                               w="31%"
-                              isRequired
                               isInvalid={
                                 form.errors.bloc &&
                                 form.touched?.isolation_addresses?.bloc
@@ -1056,7 +1053,6 @@ export function Declaration() {
                           {({ field, form }) => (
                             <FormControl
                               w="31%"
-                              isRequired
                               isInvalid={
                                 form.errors.entry &&
                                 form.touched?.isolation_addresses?.entry
@@ -1092,7 +1088,6 @@ export function Declaration() {
                           {({ field, form }) => (
                             <FormControl
                               w="31%"
-                              isRequired
                               isInvalid={
                                 form.errors.apartment &&
                                 form.touched?.isolation_addresses?.apartment
