@@ -304,7 +304,6 @@ export function Declaration() {
                     errors: {},
                     dirty: false,
                   })
-                  localStorage.removeItem('phone')
                   localStorage.setItem(
                     'declaration_code',
                     JSON.stringify([

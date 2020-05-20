@@ -23,6 +23,7 @@ export function Success() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   localStorage.removeItem('token')
+  localStorage.removeItem('phone')
   return (
     <WhiteBox p={[1, 8]}>
       <Text textAlign="center">
