@@ -27,7 +27,7 @@ export function Success() {
       <Text textAlign="center">
         <Trans id="yourCodesLabel" />
       </Text>
-      {declarationCodes.map((code) => (
+      {declarationCodes.map((declaration) => (
         <Flex
           mt="4"
           mb="16"
@@ -37,27 +37,32 @@ export function Success() {
           justifyContent="center"
           onClick={onOpen}
           style={{ cursor: 'pointer' }}>
+          <Heading size="lg">
+            {declaration.name} {declaration.surname}
+          </Heading>
           <Button
             variantColor="brand"
             variant="outline"
             size="lg"
             my="8"
             w="220px"
-            key={code}
+            key={declaration.code}
             fontWeight="bold">
-            {code}
+            {declaration.code}
           </Button>
           <QRCode
             bgColor="#FFFFFF"
             fgColor="#000000"
             level="Q"
             style={{ width: 256 }}
-            value={code.toString()}
+            value={declaration.code}
           />
           <Modal isOpen={isOpen} onClose={onClose} isCentered size="full">
             <ModalOverlay backgroundColor={'rgba(255,255,255,1)'} />
             <ModalContent>
-              <ModalHeader>Nume Prenume</ModalHeader>
+              <ModalHeader>
+                {declaration.name} {declaration.surname}
+              </ModalHeader>
               <ModalCloseButton />
               <ModalBody d="flex" flexDirection="column" alignItems="center">
                 <QRCode
@@ -65,7 +70,7 @@ export function Success() {
                   fgColor="#000000"
                   level="Q"
                   style={{ width: 300 }}
-                  value={code.toString()}
+                  value={declaration.code}
                 />
               </ModalBody>
 

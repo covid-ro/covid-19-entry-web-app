@@ -20,6 +20,7 @@ import {
   FormControl,
   CloseButton,
   VisuallyHidden,
+  Switch,
   Input,
   InputGroup,
   InputRightElement,
@@ -118,10 +119,15 @@ export function Declaration() {
     travelling_from_date: '',
     itinerary_countries: [],
     travel_route: '',
+    home_isolated: false,
     isolation_addresses: {
       city: '',
       county: '',
-      city_full_address: '',
+      street: '',
+      number: '',
+      bloc: '',
+      entry: '',
+      apartment: '',
     },
     vehicle_type: 'auto',
     vehicle_registration_no: '',
@@ -301,7 +307,11 @@ export function Declaration() {
                     'declaration_code',
                     JSON.stringify([
                       ...declarationCode,
-                      response.declaration_code,
+                      {
+                        code: response.declaration.code,
+                        name: response.declaration.name,
+                        surname: response.declaration.surname,
+                      },
                     ])
                   )
                   toast({
@@ -776,148 +786,346 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 4 - isolation address*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(4)}>
-                    <Heading size="md" lineHeight="32px" fontWeight="400">
+                  <WhiteBox
+                    p={[1, 8]}
+                    justifyContent="space-between"
+                    d="inline-flex"
+                    flexWrap="wrap"
+                    // flexDirection="column"
+                    onClick={() => setSlide(4)}>
+                    <Heading
+                      size="md"
+                      lineHeight="32px"
+                      fontWeight="400"
+                      w="100%">
                       <Trans id="form4Label" />
                     </Heading>
-                    <Field name="isolation_addresses.county">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.county &&
-                            form.touched?.isolation_addresses?.county
-                          }>
-                          <FormLabel
-                            htmlFor="isolation_addresses.county"
-                            mt="8">
-                            <Trans id="judet" />
-                          </FormLabel>
-                          <ReactSelect
-                            {...field}
-                            placeholder={
-                              languageContext.dictionary['selectCounty']
-                            }
-                            variant="flushed"
-                            isRequired
-                            isClearable={true}
-                            options={
-                              !judete.error
-                                ? counties
-                                : [
-                                    {
-                                      value: 0,
-                                      label: <Trans id="errorData" />,
-                                    },
-                                  ]
-                            }
-                            isLoading={!judete.data}
-                            onChange={(val) =>
-                              setFieldValue('isolation_addresses.county', val)
-                            }
-                            onBlur={() =>
-                              setFieldTouched(
-                                'isolation_addresses.county',
-                                true,
-                                true
-                              )
-                            }
-                            mt="4"
-                            styles={customStyles}
-                          />
-                          <FormErrorMessage>
-                            {form.errors.county}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="isolation_addresses.city">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.city &&
-                            form.touched?.isolation_addresses?.city
-                          }>
-                          <FormLabel htmlFor="isolation_addresses.city" mt="4">
-                            <Trans id="city" />
-                          </FormLabel>
-                          <ReactSelect
-                            {...field}
-                            placeholder={
-                              languageContext.dictionary['placeholderCity']
-                            }
-                            variant="flushed"
-                            isRequired
-                            isClearable={true}
-                            options={
-                              !judete.error
-                                ? citiesByCounty(
-                                    values.isolation_addresses.county
-                                  )
-                                : [
-                                    {
-                                      value: 0,
-                                      label: <Trans id="errorData" />,
-                                    },
-                                  ]
-                            }
-                            isLoading={!judete.data}
-                            onChange={(val) =>
-                              setFieldValue('isolation_addresses.city', val)
-                            }
-                            onBlur={() =>
-                              setFieldTouched(
-                                'isolation_addresses.city',
-                                true,
-                                true
-                              )
-                            }
-                            mt="4"
-                            styles={customStyles}
-                          />
-                          <FormErrorMessage>
-                            {form.errors.city}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="isolation_addresses.city_full_address">
-                      {({ field, form }) => (
-                        <FormControl
-                          isRequired
-                          isInvalid={
-                            form.errors.city_full_address &&
-                            form.touched?.isolation_addresses?.city_full_address
-                          }>
-                          <FormLabel
-                            htmlFor="isolation_addresses.city_full_address"
-                            mt="4">
-                            <Trans id="adresaCompleta" />
-                          </FormLabel>
-                          <InputGroup>
-                            <Input
+                    {!(
+                      values.cnp.lastIndexOf('7', 0) === 0 ||
+                      values.cnp.lastIndexOf('8', 0) === 0
+                    ) && (
+                      <Field name="home_isolated">
+                        {({ field, form }) => (
+                          <FormControl
+                            d="flex"
+                            alignItems="center"
+                            w="100%"
+                            mt="8"
+                            isInvalid={
+                              form.errors.home_isolated &&
+                              form.touched.home_isolated
+                            }>
+                            <FormLabel htmlFor="home_isolated">
+                              <Trans id="form4Switch" />
+                            </FormLabel>
+                            <Switch
                               {...field}
-                              name="isolation_addresses.city_full_address"
-                              variant="flushed"
-                              placeholder="de ex.: Str. Emil Custode, nr. 12"
+                              id="home_isolated"
+                              size="lg"
+                              color="brand"
+                              name="home_isolated"
+                              ml="auto"
                             />
-                            <InputRightElement
-                              children={
-                                !form.errors.city_full_address &&
-                                form.touched?.isolation_addresses
-                                  ?.city_full_address && (
-                                  <Icon name="check" color="green.500" />
-                                )
+                            <FormErrorMessage>
+                              {form.errors.home_isolated}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                    )}
+                    {!values.home_isolated && (
+                      <>
+                        <Field name="isolation_addresses.county">
+                          {({ field, form }) => (
+                            <FormControl
+                              w="100%"
+                              isRequired
+                              isInvalid={
+                                form.errors.county &&
+                                form.touched?.isolation_addresses?.county
+                              }>
+                              <FormLabel
+                                htmlFor="isolation_addresses.county"
+                                mt="8">
+                                <Trans id="judet" />
+                              </FormLabel>
+                              <ReactSelect
+                                {...field}
+                                placeholder={
+                                  languageContext.dictionary['selectCounty']
+                                }
+                                variant="flushed"
+                                isRequired
+                                isClearable={true}
+                                options={
+                                  !judete.error
+                                    ? counties
+                                    : [
+                                        {
+                                          value: 0,
+                                          label: <Trans id="errorData" />,
+                                        },
+                                      ]
+                                }
+                                isLoading={!judete.data}
+                                onChange={(val) =>
+                                  setFieldValue(
+                                    'isolation_addresses.county',
+                                    val
+                                  )
+                                }
+                                onBlur={() =>
+                                  setFieldTouched(
+                                    'isolation_addresses.county',
+                                    true,
+                                    true
+                                  )
+                                }
+                                mt="4"
+                                styles={customStyles}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.county}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.city">
+                          {({ field, form }) => (
+                            <FormControl
+                              w="100%"
+                              isRequired
+                              isInvalid={
+                                form.errors.city &&
+                                form.touched?.isolation_addresses?.city
+                              }>
+                              <FormLabel
+                                htmlFor="isolation_addresses.city"
+                                mt="4">
+                                <Trans id="city" />
+                              </FormLabel>
+                              <ReactSelect
+                                {...field}
+                                placeholder={
+                                  languageContext.dictionary['placeholderCity']
+                                }
+                                variant="flushed"
+                                isRequired
+                                isClearable={true}
+                                options={
+                                  !judete.error
+                                    ? citiesByCounty(
+                                        values.isolation_addresses.county
+                                      )
+                                    : [
+                                        {
+                                          value: 0,
+                                          label: <Trans id="errorData" />,
+                                        },
+                                      ]
+                                }
+                                isLoading={!judete.data}
+                                onChange={(val) =>
+                                  setFieldValue('isolation_addresses.city', val)
+                                }
+                                onBlur={() =>
+                                  setFieldTouched(
+                                    'isolation_addresses.city',
+                                    true,
+                                    true
+                                  )
+                                }
+                                mt="4"
+                                styles={customStyles}
+                              />
+                              <FormErrorMessage>
+                                {form.errors.city}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.street">
+                          {({ field, form }) => (
+                            <FormControl
+                              isRequired
+                              isInvalid={
+                                form.errors.street &&
+                                form.touched?.isolation_addresses?.street
                               }
-                            />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.city_full_address}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
+                              w="77%">
+                              <FormLabel
+                                htmlFor="isolation_addresses.street"
+                                mt="4">
+                                <Trans id="adresaStreet" />
+                              </FormLabel>
+                              <InputGroup>
+                                <Input
+                                  {...field}
+                                  name="isolation_addresses.street"
+                                  variant="flushed"
+                                  placeholder="de ex.: Str. Emil Custode"
+                                />
+                                <InputRightElement
+                                  children={
+                                    !form.errors.street &&
+                                    form.touched?.isolation_addresses
+                                      ?.street && (
+                                      <Icon name="check" color="green.500" />
+                                    )
+                                  }
+                                />
+                              </InputGroup>
+                              <FormErrorMessage>
+                                {form.errors.street}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.number">
+                          {({ field, form }) => (
+                            <FormControl
+                              isRequired
+                              isInvalid={
+                                form.errors.number &&
+                                form.touched?.isolation_addresses?.number
+                              }
+                              w="20%">
+                              <FormLabel
+                                htmlFor="isolation_addresses.number"
+                                mt="4">
+                                <Trans id="adresaNumber" />
+                              </FormLabel>
+                              <InputGroup>
+                                <Input
+                                  {...field}
+                                  name="isolation_addresses.number"
+                                  variant="flushed"
+                                />
+                                <InputRightElement
+                                  children={
+                                    !form.errors.number &&
+                                    form.touched?.isolation_addresses
+                                      ?.number && (
+                                      <Icon name="check" color="green.500" />
+                                    )
+                                  }
+                                />
+                              </InputGroup>
+                              <FormErrorMessage>
+                                {form.errors.number}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.bloc">
+                          {({ field, form }) => (
+                            <FormControl
+                              w="31%"
+                              isRequired
+                              isInvalid={
+                                form.errors.bloc &&
+                                form.touched?.isolation_addresses?.bloc
+                              }>
+                              <FormLabel
+                                htmlFor="isolation_addresses.bloc"
+                                mt="4">
+                                <Trans id="adresaBloc" />
+                              </FormLabel>
+                              <InputGroup>
+                                <Input
+                                  {...field}
+                                  name="isolation_addresses.bloc"
+                                  variant="flushed"
+                                />
+                                <InputRightElement
+                                  children={
+                                    !form.errors.bloc &&
+                                    form.touched?.isolation_addresses?.bloc && (
+                                      <Icon name="check" color="green.500" />
+                                    )
+                                  }
+                                />
+                              </InputGroup>
+                              <FormErrorMessage>
+                                {form.errors.bloc}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.entry">
+                          {({ field, form }) => (
+                            <FormControl
+                              w="31%"
+                              isRequired
+                              isInvalid={
+                                form.errors.entry &&
+                                form.touched?.isolation_addresses?.entry
+                              }>
+                              <FormLabel
+                                htmlFor="isolation_addresses.entry"
+                                mt="4">
+                                <Trans id="adresaEntry" />
+                              </FormLabel>
+                              <InputGroup>
+                                <Input
+                                  {...field}
+                                  name="isolation_addresses.entry"
+                                  variant="flushed"
+                                />
+                                <InputRightElement
+                                  children={
+                                    !form.errors.entry &&
+                                    form.touched?.isolation_addresses
+                                      ?.entry && (
+                                      <Icon name="check" color="green.500" />
+                                    )
+                                  }
+                                />
+                              </InputGroup>
+                              <FormErrorMessage>
+                                {form.errors.entry}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name="isolation_addresses.apartment">
+                          {({ field, form }) => (
+                            <FormControl
+                              w="31%"
+                              isRequired
+                              isInvalid={
+                                form.errors.apartment &&
+                                form.touched?.isolation_addresses?.apartment
+                              }>
+                              <FormLabel
+                                htmlFor="isolation_addresses.apartment"
+                                mt="4">
+                                <Trans id="adresaApartment" />
+                              </FormLabel>
+                              <InputGroup>
+                                <Input
+                                  {...field}
+                                  name="isolation_addresses.apartment"
+                                  variant="flushed"
+                                />
+                                <InputRightElement
+                                  children={
+                                    !form.errors.apartment &&
+                                    form.touched?.isolation_addresses
+                                      ?.apartment && (
+                                      <Icon name="check" color="green.500" />
+                                    )
+                                  }
+                                />
+                              </InputGroup>
+                              <FormErrorMessage>
+                                {form.errors.apartment}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </>
+                    )}
                   </WhiteBox>
                   {/* Step 5 - phone email*/}
                   <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
