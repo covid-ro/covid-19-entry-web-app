@@ -5,8 +5,9 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 
 export function End() {
+  localStorage.removeItem('declaration_code')
   return (
-    <WhiteBox>
+    <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="bold">
         <Trans id="endScreenFirstLine" />
       </Heading>
