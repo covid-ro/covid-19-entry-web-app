@@ -10,6 +10,8 @@ const ro = {
     'Urmează să completați un chestionar ce va genera declarația pe baza căreia puteți intra în țara.',
   declaratie: 'Declarație',
   progressHeaderStep: 'din 10',
+  form1Switch: 'Dețineți cetățenie română?',
+  birthdate: 'Data nașterii',
   form2Label: 'Selectați unul din actele de identitate.',
   form8Label:
     'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',

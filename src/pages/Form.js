@@ -92,7 +92,11 @@ export function Declaration() {
   const toast = useToast()
   const sigCanvas = useRef({})
   const [disabled, setDisabled] = useState(false)
-
+  const clear = () => sigCanvas.current.clear()
+  const [showDialog, setShowDialog] = useState(false)
+  const [romanian, setRomanian] = useState(true)
+  const open = () => setShowDialog(true)
+  const close = () => setShowDialog(false)
   function getFormattedPhone(phone) {
     if (!phone) {
       history.push('/introducere-telefon')
@@ -110,6 +114,7 @@ export function Declaration() {
     phone: getFormattedPhone(localStorage.getItem('phone')),
     name: '',
     cnp: '',
+    birth_date: '',
     email: '',
     document_type: 'passport',
     document_series: '',
@@ -161,11 +166,6 @@ export function Declaration() {
     }
     return []
   }
-
-  const clear = () => sigCanvas.current.clear()
-  const [showDialog, setShowDialog] = React.useState(false)
-  const open = () => setShowDialog(true)
-  const close = () => setShowDialog(false)
 
   const languageContext = useContext(LanguageContext)
   const maxStep = 9
@@ -284,6 +284,7 @@ export function Declaration() {
                 itinerary_countries: values.itinerary_countries.map(
                   (c) => c.value
                 ),
+                birth_date: romanian ? null : values.birth_date,
               }
 
               try {
@@ -383,6 +384,19 @@ export function Declaration() {
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form1Label" />
                     </Heading>
+                    <FormControl d="flex" alignItems="center" w="100%" mt="8">
+                      <FormLabel htmlFor="home_isolated">
+                        <Trans id="form1Switch" />
+                      </FormLabel>
+                      <Switch
+                        isChecked={romanian}
+                        onChange={() => setRomanian(!romanian)}
+                        id="nationality"
+                        size="lg"
+                        color="brand"
+                        ml="auto"
+                      />
+                    </FormControl>
                     <Field name="surname">
                       {({ field, form }) => (
                         <FormControl
@@ -473,6 +487,45 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
+                    {!romanian && (
+                      <Field name="birth_date">
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={
+                              form.errors.birth_date && form.touched.birth_date
+                            }>
+                            <FormLabel htmlFor="birth_date" mt="4">
+                              <Trans id="birthdate" />
+                            </FormLabel>
+                            <InputGroup>
+                              <DatePicker
+                                selected={form.values.birth_date}
+                                locale={ro}
+                                name="birth_date"
+                                dateFormat="dd/MM/yyyy"
+                                onChange={(date) =>
+                                  setFieldValue('birth_date', date)
+                                }
+                                placeholderText={
+                                  languageContext.dictionary['selectDate']
+                                }
+                              />
+                              <InputRightElement
+                                children={
+                                  !form.errors.birth_date &&
+                                  form.touched.birth_date && (
+                                    <Icon name="check" color="green.500" />
+                                  )
+                                }
+                              />
+                            </InputGroup>
+                            <FormErrorMessage>
+                              {form.errors.birth_date}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                    )}
                   </WhiteBox>
                   {/* Step 2 - pasaport/buletin serie numar*/}
                   <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
