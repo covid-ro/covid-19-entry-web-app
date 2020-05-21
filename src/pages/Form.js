@@ -10,6 +10,7 @@ import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
 import useSWR from 'swr'
+import { omit } from 'ramda'
 import {
   Heading,
   Box,
@@ -284,8 +285,8 @@ export function Declaration() {
                 itinerary_countries: values.itinerary_countries.map(
                   (c) => c.value
                 ),
-                birth_date: romanian ? null : values.birth_date,
               }
+              const body = romanian ? omit(['birth_date'], payload) : payload
 
               try {
                 const request = await fetch(`${api}/declaration`, {
@@ -295,7 +296,7 @@ export function Declaration() {
                     'X-API-KEY': process.env.REACT_APP_API_KEY,
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify(payload),
+                  body: JSON.stringify(body),
                 })
                 const response = await request.json()
                 if (response.status === 'success') {
