@@ -147,7 +147,7 @@ const ro = {
   endScreenSecondLine:
     'Prin utilizarea aplicației economisim timp prețios pe care îl folosim în scopul asigurării sănătății publice.',
   endScreenThirdLine:
-    'Te rugăm să transmiți reprezentantului DSP din punctul vamal că ai utilizat aplicația mobilă pentru completarea datelor. Pentru a fi validă, declarația completată va fi imprimată și semnată.',
+    'Te rugăm să transmiți reprezentantului DSP din punctul vamal că ai utilizat aplicația mobilă pentru completarea datelor.',
   data: 'Data',
   signatureTitle:
     'Semnatura dumneavoastra (in cazul minorilor, apartinatorii vor semna pentru ei):',

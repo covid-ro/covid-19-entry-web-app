@@ -50,17 +50,17 @@ export function Header(props) {
         width={{ xs: 'full', md: 'auto' }}
         alignItems="center">
         <MenuItems>
-          <Link>
+          <Link to="/">
             <Trans id="about" />
           </Link>
         </MenuItems>
         <MenuItems>
-          <Link>
+          <Link to="/">
             <Trans id="partners" />
           </Link>
         </MenuItems>
         <MenuItems>
-          <Link>
+          <Link to="/">
             <Trans id="otherInfo" />
           </Link>
         </MenuItems>

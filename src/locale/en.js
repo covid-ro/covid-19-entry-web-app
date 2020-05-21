@@ -145,7 +145,7 @@ const en = {
   endScreenSecondLine:
     'By using the application we save valuable time that we can spend to ensure public health.',
   endScreenThirdLine:
-    'Please inform the DSP representative at the customs point that you have used the mobile application to complete the data. To be valid, the completed declaration will be printed and signed.',
+    'Please inform the DSP representative at the customs point that you have used the mobile application to complete the data.',
   data: 'Date',
   signatureTitle:
     'Your signature (in the case of minors, the relatives will sign for them):',
