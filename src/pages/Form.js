@@ -504,6 +504,10 @@ export function Declaration() {
                                 locale={ro}
                                 name="birth_date"
                                 dateFormat="dd/MM/yyyy"
+                                peekNextMonth
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
                                 onChange={(date) =>
                                   setFieldValue('birth_date', date)
                                 }
@@ -846,7 +850,6 @@ export function Declaration() {
                     justifyContent="space-between"
                     d="inline-flex"
                     flexWrap="wrap"
-                    // flexDirection="column"
                     onClick={() => setSlide(4)}>
                     <Heading
                       size="md"
@@ -857,7 +860,8 @@ export function Declaration() {
                     </Heading>
                     {!(
                       values.cnp.lastIndexOf('7', 0) === 0 ||
-                      values.cnp.lastIndexOf('8', 0) === 0
+                      values.cnp.lastIndexOf('8', 0) === 0 ||
+                      !romanian
                     ) && (
                       <Field name="home_isolated">
                         {({ field, form }) => (

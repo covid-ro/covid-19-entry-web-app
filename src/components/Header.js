@@ -1,5 +1,6 @@
 import React from 'react'
 import { Heading, Flex, Image, Box, Text } from '@chakra-ui/core'
+import { Link } from 'react-router-dom'
 import { Menu } from 'react-feather'
 import logo from '../assets/images/gov-ro.png'
 import { Trans } from '../locale/Trans'
@@ -28,7 +29,9 @@ export function Header(props) {
       color="brand.900"
       {...props}>
       <Flex align="center" flexGrow={1}>
-        <Image src={logo} alt="Guvernul Romaniei" height="50px" />
+        <Link to="/">
+          <Image src={logo} alt="Guvernul Romaniei" height="50px" />
+        </Link>
         <Heading
           as="h1"
           size={['xs', 'lg']}
