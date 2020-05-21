@@ -335,6 +335,9 @@ export function Declaration() {
                     case 'Invalid value for parameter: cnp':
                       message = languageContext.dictionary['incorrectCNP']
                       break
+                    case 'Invalid value for parameter: birth_date':
+                      message = languageContext.dictionary['incorrectBday']
+                      break
                     case 'Invalid value for parameter: document_series':
                       message = languageContext.dictionary['incorrectSerie']
                       break

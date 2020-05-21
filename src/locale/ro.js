@@ -44,6 +44,7 @@ const ro = {
   validatePhoneNumber: 'Validează numărul de telefon',
   incorrectCode: 'Codul introdus este incorect sau a expirat',
   incorrectCNP: 'CNP incorect',
+  incorrectBday: 'Data nașterii incorectă',
   unauthorized: 'Neautentificat',
   incorrectDate: 'Data introdusă este incorectă',
   incorrectSerie: 'Seria este incorectă. Doar litere sunt permise. de ex.: AA',
