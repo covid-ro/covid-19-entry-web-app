@@ -285,6 +285,7 @@ export function Declaration() {
                 itinerary_countries: values.itinerary_countries.map(
                   (c) => c.value
                 ),
+                birth_date: format(values.birth_date, 'yyyy-MM-dd'),
               }
               const body = romanian ? omit(['birth_date'], payload) : payload
 
