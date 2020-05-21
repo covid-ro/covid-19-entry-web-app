@@ -28,20 +28,20 @@ export function Header(props) {
       bg="white"
       color="brand.900"
       {...props}>
-      <Flex align="center" flexGrow={1}>
-        <Link to="/">
+      <Link to="/">
+        <Flex align="center" flexGrow={1}>
           <Image src={logo} alt="Guvernul Romaniei" height="50px" />
-        </Link>
-        <Heading
-          as="h1"
-          size={['xs', 'lg']}
-          color="brand.900"
-          ml="4"
-          fontWeight="normal"
-          maxW="200px">
-          <Trans id="title" />
-        </Heading>
-      </Flex>
+          <Heading
+            as="h1"
+            size={['xs', 'lg']}
+            color="brand.900"
+            ml="4"
+            fontWeight="normal"
+            maxW="200px">
+            <Trans id="title" />
+          </Heading>
+        </Flex>
+      </Link>
       <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>
         <Menu size={30} strokeWidth={3} />
       </Box>
@@ -49,9 +49,21 @@ export function Header(props) {
         display={{ xs: show ? 'block' : 'none', md: 'flex' }}
         width={{ xs: 'full', md: 'auto' }}
         alignItems="center">
-        <MenuItems>Despre proiect</MenuItems>
-        <MenuItems>Parteneri</MenuItems>
-        <MenuItems>Alte informatii</MenuItems>
+        <MenuItems>
+          <Link>
+            <Trans id="about" />
+          </Link>
+        </MenuItems>
+        <MenuItems>
+          <Link>
+            <Trans id="partners" />
+          </Link>
+        </MenuItems>
+        <MenuItems>
+          <Link>
+            <Trans id="otherInfo" />
+          </Link>
+        </MenuItems>
       </Box>
     </Flex>
   )

@@ -157,5 +157,7 @@ const en = {
   selectCounty: 'Select county',
   required: 'Required field',
   yourCodesLabel: 'Your registration codes are:',
+  partners: 'Partners',
+  otherInfo: 'Other info',
 }
 export default en

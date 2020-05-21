@@ -159,5 +159,7 @@ const ro = {
   selectCounty: 'Selectați județul',
   required: 'Câmp obligatoriu',
   yourCodesLabel: 'Codurile dumeavoastra de inregistrare sunt:',
+  partners: 'Parteneri',
+  otherInfo: 'Alte informații',
 }
 export default ro
