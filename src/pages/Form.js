@@ -319,8 +319,9 @@ export function Declaration() {
                     ])
                   )
                   toast({
-                    title: <Trans id="success" />,
-                    description: <Trans id="declarationSuccess" />,
+                    title: languageContext.dictionary['success'],
+                    description:
+                      languageContext.dictionary['declarationSuccess'],
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
@@ -355,7 +356,7 @@ export function Declaration() {
                   }
                   setDisabled(false)
                   toast({
-                    title: <Trans id="error" />,
+                    title: languageContext.dictionary['error'],
                     description: message,
                     status: 'error',
                     isClosable: true,
@@ -366,7 +367,7 @@ export function Declaration() {
                 setSubmitting(false)
                 setDisabled(false)
                 toast({
-                  title: <Trans id="error" />,
+                  title: languageContext.dictionary['error'],
                   description: error.message,
                   status: 'error',
                   isClosable: true,
@@ -417,7 +418,9 @@ export function Declaration() {
                               {...field}
                               name="surname"
                               variant="flushed"
-                              placeholder="de ex.: Nicolaescu"
+                              placeholder={
+                                languageContext.dictionary['namePlaceholder']
+                              }
                             />
                             <InputRightElement
                               children={
@@ -447,7 +450,9 @@ export function Declaration() {
                               {...field}
                               name="name"
                               variant="flushed"
-                              placeholder="de ex.: Ion"
+                              placeholder={
+                                languageContext.dictionary['surnamePlaceholder']
+                              }
                             />
                             <InputRightElement
                               children={
@@ -477,7 +482,9 @@ export function Declaration() {
                               name="cnp"
                               {...field}
                               variant="flushed"
-                              placeholder="de ex.: 179....."
+                              placeholder={
+                                languageContext.dictionary['cnpPlaceholder']
+                              }
                             />
                             <InputRightElement
                               children={
@@ -593,7 +600,11 @@ export function Declaration() {
                                 name="document_series"
                                 variant="flushed"
                                 isRequired
-                                placeholder="de ex.: AA"
+                                placeholder={
+                                  languageContext.dictionary[
+                                    'seriesPlaceholder'
+                                  ]
+                                }
                               />
                               <InputRightElement
                                 children={
@@ -628,7 +639,9 @@ export function Declaration() {
                               name="document_number"
                               variant="flushed"
                               isRequired
-                              placeholder="de ex.: 179....."
+                              placeholder={
+                                languageContext.dictionary['numberPlaceholder']
+                              }
                             />
                             <InputRightElement
                               children={
@@ -709,7 +722,9 @@ export function Declaration() {
                               name="travelling_from_city"
                               variant="flushed"
                               isRequired
-                              placeholder="de ex.: Viena"
+                              placeholder={
+                                languageContext.dictionary['cityPlaceholder']
+                              }
                             />
                             <InputRightElement
                               children={
@@ -1023,7 +1038,11 @@ export function Declaration() {
                                   {...field}
                                   name="isolation_addresses.street"
                                   variant="flushed"
-                                  placeholder="de ex.: Str. Emil Custode"
+                                  placeholder={
+                                    languageContext.dictionary[
+                                      'streetPlaceholder'
+                                    ]
+                                  }
                                 />
                                 <InputRightElement
                                   children={

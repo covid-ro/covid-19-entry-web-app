@@ -77,8 +77,8 @@ export function ValidatePhone() {
               if (response.status === 'success') {
                 writeStorage('token', response.token)
                 toast({
-                  title: <Trans id="success" />,
-                  description: <Trans id="validateSuccess" />,
+                  title: languageContext.dictionary['success'],
+                  description: languageContext.dictionary['validateSuccess'],
                   status: 'success',
                   duration: 2000,
                   isClosable: true,
@@ -99,7 +99,7 @@ export function ValidatePhone() {
                     message = languageContext.dictionary['unknownError']
                 }
                 toast({
-                  title: <Trans id="error" />,
+                  title: languageContext.dictionary['error'],
                   description: message,
                   status: 'error',
                   isClosable: true,
@@ -110,7 +110,7 @@ export function ValidatePhone() {
               setSubmitting(false)
               setDisabled(false)
               toast({
-                title: <Trans id="error" />,
+                title: languageContext.dictionary['error'],
                 description: error.message,
                 status: 'error',
                 isClosable: true,

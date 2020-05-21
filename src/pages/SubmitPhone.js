@@ -117,8 +117,8 @@ export function SubmitPhone() {
             const response = await request.json()
             if (response.status === 'success') {
               toast({
-                title: <Trans id="sms" />,
-                description: <Trans id="smsDescription" />,
+                title: languageContext.dictionary['sms'],
+                description: languageContext.dictionary['smsDescription'],
                 status: 'success',
                 duration: 2000,
                 isClosable: true,
@@ -135,7 +135,7 @@ export function SubmitPhone() {
               setSubmitting(false)
               setDisabled(false)
               toast({
-                title: <Trans id="error" />,
+                title: languageContext.dictionary['error'],
                 description: response.message,
                 status: 'error',
                 isClosable: true,
@@ -146,7 +146,7 @@ export function SubmitPhone() {
             setSubmitting(false)
             setDisabled(false)
             toast({
-              title: <Trans id="error" />,
+              title: languageContext.dictionary['error'],
               description: error.message,
               status: 'error',
               isClosable: true,

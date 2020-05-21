@@ -57,7 +57,7 @@ const ro = {
   acceptPersonalData:
     'Sunt de acord ca datele cu caracter personal și informațiile furnizate să fie prelucrate de către autoritățile competente',
   acceptReadLaw:
-    'Am luat la cunoștiință de prevederile art. 326 din Codul Penal cu privire la falsul în declarații și cele ale art. 352 din Codul Penal cu privire la zădărnicirea combaterii bolilor.',
+    'Am luat la cunoștință de prevederile art. 326 din Codul Penal cu privire la falsul în declarații și cele ale art. 352 din Codul Penal cu privire la zădărnicirea combaterii bolilor.',
   validatePhoneNumberInformationLabel:
     'Va rugăm să introduceți un număr de telefon valid, unde puteți fi contactat pe perioada autoizolării. Veți primi pe SMS un cod unic, ce va trebui înscris în câmpul de mai jos.',
   countriesCrossed: 'Tări tranzitate',
@@ -76,7 +76,7 @@ const ro = {
   form3Label: 'Țara și localitatea din care ați plecat, în ce zi:',
   country: 'Țara',
   error: 'Eroare!',
-  success: 'Success!',
+  success: 'Succes!',
   declarationSuccess: 'Declaratia dumneavoastra a fost salvata cu success',
   validateSuccess: 'Numărul de telefon a fost validat cu success.',
   city: 'Localitate',
@@ -114,6 +114,13 @@ const ro = {
   telefonValid: 'Telefon valid',
   email: 'E-mail',
   emailPlaceholder: 'ion.nicolaescu@tld.ro',
+  namePlaceholder: 'de ex.: Nicolaescu',
+  surnamePlaceholder: 'de ex.: Ion',
+  cnpPlaceholder: 'de ex.: 179.....',
+  seriesPlaceholder: 'de ex.: AA',
+  numberPlaceholder: 'de ex.: 628127',
+  cityPlaceholder: 'de ex.: Viena',
+  streetPlaceholder: 'de ex.: Str. Emil Custode',
   invalidEmail: 'E-mail greșit',
   form1Label: 'Vă rugăm să adăugați datele personale.',
   nume: 'Nume',
