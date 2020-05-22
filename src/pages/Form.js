@@ -311,6 +311,7 @@ export function Declaration() {
                         code: response.declaration.code,
                         name: response.declaration.name,
                         surname: response.declaration.surname,
+                        cnp: response.declaration.cnp,
                       },
                     ])
                   )

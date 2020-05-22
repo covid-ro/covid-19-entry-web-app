@@ -57,7 +57,7 @@ export function Success() {
             fgColor="#000000"
             level="Q"
             style={{ width: 256 }}
-            value={declaration.code}
+            value={`${declaration.code}  ${declaration.cnp}`}
           />
           <Modal isOpen={isOpen} onClose={onClose} isCentered size="full">
             <ModalOverlay backgroundColor={'rgba(255,255,255,1)'} />
@@ -72,7 +72,7 @@ export function Success() {
                   fgColor="#000000"
                   level="Q"
                   style={{ width: 300 }}
-                  value={declaration.code}
+                  value={`${declaration.code}  ${declaration.cnp}`}
                 />
               </ModalBody>
 
