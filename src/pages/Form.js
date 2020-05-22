@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import ro from 'date-fns/locale/ro'
-import format from 'date-fns/format'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -95,7 +94,6 @@ export function Declaration() {
   const [disabled, setDisabled] = useState(false)
   const clear = () => sigCanvas.current.clear()
   const [showDialog, setShowDialog] = useState(false)
-  const [romanian, setRomanian] = useState(true)
   const open = () => setShowDialog(true)
   const close = () => setShowDialog(false)
   function getFormattedPhone(phone) {
@@ -115,6 +113,7 @@ export function Declaration() {
     phone: getFormattedPhone(localStorage.getItem('phone')),
     name: '',
     cnp: '',
+    is_romanian: true,
     birth_date: '',
     email: '',
     document_type: 'passport',
@@ -271,10 +270,6 @@ export function Declaration() {
                 ...values,
                 travelling_from_country_code:
                   values.travelling_from_country_code.value,
-                travelling_from_date: format(
-                  values.travelling_from_date,
-                  'yyyy-MM-dd'
-                ),
                 isolation_addresses: [
                   {
                     ...values.isolation_addresses,
@@ -285,9 +280,10 @@ export function Declaration() {
                 itinerary_countries: values.itinerary_countries.map(
                   (c) => c.value
                 ),
-                birth_date: format(values.birth_date, 'yyyy-MM-dd'),
               }
-              const body = romanian ? omit(['birth_date'], payload) : payload
+              const body = values.is_romanian
+                ? omit(['birth_date'], payload)
+                : payload
 
               try {
                 const request = await fetch(`${api}/declaration`, {
@@ -380,7 +376,6 @@ export function Declaration() {
               errors,
               setFieldValue,
               setFieldTouched,
-              handleSubmit,
               isSubmitting,
             }) => {
               return (
@@ -390,19 +385,28 @@ export function Declaration() {
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form1Label" />
                     </Heading>
-                    <FormControl d="flex" alignItems="center" w="100%" mt="8">
-                      <FormLabel htmlFor="home_isolated">
-                        <Trans id="form1Switch" />
-                      </FormLabel>
-                      <Switch
-                        isChecked={romanian}
-                        onChange={() => setRomanian(!romanian)}
-                        id="nationality"
-                        size="lg"
-                        color="brand"
-                        ml="auto"
-                      />
-                    </FormControl>
+                    <Field name="name">
+                      {({ field, form }) => (
+                        <FormControl
+                          d="flex"
+                          alignItems="center"
+                          w="100%"
+                          mt="8">
+                          <FormLabel htmlFor="home_isolated">
+                            <Trans id="form1Switch" />
+                          </FormLabel>
+                          <Switch
+                            {...field}
+                            isChecked={values.is_romanian}
+                            name="is_romanian"
+                            id="nationality"
+                            size="lg"
+                            color="brand"
+                            ml="auto"
+                          />
+                        </FormControl>
+                      )}
+                    </Field>
                     <Field name="surname">
                       {({ field, form }) => (
                         <FormControl
@@ -499,7 +503,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                    {!romanian && (
+                    {!values.is_romanian && (
                       <Field name="birth_date">
                         {({ field, form }) => (
                           <FormControl
@@ -512,7 +516,6 @@ export function Declaration() {
                             <InputGroup>
                               <DatePicker
                                 selected={form.values.birth_date}
-                                locale={ro}
                                 name="birth_date"
                                 dateFormat="dd/MM/yyyy"
                                 peekNextMonth
@@ -755,7 +758,7 @@ export function Declaration() {
                           <InputGroup>
                             <DatePicker
                               selected={form.values.travelling_from_date}
-                              locale={ro}
+                              locale={values.is_romanian ? ro : null}
                               name="travelling_from_date"
                               isRequired
                               dateFormat="dd/MM/yyyy"
@@ -880,7 +883,7 @@ export function Declaration() {
                     {!(
                       values.cnp.lastIndexOf('7', 0) === 0 ||
                       values.cnp.lastIndexOf('8', 0) === 0 ||
-                      !romanian
+                      !values.is_romanian
                     ) && (
                       <Field name="home_isolated">
                         {({ field, form }) => (
@@ -898,6 +901,7 @@ export function Declaration() {
                             </FormLabel>
                             <Switch
                               {...field}
+                              isChecked={values.home_isolated}
                               id="home_isolated"
                               size="lg"
                               color="brand"
@@ -1507,7 +1511,7 @@ export function Declaration() {
                       w="320px"
                       disabled={disabled}
                       isLoading={isSubmitting}
-                      onClick={handleSubmit}
+                      // onClick={handleSubmit}
                       type="submit">
                       <Trans id="trimite" />
                     </Button>
