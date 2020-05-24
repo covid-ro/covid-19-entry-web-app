@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
+import Recaptcha from 'react-recaptcha'
+import { omit } from 'ramda'
 import Select, { components } from 'react-select'
 import { writeStorage } from '@rehooks/local-storage'
 import { LanguageContext } from '../locale/LanguageContext'
@@ -45,6 +47,7 @@ const formatGroupLabel = (data) => (
 const initialValues = {
   phone_country_prefix: { label: 'România', value: '+40' },
   phone: '',
+  recaptcha: '',
 }
 const customStyles = {
   control: (styles, state) => ({
@@ -80,6 +83,7 @@ export function SubmitPhone() {
   let history = useHistory()
   const languageContext = useContext(LanguageContext)
   const [disabled, setDisabled] = useState(false)
+
   return (
     <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="400">
@@ -97,6 +101,9 @@ export function SubmitPhone() {
           if (!values.phone_country_prefix) {
             errors.phone_country_prefix = languageContext.dictionary['required']
           }
+          if (!values.recaptcha) {
+            errors.recaptcha = languageContext.dictionary['required']
+          }
 
           return errors
         }}
@@ -112,7 +119,7 @@ export function SubmitPhone() {
                 'X-API-KEY': process.env.REACT_APP_API_KEY,
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(payload),
+              body: JSON.stringify(omit(['recaptcha'], payload)),
             })
             const response = await request.json()
             if (response.status === 'success') {
@@ -154,7 +161,7 @@ export function SubmitPhone() {
             })
           }
         }}>
-        {({ isSubmitting, setFieldValue }) => (
+        {({ isSubmitting, setFieldValue, values }) => (
           <Form>
             <Field name="phone_country_prefix">
               {(props) => (
@@ -209,6 +216,34 @@ export function SubmitPhone() {
                 </Field>
               )}
             </Field>
+            <Field name="recaptcha">
+              {({ field, form }) => (
+                <FormControl
+                  isRequired
+                  isInvalid={form.errors.phone && form.touched.phone}>
+                  <FormLabel htmlFor="phone" mt="8">
+                    recaptcha
+                  </FormLabel>
+                  <Recaptcha
+                    sitekey={process.env.REACT_APP_RECAPTCHA_SECRET}
+                    render="explicit"
+                    theme="dark"
+                    verifyCallback={(response) => {
+                      setFieldValue('recaptcha', response)
+                    }}
+                    onloadCallback={() => {
+                      console.log('done loading!')
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {form.errors.recaptcha &&
+                      form.touched.recaptcha &&
+                      form.errors.recaptcha}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+
             <Box
               mt="4"
               mb="16"
@@ -221,7 +256,7 @@ export function SubmitPhone() {
                 size="lg"
                 mt="8"
                 w="300px"
-                disabled={disabled}
+                disabled={disabled || values.recaptcha === ''}
                 isLoading={isSubmitting}
                 type="submit">
                 <Trans id="validatePhoneNumber" />

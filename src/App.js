@@ -1,9 +1,7 @@
 import { hot } from 'react-hot-loader/root'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
-
 import { Layout } from './components/Layout'
-// import { LanguageProvider } from './locale/LanguageContext'
 import { Home } from './pages/Home'
 import { Start } from './pages/Start'
 import { SubmitPhone } from './pages/SubmitPhone'
@@ -13,6 +11,13 @@ import { Success } from './pages/Success'
 import { End } from './pages/End'
 
 function App() {
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js`
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+  })
   return (
     <Layout>
       <Route exact path="/">
