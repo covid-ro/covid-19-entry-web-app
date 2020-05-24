@@ -50,7 +50,14 @@ const ro = {
   incorrectSerie: 'Seria este incorectă. Doar litere sunt permise. de ex.: AA',
   incorrectNumber:
     'Numărul este incorect. Doar cifre sunt permise. de ex.: 123456',
+  incorrectPhone: 'Număr de telefon este incorect.',
   unknownError: 'Ne pare rău! Mai încearca odata!',
+  recaptcha:
+    'Acest site este protejat de reCAPTCHA și pentru folosirea lui se aplică',
+  privacy: 'politica de confidențialitate',
+  terms: 'termenii de utilizare',
+  and: 'și',
+  apply: 'Google',
   selectDate: 'Selectați data',
   acceptanceTitle: 'Un ultim pas',
   acceptanceLabel: 'Declar pe propria răspundere că:',

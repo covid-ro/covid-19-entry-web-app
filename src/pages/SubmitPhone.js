@@ -11,6 +11,8 @@ import { groupedPhoneCodes } from '../assets/data/groupedCountries'
 import {
   Heading,
   Box,
+  Text,
+  Link,
   FormErrorMessage,
   FormLabel,
   FormControl,
@@ -143,7 +145,10 @@ export function SubmitPhone() {
               setDisabled(false)
               toast({
                 title: languageContext.dictionary['error'],
-                description: response.message,
+                description:
+                  response.message === 'Validation failure'
+                    ? languageContext.dictionary['incorrectNumber']
+                    : response.message,
                 status: 'error',
                 isClosable: true,
                 duration: null,
@@ -203,6 +208,7 @@ export function SubmitPhone() {
                         />
                         <InputRightElement
                           children={
+                            values.phone !== '' &&
                             !form.errors.phone &&
                             form.touched.phone && (
                               <Icon name="check" color="green.500" />
@@ -220,7 +226,7 @@ export function SubmitPhone() {
               {({ field, form }) => (
                 <FormControl
                   isRequired
-                  isInvalid={form.errors.phone && form.touched.phone}>
+                  isInvalid={form.errors.recaptcha && form.touched.recaptcha}>
                   <ReCaptcha
                     sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
                     action="submit"
@@ -229,11 +235,7 @@ export function SubmitPhone() {
                       setFieldValue('recaptcha', response)
                     }}
                   />
-                  <FormErrorMessage>
-                    {form.errors.recaptcha &&
-                      form.touched.recaptcha &&
-                      form.errors.recaptcha}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{form.errors.recaptcha}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -259,6 +261,23 @@ export function SubmitPhone() {
           </Form>
         )}
       </Formik>
+      <Text fontSize="xs">
+        <Trans id="recaptcha" />{' '}
+        <Link
+          isExternal
+          href="https://policies.google.com/privacy"
+          color="brand.500">
+          <Trans id="privacy" />
+        </Link>{' '}
+        <Trans id="and" />{' '}
+        <Link
+          isExternal
+          color="brand.500"
+          href="https://policies.google.com/terms">
+          <Trans id="terms" />
+        </Link>{' '}
+        <Trans id="apply" />.
+      </Text>
     </WhiteBox>
   )
 }

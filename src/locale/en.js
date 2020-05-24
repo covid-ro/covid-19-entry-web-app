@@ -48,6 +48,13 @@ const en = {
   incorrectDate: 'Incorrect date entered',
   incorrectSerie: 'Incorrect series. Only letters are allowed eg.: AA',
   incorrectNumber: 'Incorrect number. Only numbers are allowed eg.: 123456',
+  recaptcha:
+    'This site is protected by reCAPTCHA and for its usage, the Google',
+  privacy: 'Privacy Policy',
+  terms: 'Terms of Service',
+  and: 'and',
+  apply: 'apply',
+  incorrectPhone: 'Incorrect phone number.',
   unknownError: 'We are sorry. Please try again!',
   selectDate: 'Choose date',
   acceptanceTitle: 'One last step',
