@@ -8,6 +8,7 @@ const ro = {
   about: 'Despre proiect',
   start:
     'Urmează să completați un chestionar ce va genera declarația pe baza căreia puteți intra în țara.',
+  startHere: 'Începe aici!',
   declaratie: 'Declarație',
   progressHeaderStep: 'din 10',
   form1Switch: 'Dețineți cetățenie română?',
@@ -166,7 +167,10 @@ const ro = {
   selectCounty: 'Selectați județul',
   required: 'Câmp obligatoriu',
   yourCodesLabel: 'Codurile dumeavoastra de inregistrare sunt:',
-  partners: 'Parteneri',
+  codes: 'Vezi codurile tale',
   otherInfo: 'Alte informații',
+  noCodesYet: 'Momentan nu aveți nici o declarație completată',
+  footer: 'Dezvoltat de',
+  sts: 'Serviciul de Telecomunicatii Speciale',
 }
 export default ro

@@ -8,6 +8,8 @@ const en = {
   about: 'About project',
   start:
     'You are about to fill in a form that will generate the statement you must have so you can enter the country.',
+  startHere: 'Start here!',
+
   declaratie: 'Statement',
   progressHeaderStep: 'of 10',
   form1Switch: 'Are you a romanian citizen?',
@@ -164,7 +166,10 @@ const en = {
   selectCounty: 'Select county',
   required: 'Required field',
   yourCodesLabel: 'Your registration codes are:',
-  partners: 'Partners',
+  codes: 'Your codes',
   otherInfo: 'Other info',
+  noCodesYet: 'At the moment you have not filled in any statements',
+  footer: 'Developed by',
+  sts: 'Special Telecomunications Service',
 }
 export default en

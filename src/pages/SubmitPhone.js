@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import { ReCaptcha } from 'react-recaptcha-v3'
 import { omit } from 'ramda'
@@ -83,9 +83,17 @@ const api = process.env.REACT_APP_API
 export function SubmitPhone() {
   const toast = useToast()
   let history = useHistory()
+  let location = useLocation()
   const languageContext = useContext(LanguageContext)
   const [disabled, setDisabled] = useState(false)
-
+  if (location?.state?.message) {
+    toast({
+      title: languageContext.dictionary['startHere'],
+      description: location?.state?.message,
+      status: 'info',
+      duration: 4000,
+    })
+  }
   return (
     <WhiteBox p={[1, 8]}>
       <Heading size="md" lineHeight="32px" fontWeight="400">

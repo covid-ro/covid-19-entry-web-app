@@ -32,7 +32,7 @@ function App() {
       <Route path="/declaratie">
         <Declaration />
       </Route>
-      <Route path="/success">
+      <Route path="/succes">
         <Success />
       </Route>
       <Route path="/multumim">

@@ -55,8 +55,8 @@ export function Header(props) {
           </Link>
         </MenuItems>
         <MenuItems>
-          <Link to="/">
-            <Trans id="partners" />
+          <Link to="/succes">
+            <Trans id="codes" />
           </Link>
         </MenuItems>
         <MenuItems>

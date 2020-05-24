@@ -1,11 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import {
   Box,
   Flex,
   Heading,
   Button,
-  Text,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -15,21 +14,32 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/core'
-
 import { QRCode } from 'react-qr-svg'
+import { LanguageContext } from '../locale/LanguageContext'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 export function Success() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const languageContext = useContext(LanguageContext)
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
+  if (!declarationCodes) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/introducere-telefon',
+          state: { message: languageContext.dictionary['noCodesYet'] },
+        }}
+      />
+    )
+  }
   localStorage.removeItem('token')
   localStorage.removeItem('phone')
   return (
     <WhiteBox p={[1, 8]}>
-      <Text textAlign="center">
+      <Heading textAlign="center" mb="12">
         <Trans id="yourCodesLabel" />
-      </Text>
-      {declarationCodes.map((declaration) => (
+      </Heading>
+      {declarationCodes?.map((declaration) => (
         <Flex
           mt="4"
           mb="16"
@@ -39,7 +49,7 @@ export function Success() {
           justifyContent="center"
           onClick={onOpen}
           style={{ cursor: 'pointer' }}>
-          <Heading size="lg">
+          <Heading size="md">
             {declaration.name} {declaration.surname}
           </Heading>
           <Button
@@ -49,7 +59,8 @@ export function Success() {
             my="8"
             w="220px"
             key={declaration.code}
-            fontWeight="bold">
+            fontWeight="bold"
+            letterSpacing="4px">
             {declaration.code}
           </Button>
           <QRCode
