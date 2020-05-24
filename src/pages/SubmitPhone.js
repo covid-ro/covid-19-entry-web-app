@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
-import Recaptcha from 'react-recaptcha'
+import { ReCaptcha } from 'react-recaptcha-v3'
 import { omit } from 'ramda'
 import Select, { components } from 'react-select'
 import { writeStorage } from '@rehooks/local-storage'
@@ -221,18 +221,12 @@ export function SubmitPhone() {
                 <FormControl
                   isRequired
                   isInvalid={form.errors.phone && form.touched.phone}>
-                  <FormLabel htmlFor="phone" mt="8">
-                    recaptcha
-                  </FormLabel>
-                  <Recaptcha
-                    sitekey={process.env.REACT_APP_RECAPTCHA_SECRET}
-                    render="explicit"
+                  <ReCaptcha
+                    sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+                    action="submit"
                     theme="dark"
                     verifyCallback={(response) => {
                       setFieldValue('recaptcha', response)
-                    }}
-                    onloadCallback={() => {
-                      console.log('done loading!')
                     }}
                   />
                   <FormErrorMessage>

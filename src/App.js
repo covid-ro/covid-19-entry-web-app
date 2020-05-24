@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader/root'
 import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
+import { loadReCaptcha } from 'react-recaptcha-v3'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { Start } from './pages/Start'
@@ -12,11 +13,7 @@ import { End } from './pages/End'
 
 function App() {
   useEffect(() => {
-    const script = document.createElement('script')
-    script.src = `https://www.google.com/recaptcha/api.js`
-    script.async = true
-    script.defer = true
-    document.body.appendChild(script)
+    loadReCaptcha(process.env.REACT_APP_RECAPTCHA_KEY)
   })
   return (
     <Layout>
