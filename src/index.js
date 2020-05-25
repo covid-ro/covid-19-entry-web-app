@@ -44,7 +44,6 @@ ReactDOM.render(
         />
         <meta name="twitter:title" content="Covid-SAFE@Frontiera  " />
         <meta name="twitter:image" content="logo192.png" />
-        <script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=Array.prototype.entries,Array.prototype.filter,Array.prototype.includes,Array.prototype.lastIndexOf,Array.prototype.map,Array.prototype.values,document,fetch,JSON,localStorage,Map,Object.assign,Object.entries,Promise,Set,String.prototype.includes"></script>
       </Helmet>
       <CSSReset />
       <Router>
