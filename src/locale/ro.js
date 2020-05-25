@@ -172,5 +172,7 @@ const ro = {
   noCodesYet: 'Momentan nu aveți nici o declarație completată',
   footer: 'Dezvoltat de',
   sts: 'Serviciul de Telecomunicatii Speciale',
+  deleteStatements: 'Ștergeți declarațiile',
+  statementsDeleted: 'Declarațiile dumneavoastră au fost șterse.',
 }
 export default ro

@@ -171,5 +171,7 @@ const en = {
   noCodesYet: 'At the moment you have not filled in any statements',
   footer: 'Developed by',
   sts: 'Special Telecomunications Service',
+  deleteStatements: 'Delete statements',
+  statementsDeleted: 'Your statements have been deleted.',
 }
 export default en
