@@ -280,10 +280,6 @@ export function Declaration() {
                   (c) => c.value
                 ),
               }
-              // const body = !!values.is_romanian
-              //   ? omit(['birth_date'], payload)
-              //   : payload
-
               try {
                 const request = await fetch(`${api}/declaration`, {
                   method: 'POST',
@@ -324,7 +320,7 @@ export function Declaration() {
                   })
                   setDisabled(true)
                   setTimeout(() => {
-                    history.push('/success')
+                    history.push('/succes')
                   }, 3000)
                 } else {
                   let message
