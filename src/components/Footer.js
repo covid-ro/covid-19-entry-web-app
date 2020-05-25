@@ -3,7 +3,7 @@ import { Box, Link, Flex } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 export function Footer() {
   return (
-    <Flex width="100%" maxW="760px" mx="auto" mt={[1, 4, 10]} px={[2, 4, 10]}>
+    <Flex width="100%" maxW="760px" mx="auto" px={[2, 4, 10]}>
       <Box
         borderColor="gray.200"
         borderBottomColor="white"
@@ -12,7 +12,6 @@ export function Footer() {
         roundedTop="md"
         textAlign="center"
         bg="white"
-        mt="4"
         w="100%">
         <Trans id="footer" />{' '}
         <Link isExternal href="https://citizennext.ro" color="brand.500">
