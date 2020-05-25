@@ -173,5 +173,7 @@ const en = {
   sts: 'Special Telecomunications Service',
   deleteStatements: 'Delete statements',
   statementsDeleted: 'Your statements have been deleted.',
+  noMatch: 'Page does not exist',
+  noMatchText: 'Please use the navigation to find what you are looking for.',
 }
 export default en

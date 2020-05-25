@@ -9,7 +9,6 @@ import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
 import useSWR from 'swr'
-// import { omit } from 'ramda'
 import {
   Heading,
   Box,
@@ -43,6 +42,8 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { CustomRadio } from '../components/CustomRadio'
 import { LanguageContext } from '../locale/LanguageContext'
+import { Layout } from '../components/Layout'
+
 const api = process.env.REACT_APP_API
 
 const groupBadgeStyles = {
@@ -172,7 +173,7 @@ export function Declaration() {
   const [step, setSlide] = useState(1)
 
   return (
-    <>
+    <Layout title="Declarație">
       {!token || token === '' ? (
         <Redirect to="/introducere-telefon" />
       ) : (
@@ -1517,6 +1518,6 @@ export function Declaration() {
           </Formik>
         </Box>
       )}
-    </>
+    </Layout>
   )
 }

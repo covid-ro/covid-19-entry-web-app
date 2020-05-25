@@ -27,6 +27,7 @@ import {
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
+import { Layout } from '../components/Layout'
 
 const groupBadgeStyles = {
   backgroundColor: '#EBECF0',
@@ -95,197 +96,200 @@ export function SubmitPhone() {
     })
   }
   return (
-    <WhiteBox p={[1, 8]}>
-      <Heading size="md" lineHeight="32px" fontWeight="400">
-        <Trans id="validatePhoneNumberInformationLabel" />
-      </Heading>
-      <Formik
-        initialValues={initialValues}
-        validate={(values) => {
-          const errors = {}
-          if (!values.phone) {
-            errors.phone = languageContext.dictionary['required']
-          } else if (!values.phone.match(/^[0-9]+$/)) {
-            errors.phone = languageContext.dictionary['numbersOnly']
-          }
-          if (!values.phone_country_prefix) {
-            errors.phone_country_prefix = languageContext.dictionary['required']
-          }
-          if (!values.recaptcha) {
-            errors.recaptcha = languageContext.dictionary['required']
-          }
+    <Layout title="Telefon">
+      <WhiteBox p={[1, 8]}>
+        <Heading size="md" lineHeight="32px" fontWeight="400">
+          <Trans id="validatePhoneNumberInformationLabel" />
+        </Heading>
+        <Formik
+          initialValues={initialValues}
+          validate={(values) => {
+            const errors = {}
+            if (!values.phone) {
+              errors.phone = languageContext.dictionary['required']
+            } else if (!values.phone.match(/^[0-9]+$/)) {
+              errors.phone = languageContext.dictionary['numbersOnly']
+            }
+            if (!values.phone_country_prefix) {
+              errors.phone_country_prefix =
+                languageContext.dictionary['required']
+            }
+            if (!values.recaptcha) {
+              errors.recaptcha = languageContext.dictionary['required']
+            }
 
-          return errors
-        }}
-        onSubmit={async (values, { setSubmitting }) => {
-          const payload = {
-            ...values,
-            phone_country_prefix: values.phone_country_prefix.value,
-          }
-          try {
-            const request = await fetch(`${api}/phone/validate`, {
-              method: 'POST',
-              headers: {
-                'X-API-KEY': process.env.REACT_APP_API_KEY,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(omit(['recaptcha'], payload)),
-            })
-            const response = await request.json()
-            if (response.status === 'success') {
-              toast({
-                title: languageContext.dictionary['sms'],
-                description: languageContext.dictionary['smsDescription'],
-                status: 'success',
-                duration: 2000,
-                isClosable: true,
+            return errors
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+            const payload = {
+              ...values,
+              phone_country_prefix: values.phone_country_prefix.value,
+            }
+            try {
+              const request = await fetch(`${api}/phone/validate`, {
+                method: 'POST',
+                headers: {
+                  'X-API-KEY': process.env.REACT_APP_API_KEY,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(omit(['recaptcha'], payload)),
               })
-              writeStorage('phone', {
-                phone_country_prefix: values.phone_country_prefix.value,
-                phone: values.phone,
-              })
-              setDisabled(true)
-              setTimeout(() => {
-                history.push('/validare-telefon')
-              }, 3000)
-            } else {
+              const response = await request.json()
+              if (response.status === 'success') {
+                toast({
+                  title: languageContext.dictionary['sms'],
+                  description: languageContext.dictionary['smsDescription'],
+                  status: 'success',
+                  duration: 2000,
+                  isClosable: true,
+                })
+                writeStorage('phone', {
+                  phone_country_prefix: values.phone_country_prefix.value,
+                  phone: values.phone,
+                })
+                setDisabled(true)
+                setTimeout(() => {
+                  history.push('/validare-telefon')
+                }, 3000)
+              } else {
+                setSubmitting(false)
+                setDisabled(false)
+                toast({
+                  title: languageContext.dictionary['error'],
+                  description:
+                    response.message === 'Validation failure'
+                      ? languageContext.dictionary['incorrectNumber']
+                      : response.message,
+                  status: 'error',
+                  isClosable: true,
+                  duration: null,
+                })
+              }
+            } catch (error) {
               setSubmitting(false)
               setDisabled(false)
               toast({
                 title: languageContext.dictionary['error'],
-                description:
-                  response.message === 'Validation failure'
-                    ? languageContext.dictionary['incorrectNumber']
-                    : response.message,
+                description: error.message,
                 status: 'error',
                 isClosable: true,
                 duration: null,
               })
             }
-          } catch (error) {
-            setSubmitting(false)
-            setDisabled(false)
-            toast({
-              title: languageContext.dictionary['error'],
-              description: error.message,
-              status: 'error',
-              isClosable: true,
-              duration: null,
-            })
-          }
-        }}>
-        {({ isSubmitting, setFieldValue, values }) => (
-          <Form>
-            <Field name="phone_country_prefix">
-              {(props) => (
-                <Field name="phone">
-                  {({ field, form }) => (
-                    <FormControl
-                      isRequired
-                      isInvalid={form.errors.phone && form.touched.phone}>
-                      <FormLabel htmlFor="phone" mt="8">
-                        <Trans id="telefon" />
-                      </FormLabel>
-                      <InputGroup>
-                        <InputLeftAddon
-                          w="100px"
-                          px="0"
-                          border="none"
-                          borderImageWidth="0"
-                          backgroundColor="#fff">
-                          <Select
-                            {...props.field}
-                            name="phone_country_prefix"
-                            options={groupedPhoneCodes}
-                            formatGroupLabel={formatGroupLabel}
-                            placeholder={<Trans id="phoneCode" />}
-                            onChange={(val) =>
-                              setFieldValue('phone_country_prefix', val)
-                            }
-                            components={{ SingleValue }}
-                            styles={customStyles}
+          }}>
+          {({ isSubmitting, setFieldValue, values }) => (
+            <Form>
+              <Field name="phone_country_prefix">
+                {(props) => (
+                  <Field name="phone">
+                    {({ field, form }) => (
+                      <FormControl
+                        isRequired
+                        isInvalid={form.errors.phone && form.touched.phone}>
+                        <FormLabel htmlFor="phone" mt="8">
+                          <Trans id="telefon" />
+                        </FormLabel>
+                        <InputGroup>
+                          <InputLeftAddon
+                            w="100px"
+                            px="0"
+                            border="none"
+                            borderImageWidth="0"
+                            backgroundColor="#fff">
+                            <Select
+                              {...props.field}
+                              name="phone_country_prefix"
+                              options={groupedPhoneCodes}
+                              formatGroupLabel={formatGroupLabel}
+                              placeholder={<Trans id="phoneCode" />}
+                              onChange={(val) =>
+                                setFieldValue('phone_country_prefix', val)
+                              }
+                              components={{ SingleValue }}
+                              styles={customStyles}
+                            />
+                          </InputLeftAddon>
+                          <Input
+                            {...field}
+                            name="phone"
+                            pl="4"
+                            variant="flushed"
+                            placeholder="72600000"
+                            w="70%"
                           />
-                        </InputLeftAddon>
-                        <Input
-                          {...field}
-                          name="phone"
-                          pl="4"
-                          variant="flushed"
-                          placeholder="72600000"
-                          w="70%"
-                        />
-                        <InputRightElement
-                          children={
-                            values.phone !== '' &&
-                            !form.errors.phone &&
-                            form.touched.phone && (
-                              <Icon name="check" color="green.500" />
-                            )
-                          }
-                        />
-                      </InputGroup>
-                      <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              )}
-            </Field>
-            <Field name="recaptcha">
-              {({ field, form }) => (
-                <FormControl
-                  isRequired
-                  isInvalid={form.errors.recaptcha && form.touched.recaptcha}>
-                  <ReCaptcha
-                    sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
-                    action="submit"
-                    theme="dark"
-                    verifyCallback={(response) => {
-                      setFieldValue('recaptcha', response)
-                    }}
-                  />
-                  <FormErrorMessage>{form.errors.recaptcha}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+                          <InputRightElement
+                            children={
+                              values.phone !== '' &&
+                              !form.errors.phone &&
+                              form.touched.phone && (
+                                <Icon name="check" color="green.500" />
+                              )
+                            }
+                          />
+                        </InputGroup>
+                        <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                )}
+              </Field>
+              <Field name="recaptcha">
+                {({ field, form }) => (
+                  <FormControl
+                    isRequired
+                    isInvalid={form.errors.recaptcha && form.touched.recaptcha}>
+                    <ReCaptcha
+                      sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+                      action="submit"
+                      theme="dark"
+                      verifyCallback={(response) => {
+                        setFieldValue('recaptcha', response)
+                      }}
+                    />
+                    <FormErrorMessage>{form.errors.recaptcha}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
 
-            <Box
-              mt="4"
-              mb="16"
-              d="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center">
-              <Button
-                variantColor="brand"
-                size="lg"
-                mt="8"
-                w="300px"
-                disabled={disabled || values.recaptcha === ''}
-                isLoading={isSubmitting}
-                type="submit">
-                <Trans id="validatePhoneNumber" />
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-      <Text fontSize="xs">
-        <Trans id="recaptcha" />{' '}
-        <Link
-          isExternal
-          href="https://policies.google.com/privacy"
-          color="brand.500">
-          <Trans id="privacy" />
-        </Link>{' '}
-        <Trans id="and" />{' '}
-        <Link
-          isExternal
-          color="brand.500"
-          href="https://policies.google.com/terms">
-          <Trans id="terms" />
-        </Link>{' '}
-        <Trans id="apply" />.
-      </Text>
-    </WhiteBox>
+              <Box
+                mt="4"
+                mb="16"
+                d="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center">
+                <Button
+                  variantColor="brand"
+                  size="lg"
+                  mt="8"
+                  w="300px"
+                  disabled={disabled || values.recaptcha === ''}
+                  isLoading={isSubmitting}
+                  type="submit">
+                  <Trans id="validatePhoneNumber" />
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+        <Text fontSize="xs">
+          <Trans id="recaptcha" />{' '}
+          <Link
+            isExternal
+            href="https://policies.google.com/privacy"
+            color="brand.500">
+            <Trans id="privacy" />
+          </Link>{' '}
+          <Trans id="and" />{' '}
+          <Link
+            isExternal
+            color="brand.500"
+            href="https://policies.google.com/terms">
+            <Trans id="terms" />
+          </Link>{' '}
+          <Trans id="apply" />.
+        </Text>
+      </WhiteBox>
+    </Layout>
   )
 }

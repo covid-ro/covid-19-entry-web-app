@@ -18,6 +18,8 @@ import { QRCode } from 'react-qr-svg'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
+import { Layout } from '../components/Layout'
+
 export function Success() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const languageContext = useContext(LanguageContext)
@@ -26,7 +28,7 @@ export function Success() {
   localStorage.removeItem('token')
   localStorage.removeItem('phone')
   return (
-    <>
+    <Layout title="Codurile dumneavoastră">
       {!declarationCodes ? (
         <Redirect
           to={{
@@ -48,6 +50,7 @@ export function Success() {
               alignItems="center"
               justifyContent="center"
               onClick={onOpen}
+              key={declaration.code}
               style={{ cursor: 'pointer' }}>
               <Heading size="md">
                 {declaration.name} {declaration.surname}
@@ -128,6 +131,6 @@ export function Success() {
           </Box>
         </WhiteBox>
       )}
-    </>
+    </Layout>
   )
 }

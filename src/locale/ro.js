@@ -174,5 +174,8 @@ const ro = {
   sts: 'Serviciul de Telecomunicatii Speciale',
   deleteStatements: 'Ștergeți declarațiile',
   statementsDeleted: 'Declarațiile dumneavoastră au fost șterse.',
+  noMatch: 'Pagină inexistentă',
+  noMatchText:
+    'Această pagină nu există. Folosiți navigația pentru a găsi ceea ce căutați.',
 }
 export default ro
