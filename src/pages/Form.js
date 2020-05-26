@@ -266,21 +266,21 @@ export function Declaration() {
               return errors
             }}
             onSubmit={async (values, { resetForm, setSubmitting }) => {
-              const payload = {
-                ...values,
-                travelling_from_country_code:
-                  values.travelling_from_country_code.value,
-                isolation_addresses: [
-                  {
-                    ...values.isolation_addresses,
-                    city: values.isolation_addresses.city.value,
-                    county: values.isolation_addresses.county.value,
-                  },
-                ],
-                itinerary_countries: values.itinerary_countries.map(
-                  (c) => c.value
-                ),
-              }
+              // const payload = {
+              //   ...values,
+              //   travelling_from_country_code:
+              //     values.travelling_from_country_code.value,
+              //   isolation_addresses: [
+              //     {
+              //       ...values.isolation_addresses,
+              //       city: values.isolation_addresses.city.value,
+              //       county: values.isolation_addresses.county.value,
+              //     },
+              //   ],
+              //   itinerary_countries: values.itinerary_countries.map(
+              //     (c) => c.value
+              //   ),
+              // }
               try {
                 const request = await fetch(`${api}/declaration`, {
                   method: 'POST',
@@ -289,7 +289,7 @@ export function Declaration() {
                     'X-API-KEY': process.env.REACT_APP_API_KEY,
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify(payload),
+                  body: JSON.stringify(values),
                 })
                 const response = await request.json()
                 if (response.status === 'success') {
