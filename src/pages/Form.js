@@ -169,7 +169,7 @@ export function Declaration() {
   }
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 9
+  const maxStep = 6
   const [step, setSlide] = useState(1)
 
   return (
@@ -661,7 +661,7 @@ export function Declaration() {
                   </WhiteBox>
                    */}
                   {/* Step 3 - travelling from*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(3)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form3LabelTemp" />
                     </Heading>
@@ -871,7 +871,7 @@ export function Declaration() {
                     justifyContent="space-between"
                     d="inline-flex"
                     flexWrap="wrap"
-                    onClick={() => setSlide(4)}>
+                    onClick={() => setSlide(3)}>
                     <Heading
                       size="md"
                       lineHeight="32px"
@@ -1206,7 +1206,7 @@ export function Declaration() {
                     )}
                   </WhiteBox>
                   {/* Step 5 - phone email*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(4)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form5Label" />
                     </Heading>
@@ -1346,7 +1346,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox> */}
                   {/* Step 9 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(8)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
@@ -1447,7 +1447,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox>
                   {/* Step 10 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(9)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
