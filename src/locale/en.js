@@ -46,7 +46,8 @@ const en = {
   incorrectCode: 'Entered code is incorrect or it has expired',
   incorrectCNP: 'Incorrect ID number',
   incorrectBday: 'Incorrect birthdate',
-  unauthorized: 'You are no longer authenticated',
+  unauthorized:
+    'We are sorry! It has been too long since authentication. You are no longer authenticated',
   incorrectDate: 'Incorrect date entered',
   incorrectSerie: 'Incorrect series. Only letters are allowed eg.: AA',
   incorrectNumber: 'Incorrect number. Only numbers are allowed eg.: 123456',
@@ -81,6 +82,7 @@ const en = {
   addPassportInfo: 'Enter passport data:',
   addICInfo: 'Enter ID card data:',
   form3Label: 'Country and city you left from, on what date:',
+  form3LabelTemp: 'Country you departed from:',
   country: 'Country',
   error: 'Error!',
   success: 'Success!',

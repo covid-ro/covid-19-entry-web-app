@@ -46,7 +46,8 @@ const ro = {
   incorrectCode: 'Codul introdus este incorect sau a expirat',
   incorrectCNP: 'CNP incorect',
   incorrectBday: 'Data nașterii incorectă',
-  unauthorized: 'Neautentificat',
+  unauthorized:
+    'Ne pare rău! A trecut prea mult timp de la autentificare. Sesiunea dumneavoastră a expirat!',
   incorrectDate: 'Data introdusă este incorectă',
   incorrectSerie: 'Seria este incorectă. Doar litere sunt permise. de ex.: AA',
   incorrectNumber:
@@ -82,6 +83,7 @@ const ro = {
   addPassportInfo: 'Introduceți datele din pașaport:',
   addICInfo: 'Introduceți datele din buletin:',
   form3Label: 'Țara și localitatea din care ați plecat, în ce zi:',
+  form3LabelTemp: 'Țara din care ați plecat:',
   country: 'Țara',
   error: 'Eroare!',
   success: 'Succes!',

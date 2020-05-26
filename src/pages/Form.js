@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import ro from 'date-fns/locale/ro'
+// import ro from 'date-fns/locale/ro'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -24,7 +24,7 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
-  RadioButtonGroup,
+  // RadioButtonGroup,
   Slider,
   Button,
   Flex,
@@ -40,7 +40,7 @@ import '../assets/css/datepicker.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
-import { CustomRadio } from '../components/CustomRadio'
+// import { CustomRadio } from '../components/CustomRadio'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Layout } from '../components/Layout'
 
@@ -116,15 +116,15 @@ export function Declaration() {
     cnp: '',
     is_romanian: true,
     birth_date: '',
-    email: '',
-    document_type: 'passport',
-    document_series: '',
-    document_number: '',
+    // email: '',
+    // document_type: 'passport',
+    // document_series: '',
+    // document_number: '',
     travelling_from_country_code: '',
-    travelling_from_city: '',
-    travelling_from_date: '',
-    itinerary_countries: [],
-    travel_route: '',
+    // travelling_from_city: '',
+    // travelling_from_date: '',
+    // itinerary_countries: [],
+    // travel_route: '',
     home_isolated: false,
     isolation_addresses: {
       city: '',
@@ -135,8 +135,8 @@ export function Declaration() {
       entry: '',
       apartment: '',
     },
-    vehicle_type: 'auto',
-    vehicle_registration_no: '',
+    // vehicle_type: 'auto',
+    // vehicle_registration_no: '',
     signature: '',
     accept_personal_data: false,
     accept_read_law: false,
@@ -212,28 +212,28 @@ export function Declaration() {
               if (!values.cnp) {
                 errors.cnp = languageContext.dictionary['required']
               }
-              if (!values.document_number) {
-                errors.document_number = languageContext.dictionary['required']
-              }
-              if (
-                values.document_series &&
-                !/^[a-z]+$/i.test(values.document_series)
-              ) {
-                errors.document_series =
-                  languageContext.dictionary['incorrectSerie']
-              }
+              // if (!values.document_number) {
+              //   errors.document_number = languageContext.dictionary['required']
+              // }
+              // if (
+              //   values.document_series &&
+              //   !/^[a-z]+$/i.test(values.document_series)
+              // ) {
+              //   errors.document_series =
+              //     languageContext.dictionary['incorrectSerie']
+              // }
               if (!values.travelling_from_country_code) {
                 errors.travelling_from_country_code =
                   languageContext.dictionary['required']
               }
-              if (!values.travelling_from_city) {
-                errors.travelling_from_city =
-                  languageContext.dictionary['required']
-              }
-              if (!values.travelling_from_date) {
-                errors.travelling_from_date =
-                  languageContext.dictionary['required']
-              }
+              // if (!values.travelling_from_city) {
+              //   errors.travelling_from_city =
+              //     languageContext.dictionary['required']
+              // }
+              // if (!values.travelling_from_date) {
+              //   errors.travelling_from_date =
+              //     languageContext.dictionary['required']
+              // }
               if (
                 values.cnp.lastIndexOf('7', 0) === 0 ||
                 values.cnp.lastIndexOf('8', 0) === 0 ||
@@ -247,12 +247,12 @@ export function Declaration() {
                 }
               }
 
-              if (
-                values.email !== '' &&
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-              ) {
-                errors.email = languageContext.dictionary['invalidEmail']
-              }
+              // if (
+              //   values.email !== '' &&
+              //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              // ) {
+              //   errors.email = languageContext.dictionary['invalidEmail']
+              // }
               if (values.signature === '') {
                 errors.signature = languageContext.dictionary['required']
               }
@@ -332,15 +332,15 @@ export function Declaration() {
                     case 'Invalid value for parameter: birth_date':
                       message = languageContext.dictionary['incorrectBday']
                       break
-                    case 'Invalid value for parameter: document_series':
-                      message = languageContext.dictionary['incorrectSerie']
-                      break
-                    case 'Invalid value for parameter: document_number':
-                      message = languageContext.dictionary['incorrectNumber']
-                      break
-                    case 'Invalid value for parameter: travelling_from_date':
-                      message = languageContext.dictionary['incorrectDate']
-                      break
+                    // case 'Invalid value for parameter: document_series':
+                    //   message = languageContext.dictionary['incorrectSerie']
+                    //   break
+                    // case 'Invalid value for parameter: document_number':
+                    //   message = languageContext.dictionary['incorrectNumber']
+                    //   break
+                    // case 'Invalid value for parameter: travelling_from_date':
+                    //   message = languageContext.dictionary['incorrectDate']
+                    //   break
                     case 'Unauthorized':
                       message = languageContext.dictionary['unauthorized']
                       break
@@ -544,7 +544,7 @@ export function Declaration() {
                     )}
                   </WhiteBox>
                   {/* Step 2 - pasaport/buletin serie numar*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
+                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form2Label" />
                     </Heading>
@@ -659,10 +659,11 @@ export function Declaration() {
                       )}
                     </Field>
                   </WhiteBox>
+                   */}
                   {/* Step 3 - travelling from*/}
                   <WhiteBox p={[1, 8]} onClick={() => setSlide(3)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
-                      <Trans id="form3Label" />
+                      <Trans id="form3LabelTemp" />
                     </Heading>
                     <Field name="travelling_from_country_code">
                       {({ field, form }) => (
@@ -705,7 +706,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                    <Field name="travelling_from_city">
+                    {/* <Field name="travelling_from_city">
                       {({ field, form }) => (
                         <FormControl
                           isRequired
@@ -862,6 +863,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
+                   */}
                   </WhiteBox>
                   {/* Step 4 - isolation address*/}
                   <WhiteBox
@@ -1232,7 +1234,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                    <Field name="email">
+                    {/* <Field name="email">
                       {({ field, form }) => (
                         <FormControl
                           isInvalid={form.errors.email && form.touched.email}>
@@ -1263,6 +1265,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
+                     */}
                     <Heading
                       size="md"
                       lineHeight="32px"
@@ -1274,7 +1277,7 @@ export function Declaration() {
                     <Trans id="alertMessage" />
                   </WhiteBox>
                   {/* Step 6 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
+                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label" />
                     </Heading>
@@ -1298,8 +1301,9 @@ export function Declaration() {
                       </CustomRadio>
                     </RadioButtonGroup>
                   </WhiteBox>
+                   */}
                   {/* Step 7 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(7)}>
+                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(7)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label2" />
                     </Heading>
@@ -1340,7 +1344,7 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                  </WhiteBox>
+                  </WhiteBox> */}
                   {/* Step 9 */}
                   <WhiteBox p={[1, 8]} onClick={() => setSlide(8)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
@@ -1507,7 +1511,6 @@ export function Declaration() {
                       w="320px"
                       disabled={disabled}
                       isLoading={isSubmitting}
-                      // onClick={handleSubmit}
                       type="submit">
                       <Trans id="trimite" />
                     </Button>
