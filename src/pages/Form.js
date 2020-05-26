@@ -270,13 +270,13 @@ export function Declaration() {
                 ...values,
                 travelling_from_country_code:
                   values.travelling_from_country_code.value,
-                // isolation_addresses: [
-                //   {
-                //     ...values.isolation_addresses,
-                //     city: values.isolation_addresses.city.value,
-                //     county: values.isolation_addresses.county.value,
-                //   },
-                // ],
+                isolation_addresses: [
+                  {
+                    ...values.isolation_addresses,
+                    city: values.isolation_addresses.city.value,
+                    county: values.isolation_addresses.county.value,
+                  },
+                ],
                 // itinerary_countries: values.itinerary_countries.map(
                 //   (c) => c.value
                 // ),
