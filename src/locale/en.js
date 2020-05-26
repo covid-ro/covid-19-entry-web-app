@@ -92,7 +92,7 @@ const en = {
   codeError: 'Code must contain 6 digits',
   completeDeclaration: 'Fill in statement',
   infoLabelBegin:
-    'This application is made available by the Romanian Government and is the basis for the statement of entry into the country at border checks, following the COVID-19 coronavirus pandemic.',
+    'This application is made available by the "Henri Coandă" International Airport and is the basis for the statement of entry into the country at border checks, following the COVID-19 coronavirus pandemic.',
   infoLabelBold:
     ' Please fill in the form in this application with real data, ',
   infoLabelEnd:

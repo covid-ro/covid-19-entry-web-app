@@ -2,7 +2,7 @@ import React from 'react'
 import { Heading, Flex, Image, Box, Text } from '@chakra-ui/core'
 import { Link } from 'react-router-dom'
 import { Menu } from 'react-feather'
-import logo from '../assets/images/gov-ro.png'
+import logo from '../assets/images/logo.png'
 import { Trans } from '../locale/Trans'
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} fontWeight="semibold" display="block">
