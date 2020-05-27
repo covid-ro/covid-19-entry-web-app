@@ -45,6 +45,8 @@ const ro = {
   validatePhoneNumber: 'Validează numărul de telefon',
   incorrectCode: 'Codul introdus este incorect sau a expirat',
   incorrectCNP: 'CNP incorect',
+  incorrectName:
+    'Numele și prenumele nu corespund cu cele din actul de identitate',
   incorrectBday: 'Data nașterii incorectă',
   unauthorized:
     'Ne pare rău! A trecut prea mult timp de la autentificare. Sesiunea dumneavoastră a expirat!',

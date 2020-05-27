@@ -45,6 +45,7 @@ const en = {
   validatePhoneNumber: 'Validate phone number',
   incorrectCode: 'Entered code is incorrect or it has expired',
   incorrectCNP: 'Incorrect ID number',
+  incorrectName: 'Your first and last name do not match your ID card',
   incorrectBday: 'Incorrect birthdate',
   unauthorized:
     'We are sorry! It has been too long since authentication. You are no longer authenticated',

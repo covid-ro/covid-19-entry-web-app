@@ -333,6 +333,9 @@ export function Declaration() {
                     case 'Invalid value for parameter: birth_date':
                       message = languageContext.dictionary['incorrectBday']
                       break
+                    case 'incorrect identity match':
+                      message = languageContext.dictionary['incorrectName']
+                      break
                     // case 'Invalid value for parameter: document_series':
                     //   message = languageContext.dictionary['incorrectSerie']
                     //   break
@@ -477,7 +480,7 @@ export function Declaration() {
                           isRequired
                           isInvalid={form.errors.cnp && form.touched.cnp}>
                           <FormLabel htmlFor="cnp" mt="4">
-                            <Trans id="cnp" />
+                            {values.is_romanian ? 'CNP' : <Trans id="cnp" />}
                           </FormLabel>
                           <InputGroup>
                             <Input
