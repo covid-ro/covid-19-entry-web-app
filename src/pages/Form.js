@@ -1,10 +1,10 @@
 import React, { useState, useContext, useRef } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
-import DatePicker from 'react-datepicker'
+import { DatePicker } from '../components/DatePicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-// import ro from 'date-fns/locale/ro'
+import format from 'date-fns/format'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -277,6 +277,7 @@ export function Declaration() {
                     county: values.isolation_addresses.county.value,
                   },
                 ],
+                birth_date: format(values.birth_date, 'yyyy-MM-dd'),
                 // itinerary_countries: values.itinerary_countries.map(
                 //   (c) => c.value
                 // ),
@@ -512,17 +513,16 @@ export function Declaration() {
                             </FormLabel>
                             <InputGroup>
                               <DatePicker
+                                {...field}
                                 selected={form.values.birth_date}
                                 name="birth_date"
-                                dateFormat="dd/MM/yyyy"
-                                peekNextMonth
                                 showMonthDropdown
                                 showYearDropdown
+                                locale={languageContext.language}
                                 dropdownMode="select"
-                                onChange={(date) =>
-                                  setFieldValue('birth_date', date)
-                                }
-                                placeholderText={
+                                onChangeDate={setFieldValue}
+                                onDateLeave={setFieldTouched}
+                                placeholder={
                                   languageContext.dictionary['selectDate']
                                 }
                               />
