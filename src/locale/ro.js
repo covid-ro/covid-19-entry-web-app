@@ -137,7 +137,7 @@ const ro = {
   form1Label: 'Vă rugăm să adăugați datele personale.',
   nume: 'Nume',
   prenume: 'Prenume',
-  cnp: 'CNP',
+  cnp: 'Număr personal de identificare',
   sms: 'SMS trimis',
   smsDescription:
     'În curând veți primi un cod de 6 cifre pe numărul de telefon introdus',
