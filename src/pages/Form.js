@@ -5,6 +5,7 @@ import { DatePicker } from '../components/DatePicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
+import { omit } from 'ramda'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -277,11 +278,16 @@ export function Declaration() {
                     county: values.isolation_addresses.county.value,
                   },
                 ],
-                birth_date: format(values.birth_date, 'yyyy-MM-dd'),
+                birth_date:
+                  values.birth_date !== '' &&
+                  format(values.birth_date, 'yyyy-MM-dd'),
                 // itinerary_countries: values.itinerary_countries.map(
                 //   (c) => c.value
                 // ),
               }
+              const body = !!values.is_romanian
+                ? omit(['birth_date'], payload)
+                : payload
               try {
                 const request = await fetch(`${api}/declaration`, {
                   method: 'POST',
@@ -290,7 +296,7 @@ export function Declaration() {
                     'X-API-KEY': process.env.REACT_APP_API_KEY,
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify(payload),
+                  body: JSON.stringify(body),
                 })
                 const response = await request.json()
                 if (response.status === 'success') {
