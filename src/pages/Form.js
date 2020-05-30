@@ -1460,9 +1460,7 @@ export function Declaration() {
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
-                    <Heading size="sm" lineHeight="32px" fontWeight="600">
-                      <Trans id="acceptanceLabel" />
-                    </Heading>
+
                     <Field name="accept_personal_data">
                       {({ field, form }) => (
                         <FormControl
@@ -1471,9 +1469,17 @@ export function Declaration() {
                             form.errors.accept_personal_data &&
                             form.touched.accept_personal_data
                           }>
+                          <FormLabel htmlFor="accept_personal_data" mt="4">
+                            <Trans id="acceptanceLabel" />
+                          </FormLabel>
                           <Checkbox
                             {...field}
                             size="lg"
+                            borderColor="brand.500"
+                            isInvalid={
+                              form.errors.accept_personal_data &&
+                              form.touched.accept_personal_data
+                            }
                             variantColor="brand"
                             mt={4}>
                             <Trans id="acceptPersonalData" />
@@ -1495,6 +1501,11 @@ export function Declaration() {
                           <Checkbox
                             {...field}
                             size="lg"
+                            borderColor="brand.500"
+                            isInvalid={
+                              form.errors.accept_read_law &&
+                              form.touched.accept_read_law
+                            }
                             variantColor="brand"
                             mt={6}>
                             <Trans id="acceptReadLaw" />
