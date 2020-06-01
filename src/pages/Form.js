@@ -213,6 +213,11 @@ export function Declaration() {
               if (!values.cnp) {
                 errors.cnp = languageContext.dictionary['required']
               }
+              if (!values.is_romanian) {
+                if (values.birth_date === '') {
+                  errors.birth_date = languageContext.dictionary['required']
+                }
+              }
               // if (!values.document_number) {
               //   errors.document_number = languageContext.dictionary['required']
               // }
@@ -514,6 +519,7 @@ export function Declaration() {
                       <Field name="birth_date">
                         {({ field, form }) => (
                           <FormControl
+                            isRequired={true}
                             isInvalid={
                               form.errors.birth_date && form.touched.birth_date
                             }>
