@@ -2,6 +2,7 @@ import React, { useState, useContext, useRef } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
 import { DatePicker } from '../components/DatePicker'
+import { Spinner } from '../components/Spinner'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
@@ -25,6 +26,7 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
+  // RadioButtonGroup,
   Slider,
   Button,
   Flex,
@@ -165,7 +167,7 @@ export function Declaration() {
       {!token || token === '' ? (
         <Redirect to="/introducere-telefon" />
       ) : !counties.data ? (
-        <div>loading...</div>
+        <Spinner />
       ) : (
         <Box w="100%">
           <WhiteBox py={1} px={[1, 8]} pos="sticky" top="90px" zIndex="sticky">
