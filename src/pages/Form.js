@@ -5,7 +5,7 @@ import { DatePicker } from '../components/DatePicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
-import { omit } from 'ramda'
+import { omit, uniqBy, sortBy, prop, pipe, map, filter } from 'ramda'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -145,26 +145,36 @@ export function Declaration() {
   const judete = useSWR('/data/judete.json', fetcher, {
     revalidateOnFocus: false,
   })
+  const uatsData = useSWR('/data/uats.json', fetcher, {
+    revalidateOnFocus: false,
+  })
+
   const declarationCode =
     JSON.parse(localStorage.getItem('declaration_code')) || []
   const token = localStorage.getItem('token')
   const counties =
-    judete.data &&
-    judete.data.judete.map((j) => {
-      return {
-        value: j.nume,
-        label: j.nume,
-      }
-    })
-  const citiesByCounty = (county) => {
-    if (judete.data && county && county !== '') {
-      const citiesArray = judete.data.judete.filter(
-        (j) => j.nume === county.value
-      )
-      const cities = citiesArray[0].localitati
-      return cities.map((c) => {
-        return { value: c.nume, label: c.nume }
+    uatsData.data &&
+    pipe(
+      uniqBy((j) => j.countyId),
+      sortBy(prop('county')),
+      map((j) => {
+        return {
+          value: j.countyId,
+          label: j.county,
+        }
       })
+    )(uatsData.data)
+
+  const citiesByCounty = (county) => {
+    if (uatsData.data && county && county !== '') {
+      const cities = pipe(
+        filter((j) => j.countyId === county.value),
+        sortBy(prop('name')),
+        map((c) => {
+          return { value: c.natcode, label: c.name }
+        })
+      )(uatsData.data)
+      return cities
     }
     return []
   }
