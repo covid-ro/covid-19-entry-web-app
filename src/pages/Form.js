@@ -5,7 +5,7 @@ import { DatePicker } from '../components/DatePicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
-import { omit, uniqBy, sortBy, prop, pipe, map, filter } from 'ramda'
+import { omit } from 'ramda'
 import ReactSelect from 'react-select'
 import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
@@ -25,7 +25,6 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
-  // RadioButtonGroup,
   Slider,
   Button,
   Flex,
@@ -96,6 +95,7 @@ export function Declaration() {
   const [disabled, setDisabled] = useState(false)
   const clear = () => sigCanvas.current.clear()
   const [showDialog, setShowDialog] = useState(false)
+  const [countyId, setCountyId] = useState('')
   const open = () => setShowDialog(true)
   const close = () => setShowDialog(false)
   function getFormattedPhone(phone) {
@@ -128,8 +128,8 @@ export function Declaration() {
     // travel_route: '',
     home_isolated: false,
     isolation_addresses: {
-      city: '',
-      county: '',
+      settlement_id: '',
+      county_id: '',
       street: '',
       number: '',
       bloc: '',
@@ -142,51 +142,30 @@ export function Declaration() {
     accept_personal_data: false,
     accept_read_law: false,
   }
-  const judete = useSWR('/data/judete.json', fetcher, {
+  const counties = useSWR(`${api}/address/county`, fetcher, {
     revalidateOnFocus: false,
   })
-  const uatsData = useSWR('/data/uats.json', fetcher, {
-    revalidateOnFocus: false,
-  })
+  const settlements = useSWR(
+    () => (countyId ? `${api}/address/settlement/${countyId}` : null),
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  )
 
   const declarationCode =
     JSON.parse(localStorage.getItem('declaration_code')) || []
   const token = localStorage.getItem('token')
-  const counties =
-    uatsData.data &&
-    pipe(
-      uniqBy((j) => j.countyId),
-      sortBy(prop('county')),
-      map((j) => {
-        return {
-          value: j.countyId,
-          label: j.county,
-        }
-      })
-    )(uatsData.data)
-
-  const citiesByCounty = (county) => {
-    if (uatsData.data && county && county !== '') {
-      const cities = pipe(
-        filter((j) => j.countyId === county.value),
-        sortBy(prop('name')),
-        map((c) => {
-          return { value: c.natcode, label: c.name }
-        })
-      )(uatsData.data)
-      return cities
-    }
-    return []
-  }
 
   const languageContext = useContext(LanguageContext)
   const maxStep = 6
   const [step, setSlide] = useState(1)
-
   return (
     <Layout title="Declarație">
       {!token || token === '' ? (
         <Redirect to="/introducere-telefon" />
+      ) : !counties.data ? (
+        <div>loading...</div>
       ) : (
         <Box w="100%">
           <WhiteBox py={1} px={[1, 8]} pos="sticky" top="90px" zIndex="sticky">
@@ -255,11 +234,11 @@ export function Declaration() {
                 values.cnp.lastIndexOf('8', 0) === 0 ||
                 !values.home_isolated
               ) {
-                if (!values.isolation_addresses.county) {
-                  errors.county = languageContext.dictionary['required']
+                if (!values.isolation_addresses.county_id) {
+                  errors.county_id = languageContext.dictionary['required']
                 }
-                if (!values.isolation_addresses.city) {
-                  errors.city = languageContext.dictionary['required']
+                if (!values.isolation_addresses.settlement_id) {
+                  errors.settlement_id = languageContext.dictionary['required']
                 }
               }
 
@@ -289,8 +268,8 @@ export function Declaration() {
                 isolation_addresses: [
                   {
                     ...values.isolation_addresses,
-                    city: values.isolation_addresses.city.value,
-                    county: values.isolation_addresses.county.value,
+                    settlement_id: values.isolation_addresses.settlement_id.id,
+                    county_id: values.isolation_addresses.county_id.id,
                   },
                 ],
                 birth_date:
@@ -941,16 +920,16 @@ export function Declaration() {
                     )}
                     {!values.home_isolated && (
                       <>
-                        <Field name="isolation_addresses.county">
+                        <Field name="isolation_addresses.county_id">
                           {({ field, form }) => (
                             <FormControl
                               w="100%"
                               isInvalid={
-                                form.errors.county &&
-                                form.touched?.isolation_addresses?.county
+                                form.errors.county_id &&
+                                form.touched?.isolation_addresses?.county_id
                               }>
                               <FormLabel
-                                htmlFor="isolation_addresses.county"
+                                htmlFor="isolation_addresses.county_id"
                                 mt="8">
                                 <Trans id="judet" />
                               </FormLabel>
@@ -963,8 +942,8 @@ export function Declaration() {
                                 isRequired
                                 isClearable={true}
                                 options={
-                                  !judete.error
-                                    ? counties
+                                  !counties.error
+                                    ? counties.data.data
                                     : [
                                         {
                                           value: 0,
@@ -972,16 +951,19 @@ export function Declaration() {
                                         },
                                       ]
                                 }
-                                isLoading={!judete.data}
-                                onChange={(val) =>
+                                getOptionValue={(option) => `${option.id}`}
+                                getOptionLabel={(option) => `${option.name}`}
+                                isLoading={!counties.data}
+                                onChange={(val) => {
+                                  setCountyId(val.id)
                                   setFieldValue(
-                                    'isolation_addresses.county',
+                                    'isolation_addresses.county_id',
                                     val
                                   )
-                                }
+                                }}
                                 onBlur={() =>
                                   setFieldTouched(
-                                    'isolation_addresses.county',
+                                    'isolation_addresses.county_id',
                                     true,
                                     true
                                   )
@@ -990,21 +972,21 @@ export function Declaration() {
                                 styles={customStyles}
                               />
                               <FormErrorMessage>
-                                {form.errors.county}
+                                {form.errors.county_id}
                               </FormErrorMessage>
                             </FormControl>
                           )}
                         </Field>
-                        <Field name="isolation_addresses.city">
+                        <Field name="isolation_addresses.settlement_id">
                           {({ field, form }) => (
                             <FormControl
                               w="100%"
                               isInvalid={
-                                form.errors.city &&
-                                form.touched?.isolation_addresses?.city
+                                form.errors.settlement_id &&
+                                form.touched?.isolation_addresses?.settlement_id
                               }>
                               <FormLabel
-                                htmlFor="isolation_addresses.city"
+                                htmlFor="isolation_addresses.settlement_id"
                                 mt="4">
                                 <Trans id="city" />
                               </FormLabel>
@@ -1017,24 +999,27 @@ export function Declaration() {
                                 isRequired
                                 isClearable={true}
                                 options={
-                                  !judete.error
-                                    ? citiesByCounty(
-                                        values.isolation_addresses.county
-                                      )
-                                    : [
+                                  !settlements.data
+                                    ? [
                                         {
                                           value: 0,
                                           label: <Trans id="errorData" />,
                                         },
                                       ]
+                                    : settlements.data.data
                                 }
-                                isLoading={!judete.data}
+                                getOptionValue={(option) => `${option.id}`}
+                                getOptionLabel={(option) => `${option.name}`}
+                                isLoading={!counties.data}
                                 onChange={(val) =>
-                                  setFieldValue('isolation_addresses.city', val)
+                                  setFieldValue(
+                                    'isolation_addresses.settlement_id',
+                                    val
+                                  )
                                 }
                                 onBlur={() =>
                                   setFieldTouched(
-                                    'isolation_addresses.city',
+                                    'isolation_addresses.settlement_id',
                                     true,
                                     true
                                   )
@@ -1043,7 +1028,7 @@ export function Declaration() {
                                 styles={customStyles}
                               />
                               <FormErrorMessage>
-                                {form.errors.city}
+                                {form.errors.settlement_id}
                               </FormErrorMessage>
                             </FormControl>
                           )}
