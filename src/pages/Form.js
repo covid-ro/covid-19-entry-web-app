@@ -962,6 +962,10 @@ export function Declaration() {
                                     'isolation_addresses.county_id',
                                     val
                                   )
+                                  setFieldValue(
+                                    'isolation_addresses.settlement_id',
+                                    ''
+                                  )
                                 }}
                                 onBlur={() =>
                                   setFieldTouched(
