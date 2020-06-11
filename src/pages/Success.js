@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import format from 'date-fns/format'
 import {
   Box,
   Flex,
@@ -15,18 +16,73 @@ import {
   useDisclosure,
 } from '@chakra-ui/core'
 import { QRCode } from 'react-qr-svg'
+import jrQrcode from 'jr-qrcode'
+
 import { LanguageContext } from '../locale/LanguageContext'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { Layout } from '../components/Layout'
+import Document from '../js/document'
+import { countriesList } from '../assets/data/groupedCountries'
+
+const api = process.env.REACT_APP_API
 
 export function Success() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const languageContext = useContext(LanguageContext)
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
-
-  localStorage.removeItem('token')
-  localStorage.removeItem('phone')
+  async function download(code) {
+    let doc = new Document()
+    const { declaration } = await getDeclaratie(code)
+    if (declaration) {
+      const qrMessage = `${declaration.code}  ${declaration.cnp}`
+      const qrcode = jrQrcode.getQrBase64(qrMessage)
+      const data = {
+        locale: languageContext.language,
+        code: declaration.code,
+        measure: {
+          hospital: true,
+          quarantine: true,
+          isolation: true,
+        },
+        lastName: declaration.surname,
+        firstName: declaration.name,
+        idCardNumber: declaration.cnp,
+        dateOfBirth: {
+          year: declaration.birth_date.split('-')[0],
+          month: declaration.birth_date.split('-')[1],
+          day: declaration.birth_date.split('-')[2],
+        },
+        countryDeparture: countriesList.find(
+          (country) =>
+            country.value === declaration.travelling_from_country_code
+        ).label,
+        destinationAddress: declaration.home_isolated
+          ? declaration.home_address ||
+            languageContext.dictionary['homeAddress']
+          : `${declaration.isolation_addresses[0].street}, ${declaration.isolation_addresses[0].number},  ${declaration.isolation_addresses[0].bloc},  ${declaration.isolation_addresses[0].entry},  ${declaration.isolation_addresses[0].apartment},  ${declaration.isolation_addresses[0].city},  ${declaration.isolation_addresses[0].county}, `,
+        phoneNumber: declaration.phone,
+        documentDate: format(new Date(declaration.created_at), 'dd-MM-yyyy'),
+      }
+      return doc.download(data, qrcode)
+    }
+  }
+  const token = localStorage.getItem('token')
+  async function getDeclaratie(code) {
+    try {
+      const request = await fetch(`${api}/declaration-web/${code}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'X-API-KEY': process.env.REACT_APP_API_KEY,
+          'Content-Type': 'application/json',
+        },
+      })
+      const response = await request.json()
+      return response
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
   return (
     <Layout title="Codurile dumneavoastră">
       {!declarationCodes ? (
@@ -49,7 +105,6 @@ export function Success() {
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
-              onClick={onOpen}
               key={declaration.code}
               style={{ cursor: 'pointer' }}>
               <Heading size="md">
@@ -59,17 +114,30 @@ export function Success() {
                 variantColor="brand"
                 variant="outline"
                 size="lg"
-                my="8"
+                mt="8"
                 w="220px"
+                onClick={onOpen}
                 key={declaration.code}
                 fontWeight="bold"
                 letterSpacing="4px">
                 {declaration.code}
               </Button>
+              <Button
+                variantColor="brand"
+                variant="outline"
+                size="lg"
+                mt="4"
+                mb="8"
+                w="220px"
+                fontWeight="bold"
+                onClick={() => download(declaration.code)}>
+                <Trans id="download" />
+              </Button>
               <QRCode
                 bgColor="#FFFFFF"
                 fgColor="#000000"
                 level="Q"
+                onClick={onOpen}
                 style={{ width: 256 }}
                 value={`${declaration.code}  ${declaration.cnp}`}
               />
@@ -95,7 +163,7 @@ export function Success() {
 
                   <ModalFooter>
                     <Button variantColor="brand" mr={3} onClick={onClose}>
-                      Închide
+                      <Trans id="close" />
                     </Button>
                   </ModalFooter>
                 </ModalContent>
