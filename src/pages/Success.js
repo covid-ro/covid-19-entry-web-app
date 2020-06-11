@@ -7,6 +7,7 @@ import {
   Heading,
   Button,
   Modal,
+  useToast,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -27,12 +28,15 @@ import { countriesList } from '../assets/data/groupedCountries'
 const api = process.env.REACT_APP_API
 
 export function Success() {
+  const toast = useToast()
   const [show, setShow] = useState(null)
+  const [disabled, setDisabled] = useState(false)
   const languageContext = useContext(LanguageContext)
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   async function download(code) {
     let doc = new Document()
     const { declaration } = await getDeclaratie(code)
+    console.log('download -> declaration', declaration)
     if (declaration) {
       const qrMessage = `${declaration.code}  ${declaration.cnp}`
       const qrcode = jrQrcode.getQrBase64(qrMessage)
@@ -68,6 +72,7 @@ export function Success() {
   }
   const token = localStorage.getItem('token')
   async function getDeclaratie(code) {
+    setDisabled(true)
     try {
       const request = await fetch(`${api}/declaration-web/${code}`, {
         headers: {
@@ -77,9 +82,36 @@ export function Success() {
         },
       })
       const response = await request.json()
-      return response
+      if (response.status === 'success') {
+        return response
+      } else {
+        let message
+        switch (response.message) {
+          case 'Unauthorized':
+            message = languageContext.dictionary['unauthorized']
+            break
+          default:
+            message = languageContext.dictionary['unknownError']
+        }
+        setDisabled(false)
+        toast({
+          title: languageContext.dictionary['error'],
+          description: message,
+          status: 'error',
+          isClosable: true,
+          duration: null,
+        })
+        return response
+      }
     } catch (err) {
-      console.log(err.message)
+      setDisabled(false)
+      toast({
+        title: languageContext.dictionary['error'],
+        description: err.message,
+        status: 'error',
+        isClosable: true,
+        duration: null,
+      })
     }
   }
   return (
@@ -113,10 +145,9 @@ export function Success() {
                 variant="outline"
                 size="lg"
                 mt="8"
-                w="220px"
+                w="256px"
                 onClick={() => setShow(declaration.code)}
                 cursor="zoom-in"
-                key={declaration.code}
                 fontWeight="bold"
                 letterSpacing="4px">
                 {declaration.code}
@@ -126,9 +157,12 @@ export function Success() {
                 size="lg"
                 mt="4"
                 mb="8"
-                w="220px"
+                w="256px"
                 leftIcon="download"
                 fontWeight="bold"
+                disabled={disabled}
+                isLoading={disabled}
+                loadingText={<Trans id="downloading" />}
                 onClick={() => download(declaration.code)}>
                 <Trans id="download" />
               </Button>

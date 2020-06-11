@@ -1537,6 +1537,7 @@ export function Declaration() {
                       w="320px"
                       disabled={disabled}
                       isLoading={isSubmitting}
+                      isLo
                       type="submit">
                       <Trans id="trimite" />
                     </Button>

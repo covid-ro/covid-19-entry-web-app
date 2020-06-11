@@ -37,6 +37,7 @@ const ro = {
   sign: 'Semnați aici',
   close: 'Închide',
   download: 'Imprimă declarația',
+  downloading: 'Declarația se descarcă',
   printNotice:
     'Arată codul / codurile QR la punctul de control de la intrarea în țară. Pentru o trecere mai rapidă vă recomandăm descărcarea și imprimarea declarației / declarațiilor înainte de a pleca spre România.',
   homeAddress: 'Adresa de domiciliu (potrivit actului de identitate)',
