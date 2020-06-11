@@ -36,7 +36,6 @@ export function Success() {
   async function download(code) {
     let doc = new Document()
     const { declaration } = await getDeclaratie(code)
-    console.log('download -> declaration', declaration)
     if (declaration) {
       const qrMessage = `${declaration.code}  ${declaration.cnp}`
       const qrcode = jrQrcode.getQrBase64(qrMessage)
@@ -83,6 +82,7 @@ export function Success() {
       })
       const response = await request.json()
       if (response.status === 'success') {
+        setDisabled(false)
         return response
       } else {
         let message
