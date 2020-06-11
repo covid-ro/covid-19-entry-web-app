@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
-import { Printer } from 'react-feather'
 import {
   Box,
   Flex,
@@ -14,7 +13,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
 } from '@chakra-ui/core'
 import { QRCode } from 'react-qr-svg'
 import jrQrcode from 'jr-qrcode'
@@ -29,7 +27,7 @@ import { countriesList } from '../assets/data/groupedCountries'
 const api = process.env.REACT_APP_API
 
 export function Success() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [show, setShow] = useState(null)
   const languageContext = useContext(LanguageContext)
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   async function download(code) {
@@ -106,8 +104,7 @@ export function Success() {
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
-              key={declaration.code}
-              style={{ cursor: 'pointer' }}>
+              key={declaration.code}>
               <Heading size="md">
                 {declaration.name} {declaration.surname}
               </Heading>
@@ -117,7 +114,7 @@ export function Success() {
                 size="lg"
                 mt="8"
                 w="220px"
-                onClick={onOpen}
+                onClick={() => setShow(declaration.code)}
                 cursor="zoom-in"
                 key={declaration.code}
                 fontWeight="bold"
@@ -139,11 +136,15 @@ export function Success() {
                 bgColor="#FFFFFF"
                 fgColor="#000000"
                 level="Q"
-                onClick={onOpen}
+                onClick={() => setShow(declaration.code)}
                 style={{ width: 256, cursor: 'zoom-in' }}
                 value={`${declaration.code}  ${declaration.cnp}`}
               />
-              <Modal isOpen={isOpen} onClose={onClose} isCentered size="full">
+              <Modal
+                isOpen={show === declaration.code}
+                onClose={() => setShow(null)}
+                isCentered
+                size="full">
                 <ModalOverlay backgroundColor={'rgba(255,255,255,1)'} />
                 <ModalContent>
                   <ModalHeader>
@@ -164,7 +165,10 @@ export function Success() {
                   </ModalBody>
 
                   <ModalFooter>
-                    <Button variantColor="brand" mr={3} onClick={onClose}>
+                    <Button
+                      variantColor="brand"
+                      mr={3}
+                      onClick={() => setShow(null)}>
                       <Trans id="close" />
                     </Button>
                   </ModalFooter>
@@ -174,6 +178,9 @@ export function Success() {
           ))}
           <Heading size="md" lineHeight="32px" fontWeight="bold">
             <Trans id="finishScreenFirstLine" />
+          </Heading>
+          <Heading size="md" lineHeight="32px" pt="4" fontWeight="regular">
+            <Trans id="printNotice" />
           </Heading>
           <Heading size="md" lineHeight="32px" pt="4" fontWeight="regular">
             <Trans id="finishScreenSecondLine" />
