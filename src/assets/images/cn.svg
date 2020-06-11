@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Branding/Symbol/CN/Blue/64px</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="37.5%" y1="42.0810697%" x2="62.5%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#3889FA" offset="0%"></stop>
+            <stop stop-color="#066BF9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="39.6694215%" y1="96.067427%" x2="60.3305785%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#066BF9" offset="0%"></stop>
+            <stop stop-color="#3889FA" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Branding/Symbol/CN/Blue/64px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(0.000000, 11.000000)">
+            <g id="N" transform="translate(32.000000, 0.000000)">
+                <polygon id="Rectangle" fill="url(#linearGradient-1)" points="23.1111111 14.2222222 32 14.2222222 32 32 23.1111111 24.8888889"></polygon>
+                <polygon id="Rectangle" fill="url(#linearGradient-2)" points="-3.15796771e-14 10.6666667 8.88888889 19.5555556 8.88888889 30.2222222 -3.15796771e-14 21.3333333"></polygon>
+                <polygon id="Rectangle" fill="#066BF9" points="0 0 32 30.2222222 32 42.6666667 0 12.4444444"></polygon>
+            </g>
+            <path d="M6.1003689,7.11111111 L12.2368661,13.2476083 C10.0382129,15.4462616 8.67831759,18.4836727 8.67831759,21.8387044 C8.67831759,28.5487679 14.1178988,33.9883491 20.8279622,33.9883491 C24.1829939,33.9883491 27.2204051,32.6284538 29.4190583,30.4298005 L35.5555556,36.5662978 C31.7864357,40.3354176 26.5794452,42.6666667 20.8279622,42.6666667 C9.32499632,42.6666667 0,33.3416703 0,21.8387044 C0,16.0872215 2.33124908,10.8802309 6.1003689,7.11111111 Z" id="Path" fill="#066BF9"></path>
+        </g>
+    </g>
+</svg>
