@@ -1,14 +1,14 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
 import { DatePicker } from '../components/DatePicker'
 import { Spinner } from '../components/Spinner'
 import 'react-datepicker/dist/react-datepicker.css'
-import { DialogOverlay, DialogContent } from '@reach/dialog'
+// import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
 import { omit } from 'ramda'
 import ReactSelect from 'react-select'
-import SignaturePad from 'react-signature-canvas'
+// import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
 import useSWR from 'swr'
 import {
@@ -19,8 +19,8 @@ import {
   FormErrorMessage,
   FormLabel,
   FormControl,
-  CloseButton,
-  VisuallyHidden,
+  // CloseButton,
+  // VisuallyHidden,
   Switch,
   Input,
   InputGroup,
@@ -34,7 +34,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Text,
-  ButtonGroup,
+  // ButtonGroup,
 } from '@chakra-ui/core'
 import '../assets/css/sigStyles.css'
 import '@reach/dialog/styles.css'
@@ -45,7 +45,6 @@ import { WhiteBox } from '../components/WhiteBox'
 // import { CustomRadio } from '../components/CustomRadio'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Layout } from '../components/Layout'
-
 const api = process.env.REACT_APP_API
 
 const groupBadgeStyles = {
@@ -93,13 +92,13 @@ const formatGroupLabel = (data) => (
 export function Declaration() {
   let history = useHistory()
   const toast = useToast()
-  const sigCanvas = useRef({})
+  // const sigCanvas = useRef({})
   const [disabled, setDisabled] = useState(false)
-  const clear = () => sigCanvas.current.clear()
-  const [showDialog, setShowDialog] = useState(false)
+  // const clear = () => sigCanvas.current.clear()
+  // const [showDialog, setShowDialog] = useState(false)
   const [countyId, setCountyId] = useState('')
-  const open = () => setShowDialog(true)
-  const close = () => setShowDialog(false)
+  // const open = () => setShowDialog(true)
+  // const close = () => setShowDialog(false)
   function getFormattedPhone(phone) {
     if (!phone) {
       history.push('/introducere-telefon')
@@ -140,7 +139,7 @@ export function Declaration() {
     },
     // vehicle_type: 'auto',
     // vehicle_registration_no: '',
-    signature: '',
+    // signature: '',
     accept_personal_data: false,
     accept_read_law: false,
   }
@@ -160,7 +159,7 @@ export function Declaration() {
   const token = localStorage.getItem('token')
 
   const languageContext = useContext(LanguageContext)
-  const maxStep = 6
+  const maxStep = 5
   const [step, setSlide] = useState(1)
   return (
     <Layout title="Declarație">
@@ -250,9 +249,9 @@ export function Declaration() {
               // ) {
               //   errors.email = languageContext.dictionary['invalidEmail']
               // }
-              if (values.signature === '') {
-                errors.signature = languageContext.dictionary['required']
-              }
+              // if (values.signature === '') {
+              //   errors.signature = languageContext.dictionary['required']
+              // }
               if (values.accept_personal_data === false) {
                 errors.accept_personal_data =
                   languageContext.dictionary['required']
@@ -1362,7 +1361,7 @@ export function Declaration() {
                     </Field>
                   </WhiteBox> */}
                   {/* Step 9 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
+                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
@@ -1461,9 +1460,9 @@ export function Declaration() {
                         </FormControl>
                       )}
                     </Field>
-                  </WhiteBox>
+                  </WhiteBox> */}
                   {/* Step 10 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
+                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
