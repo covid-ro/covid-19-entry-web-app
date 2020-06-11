@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import format from 'date-fns/format'
+import { Printer } from 'react-feather'
 import {
   Box,
   Flex,
@@ -117,6 +118,7 @@ export function Success() {
                 mt="8"
                 w="220px"
                 onClick={onOpen}
+                cursor="zoom-in"
                 key={declaration.code}
                 fontWeight="bold"
                 letterSpacing="4px">
@@ -124,11 +126,11 @@ export function Success() {
               </Button>
               <Button
                 variantColor="brand"
-                variant="outline"
                 size="lg"
                 mt="4"
                 mb="8"
                 w="220px"
+                leftIcon="download"
                 fontWeight="bold"
                 onClick={() => download(declaration.code)}>
                 <Trans id="download" />
@@ -138,7 +140,7 @@ export function Success() {
                 fgColor="#000000"
                 level="Q"
                 onClick={onOpen}
-                style={{ width: 256 }}
+                style={{ width: 256, cursor: 'zoom-in' }}
                 value={`${declaration.code}  ${declaration.cnp}`}
               />
               <Modal isOpen={isOpen} onClose={onClose} isCentered size="full">
