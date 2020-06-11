@@ -9,8 +9,9 @@ import { Layout } from '../components/Layout'
 export function End() {
   const toast = useToast()
   const languageContext = useContext(LanguageContext)
-
   function deleteStatements() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('phone')
     localStorage.removeItem('declaration_code')
     toast({
       title: languageContext.dictionary['success'],
