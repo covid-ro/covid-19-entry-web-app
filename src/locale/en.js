@@ -177,7 +177,7 @@ const en = {
   required: 'Required field',
   yourCodesLabel: 'Your registration codes are:',
   codes: 'Your codes',
-  otherInfo: 'Other info',
+  otherInfo: 'Travel advice',
   noCodesYet: 'At the moment you have not filled in any statements',
   footer: 'Developed by',
   sts: 'Special Telecomunications Service',

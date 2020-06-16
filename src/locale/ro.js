@@ -1,7 +1,7 @@
 const ro = {
   title: 'Declarație Online Coronavirus COVID-19',
   ro: 'Română',
-  en: 'Engleză',
+  en: 'English',
   langSelect: 'Vă rugăm să selectați o limbă.',
   intro:
     'Aceasta este o platforma oficiala pusa la dispozitie de Guvernul Romaniei pentru completarea declaratiei de intrare in tara la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
@@ -178,7 +178,7 @@ const ro = {
   required: 'Câmp obligatoriu',
   yourCodesLabel: 'Codurile dumeavoastra de inregistrare sunt:',
   codes: 'Vezi codurile tale',
-  otherInfo: 'Alte informații',
+  otherInfo: 'Sfaturi calatorie',
   noCodesYet: 'Momentan nu aveți nici o declarație completată',
   footer: 'Dezvoltat de',
   sts: 'Serviciul de Telecomunicatii Speciale',

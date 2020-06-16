@@ -1,9 +1,17 @@
-import React from 'react'
-import { Heading, Flex, Image, Box, Text } from '@chakra-ui/core'
+import React, { useContext } from 'react'
+import {
+  Heading,
+  Flex,
+  Image,
+  Box,
+  Text,
+  Link as Anchor,
+} from '@chakra-ui/core'
 import { Link } from 'react-router-dom'
 import { Menu } from 'react-feather'
 import logo from '../assets/images/logo.png'
 import { Trans } from '../locale/Trans'
+import { LanguageContext } from '../locale/LanguageContext'
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} fontWeight="semibold" display="block">
     {children}
@@ -12,6 +20,8 @@ const MenuItems = ({ children }) => (
 export function Header(props) {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
+  const languageContext = useContext(LanguageContext)
+
   return (
     <Flex
       as="nav"
@@ -50,9 +60,12 @@ export function Header(props) {
         width={{ xs: 'full', md: 'auto' }}
         alignItems="center">
         <MenuItems>
-          <Link to="/">
+          <Anchor
+            href="https://citizennext.ro/proiecte/covid-safe-frontiera"
+            isExternal
+            style={{ textDecoration: 'none' }}>
             <Trans id="about" />
-          </Link>
+          </Anchor>
         </MenuItems>
         <MenuItems>
           <Link to="/succes">
@@ -60,9 +73,11 @@ export function Header(props) {
           </Link>
         </MenuItems>
         <MenuItems>
-          <Link to="/">
+          <Anchor
+            href={`https://reopen.europa.eu/${languageContext.language}/map/ROU`}
+            isExternal>
             <Trans id="otherInfo" />
-          </Link>
+          </Anchor>
         </MenuItems>
       </Box>
     </Flex>
