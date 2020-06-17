@@ -75,7 +75,7 @@ const en = {
   acceptReadLaw:
     'I have taken note of the provisions of art. 326 of the Criminal Code regarding the false statements and those of art. 352 of the Criminal Code regarding obstruction of efforts to combat diseases.',
   validatePhoneNumberInformationLabel:
-    'Please enter a valid phone number, where you can be contacted during the self-isolation period. You will receive a unique code via SMS, which will need to be entered in the field below.',
+    'Please enter a valid phone number, where you can be contacted during the self-isolation period. You will receive an SMS (free of charge) with an unique code which is required in the next step.',
   countriesCrossed: 'Tranzited countries',
   countriesCrossedDescription:
     'Select from the list below the countries you have transited (including stops). You can select several options.',

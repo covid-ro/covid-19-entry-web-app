@@ -76,7 +76,7 @@ const ro = {
   acceptReadLaw:
     'Am luat la cunoștință de prevederile art. 326 din Codul Penal cu privire la falsul în declarații și cele ale art. 352 din Codul Penal cu privire la zădărnicirea combaterii bolilor.',
   validatePhoneNumberInformationLabel:
-    'Va rugăm să introduceți un număr de telefon valid, unde puteți fi contactat pe perioada autoizolării. Veți primi pe SMS un cod unic, ce va trebui înscris în câmpul de mai jos.',
+    'Va rugăm să introduceți un număr de telefon valid, unde puteți fi contactat pe perioada autoizolării. Veți primi prin SMS (gratuit) un cod unic pe care vă rugăm să îl introduceți la pasul următor',
   countriesCrossed: 'Tări tranzitate',
   countriesCrossedDescription:
     'Selectati din lista de mai jos tările ce le-ați tranzitat (inclusiv escale). Puteți selecta mai multe optiuni.',
