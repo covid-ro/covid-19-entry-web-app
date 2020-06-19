@@ -5,7 +5,7 @@ import {
   Image,
   Box,
   Text,
-  Button,
+  IconButton,
   useColorMode,
   Link as Anchor,
 } from '@chakra-ui/core'
@@ -49,7 +49,7 @@ export function Header(props) {
           <Heading
             as="h1"
             size={['xs', 'lg']}
-            color="brand.900"
+            color={color[colorMode]}
             ml="4"
             fontWeight="normal"
             maxW="200px">
@@ -84,9 +84,10 @@ export function Header(props) {
             <Trans id="otherInfo" />
           </Anchor>
         </MenuItems>
-        <Button onClick={toggleColorMode}>
-          Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-        </Button>
+        <IconButton
+          onClick={toggleColorMode}
+          icon={colorMode === 'light' ? 'moon' : 'sun'}
+        />
       </Box>
     </Flex>
   )

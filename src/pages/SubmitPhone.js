@@ -60,6 +60,14 @@ export function SubmitPhone() {
   const bgColor = { light: '#fff', dark: '#171923' }
   const color = { light: '#171923', dark: '#fff' }
   const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
+  const optionColor = {
+    light: { selected: '#2653B0', regular: '#4a4a4a' },
+    dark: { selected: '#ffffff', regular: '#e7ebed' },
+  }
+  const optionHover = {
+    light: { focused: '#a8bfda', regular: '#ffffff' },
+    dark: { focused: '#171923', regular: '#4a4a4a' },
+  }
   const customStyles = {
     control: (styles, state) => ({
       ...styles,
@@ -91,6 +99,15 @@ export function SubmitPhone() {
       borderColor: borderColor[colorMode],
       borderWidth: '1px',
       backgroundColor: bgColor[colorMode],
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected
+        ? optionColor[colorMode].selected
+        : optionColor[colorMode].regular,
+      backgroundColor: state.isFocused
+        ? optionHover[colorMode].focused
+        : optionHover[colorMode].regular,
     }),
   }
   const groupBadgeStyles = {

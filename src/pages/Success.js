@@ -118,6 +118,10 @@ export function Success() {
   }
   const bgColorQR = { light: 'white', dark: '#171923' }
   const fgColorQR = { light: '#171923', dark: 'white' }
+  const overlayColor = {
+    light: 'rgba(255,255,255,1)',
+    dark: '#171923',
+  }
   return (
     <Layout title="Codurile dumneavoastră">
       {!declarationCodes ? (
@@ -183,7 +187,7 @@ export function Success() {
                 onClose={() => setShow(null)}
                 isCentered
                 size="full">
-                <ModalOverlay backgroundColor={'rgba(255,255,255,1)'} />
+                <ModalOverlay backgroundColor={overlayColor[colorMode]} />
                 <ModalContent>
                   <ModalHeader>
                     {declaration.name} {declaration.surname}
