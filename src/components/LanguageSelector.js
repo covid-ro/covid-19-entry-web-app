@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Flex, Box, Link } from '@chakra-ui/core'
+import { Flex, Box, Link, useColorMode } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Button } from '@chakra-ui/core'
@@ -12,19 +12,25 @@ export function LanguageSelector() {
     e.stopPropagation()
     history.push('/start')
   }
+  const { colorMode } = useColorMode()
+  const color = { light: '#2653B0', dark: '#fff' }
   return (
     <Flex flexDirection="column" alignItems="center">
       <Box w="100%" justifyContent="center" mt="8" mb="6" d="flex">
         <Link
           fontWeight="semibold"
-          color={languageContext.language === 'ro' ? 'brand.800' : 'gray.700'}
+          color={
+            languageContext.language === 'ro' ? color[colorMode] : 'gray.700'
+          }
           onClick={() => languageContext.setLanguage('ro')}>
           RO
         </Link>{' '}
         |{' '}
         <Link
           fontWeight="semibold"
-          color={languageContext.language === 'en' ? 'brand.800' : 'gray.700'}
+          color={
+            languageContext.language === 'en' ? color[colorMode] : 'gray.700'
+          }
           onClick={() => languageContext.setLanguage('en')}>
           EN
         </Link>

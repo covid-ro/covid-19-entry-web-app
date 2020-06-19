@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useColorMode,
 } from '@chakra-ui/core'
 import { QRCode } from 'react-qr-svg'
 import jrQrcode from 'jr-qrcode'
@@ -32,6 +33,7 @@ export function Success() {
   const [show, setShow] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const languageContext = useContext(LanguageContext)
+  const { colorMode } = useColorMode()
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   async function download(code) {
     let doc = new Document()
@@ -114,6 +116,12 @@ export function Success() {
       })
     }
   }
+  const bgColorQR = { light: 'white', dark: '#171923' }
+  const fgColorQR = { light: '#171923', dark: 'white' }
+  const overlayColor = {
+    light: 'rgba(255,255,255,1)',
+    dark: '#171923',
+  }
   return (
     <Layout title="Codurile dumneavoastră">
       {!declarationCodes ? (
@@ -167,8 +175,8 @@ export function Success() {
                 <Trans id="download" />
               </Button>
               <QRCode
-                bgColor="#FFFFFF"
-                fgColor="#000000"
+                bgColor={bgColorQR[colorMode]}
+                fgColor={fgColorQR[colorMode]}
                 level="Q"
                 onClick={() => setShow(declaration.code)}
                 style={{ width: 256, cursor: 'zoom-in' }}
@@ -179,7 +187,7 @@ export function Success() {
                 onClose={() => setShow(null)}
                 isCentered
                 size="full">
-                <ModalOverlay backgroundColor={'rgba(255,255,255,1)'} />
+                <ModalOverlay backgroundColor={overlayColor[colorMode]} />
                 <ModalContent>
                   <ModalHeader>
                     {declaration.name} {declaration.surname}
@@ -190,8 +198,8 @@ export function Success() {
                     flexDirection="column"
                     alignItems="center">
                     <QRCode
-                      bgColor="#FFFFFF"
-                      fgColor="#000000"
+                      bgColor={bgColorQR[colorMode]}
+                      fgColor={fgColorQR[colorMode]}
                       level="Q"
                       style={{ width: 300 }}
                       value={`${declaration.code}  ${declaration.cnp}`}

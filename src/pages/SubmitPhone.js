@@ -24,61 +24,22 @@ import {
   Icon,
   useToast,
   Button,
+  useColorMode,
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { Layout } from '../components/Layout'
 
-const groupBadgeStyles = {
-  backgroundColor: '#EBECF0',
-  borderRadius: '2em',
-  color: '#172B4D',
-  display: 'inline-block',
-  fontSize: 12,
-  fontWeight: 'normal',
-  lineHeight: '1',
-  minWidth: 1,
-  padding: '0.16666666666667em 0.5em',
-  textAlign: 'center',
-}
-const formatGroupLabel = (data) => (
-  <Flex alignItems="center" justifyContent="space-between">
-    <span>{data.label}</span>
-    <span style={groupBadgeStyles}>{data.options.length}</span>
-  </Flex>
-)
 const initialValues = {
   phone_country_prefix: { label: 'România', value: '+40' },
   phone: '',
   recaptcha: '',
 }
-const customStyles = {
-  control: (styles, state) => ({
-    ...styles,
-    'backgroundColor': 'white',
-    'border': 'none',
-    'borderRadius': 0,
-    'height': '2.5rem',
-    'borderBottom': state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
-    ':hover': {
-      ...styles[':hover'],
-      borderColor: '#3182ce',
-    },
-  }),
 
-  singleValue: (styles) => ({ ...styles, right: 10 }),
-  container: (styles) => ({
-    ...styles,
-    width: '100%',
-  }),
-  menu: (styles) => ({
-    ...styles,
-    width: 'auto',
-  }),
-}
 const SingleValue = (props) => (
   <components.SingleValue {...props}>{props.data.value}</components.SingleValue>
 )
+
 const api = process.env.REACT_APP_API
 
 export function SubmitPhone() {
@@ -95,6 +56,79 @@ export function SubmitPhone() {
       duration: 4000,
     })
   }
+  const { colorMode } = useColorMode()
+  const bgColor = { light: '#fff', dark: '#171923' }
+  const color = { light: '#171923', dark: '#fff' }
+  const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
+  const optionColor = {
+    light: { selected: '#2653B0', regular: '#4a4a4a' },
+    dark: { selected: '#ffffff', regular: '#e7ebed' },
+  }
+  const optionHover = {
+    light: { focused: '#a8bfda', regular: '#ffffff' },
+    dark: { focused: '#171923', regular: '#4a4a4a' },
+  }
+  const customStyles = {
+    control: (styles, state) => ({
+      ...styles,
+      'backgroundColor': 'transparent',
+      'border': 'none',
+      'borderRadius': 0,
+      'height': '2.5rem',
+      'borderBottom': state.isFocused
+        ? 'solid 2px #3182ce'
+        : 'solid 2px #e7ebed',
+      ':hover': {
+        ...styles[':hover'],
+        borderColor: '#3182ce',
+      },
+    }),
+
+    singleValue: (styles) => ({
+      ...styles,
+      right: 10,
+      color: color[colorMode],
+    }),
+    container: (styles) => ({
+      ...styles,
+      width: '100%',
+    }),
+    menu: (styles) => ({
+      ...styles,
+      width: 'auto',
+      borderColor: borderColor[colorMode],
+      borderWidth: '1px',
+      backgroundColor: bgColor[colorMode],
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected
+        ? optionColor[colorMode].selected
+        : optionColor[colorMode].regular,
+      backgroundColor: state.isFocused
+        ? optionHover[colorMode].focused
+        : optionHover[colorMode].regular,
+    }),
+  }
+  const groupBadgeStyles = {
+    backgroundColor: '#EBECF0',
+    borderRadius: '2em',
+    color: '#172B4D',
+    display: 'inline-block',
+    fontSize: 12,
+    fontWeight: 'normal',
+    lineHeight: '1',
+    minWidth: 1,
+    padding: '0.16666666666667em 0.5em',
+    textAlign: 'center',
+  }
+  const formatGroupLabel = (data) => (
+    <Flex alignItems="center" justifyContent="space-between">
+      <span>{data.label}</span>
+      <span style={groupBadgeStyles}>{data.options.length}</span>
+    </Flex>
+  )
+
   return (
     <Layout title="Telefon">
       <WhiteBox p={[1, 8]}>
@@ -195,7 +229,8 @@ export function SubmitPhone() {
                             px="0"
                             border="none"
                             borderImageWidth="0"
-                            backgroundColor="#fff">
+                            backgroundColor={bgColor[colorMode]}
+                            color={color[colorMode]}>
                             <Select
                               {...props.field}
                               name="phone_country_prefix"

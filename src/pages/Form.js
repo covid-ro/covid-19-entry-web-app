@@ -14,6 +14,7 @@ import useSWR from 'swr'
 import {
   Heading,
   Box,
+  useColorMode,
   Checkbox,
   useToast,
   FormErrorMessage,
@@ -47,48 +48,6 @@ import { LanguageContext } from '../locale/LanguageContext'
 import { Layout } from '../components/Layout'
 const api = process.env.REACT_APP_API
 
-const groupBadgeStyles = {
-  backgroundColor: '#EBECF0',
-  borderRadius: '2em',
-  color: '#172B4D',
-  display: 'inline-block',
-  fontSize: 12,
-  fontWeight: 'normal',
-  lineHeight: '1',
-  minWidth: 1,
-  padding: '0.16666666666667em 0.5em',
-  textAlign: 'center',
-}
-const customStyles = {
-  control: (styles, state) => ({
-    ...styles,
-    'backgroundColor': 'white',
-    'border': 'none',
-    'borderRadius': 0,
-    'height': '2.5rem',
-    'boxShadow': 'none',
-    'borderBottom': state.isFocused ? 'solid 2px #3182ce' : 'solid 2px #e7ebed',
-    ':hover': {
-      ...styles[':hover'],
-      borderColor: '#3182ce',
-    },
-  }),
-  container: (styles, state) => ({
-    ...styles,
-    width: '100%',
-  }),
-  menu: (styles) => ({
-    ...styles,
-    width: '100%',
-  }),
-}
-const formatGroupLabel = (data) => (
-  <Flex alignItems="center" justifyContent="space-between">
-    <span>{data.label}</span>
-    <span style={groupBadgeStyles}>{data.options.length}</span>
-  </Flex>
-)
-
 export function Declaration() {
   let history = useHistory()
   const toast = useToast()
@@ -97,6 +56,77 @@ export function Declaration() {
   // const clear = () => sigCanvas.current.clear()
   // const [showDialog, setShowDialog] = useState(false)
   const [countyId, setCountyId] = useState('')
+  const { colorMode } = useColorMode()
+  const bgColor = { light: '#fff', dark: '#171923' }
+  const color = { light: '#171923', dark: '#fff' }
+  const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
+  const optionColor = {
+    light: { selected: '#2653B0', regular: '#4a4a4a' },
+    dark: { selected: '#ffffff', regular: '#e7ebed' },
+  }
+  const optionHover = {
+    light: { focused: '#a8bfda', regular: '#ffffff' },
+    dark: { focused: '#171923', regular: '#4a4a4a' },
+  }
+  const groupBadgeStyles = {
+    backgroundColor: '#EBECF0',
+    borderRadius: '2em',
+    color: '#172B4D',
+    display: 'inline-block',
+    fontSize: 12,
+    fontWeight: 'normal',
+    lineHeight: '1',
+    minWidth: 1,
+    padding: '0.16666666666667em 0.5em',
+    textAlign: 'center',
+  }
+  const customStyles = {
+    control: (styles, state) => ({
+      ...styles,
+      'backgroundColor': 'transparent',
+      'border': 'none',
+      'borderRadius': 0,
+      'height': '2.5rem',
+      'boxShadow': 'none',
+      'borderBottom': state.isFocused
+        ? 'solid 2px #3182ce'
+        : 'solid 2px #e7ebed',
+      ':hover': {
+        ...styles[':hover'],
+        borderColor: '#3182ce',
+      },
+    }),
+    singleValue: (styles) => ({
+      ...styles,
+      color: color[colorMode],
+    }),
+    container: (styles, state) => ({
+      ...styles,
+      width: '100%',
+    }),
+    menu: (styles) => ({
+      ...styles,
+      width: '100%',
+      borderColor: borderColor[colorMode],
+      borderWidth: '1px',
+      backgroundColor: bgColor[colorMode],
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected
+        ? optionColor[colorMode].selected
+        : optionColor[colorMode].regular,
+      backgroundColor: state.isFocused
+        ? optionHover[colorMode].focused
+        : optionHover[colorMode].regular,
+    }),
+  }
+  const formatGroupLabel = (data) => (
+    <Flex alignItems="center" justifyContent="space-between">
+      <span>{data.label}</span>
+      <span style={groupBadgeStyles}>{data.options.length}</span>
+    </Flex>
+  )
   // const open = () => setShowDialog(true)
   // const close = () => setShowDialog(false)
   function getFormattedPhone(phone) {
