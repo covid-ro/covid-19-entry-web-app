@@ -5,7 +5,7 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { Layout } from '../components/Layout'
 
-export function Start() {
+function Start() {
   return (
     <Layout title="Introducere">
       <WhiteBox p={[1, 8]}>
@@ -35,3 +35,4 @@ export function Start() {
     </Layout>
   )
 }
+export default Start

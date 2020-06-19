@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Heading, Button, useToast } from '@chakra-ui/core'
+import { Box, Heading, Button, useToast, Link as Anchor } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { LanguageContext } from '../locale/LanguageContext'
 import { Layout } from '../components/Layout'
 
-export function End() {
+function End() {
   const toast = useToast()
   const languageContext = useContext(LanguageContext)
   function deleteStatements() {
@@ -40,11 +39,14 @@ export function End() {
           flexDirection="column"
           alignItems="center"
           justifyContent="center">
-          <Link to="/sfaturi">
+          <Anchor
+            href={`https://reopen.europa.eu/${languageContext.language}/map/ROU`}
+            isExternal>
             <Button variantColor="brand" size="lg" mt="8" w="320px">
               <Trans id="sfaturiDeCalatorie" />
             </Button>
-          </Link>
+          </Anchor>
+
           <Button
             variantColor="brand"
             size="lg"
@@ -58,3 +60,4 @@ export function End() {
     </Layout>
   )
 }
+export default End

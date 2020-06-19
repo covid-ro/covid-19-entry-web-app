@@ -26,7 +26,7 @@ import { WhiteBox } from '../components/WhiteBox'
 import { useCountdown } from '../utils/useCountdown'
 const api = process.env.REACT_APP_API
 
-export function ValidatePhone() {
+function ValidatePhone() {
   let history = useHistory()
   const toast = useToast()
   const languageContext = useContext(LanguageContext)
@@ -190,3 +190,4 @@ export function ValidatePhone() {
     </Layout>
   )
 }
+export default ValidatePhone

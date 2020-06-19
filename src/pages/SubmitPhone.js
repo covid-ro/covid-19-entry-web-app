@@ -42,7 +42,7 @@ const SingleValue = (props) => (
 
 const api = process.env.REACT_APP_API
 
-export function SubmitPhone() {
+function SubmitPhone() {
   const toast = useToast()
   let history = useHistory()
   let location = useLocation()
@@ -328,3 +328,4 @@ export function SubmitPhone() {
     </Layout>
   )
 }
+export default SubmitPhone

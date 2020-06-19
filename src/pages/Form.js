@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik'
 import { DatePicker } from '../components/DatePicker'
-import { Spinner } from '../components/Spinner'
+// import { Spinner } from '../components/Spinner'
+import { Spinner } from '@chakra-ui/core'
 import 'react-datepicker/dist/react-datepicker.css'
 // import { DialogOverlay, DialogContent } from '@reach/dialog'
 import format from 'date-fns/format'
@@ -37,7 +38,7 @@ import {
   Text,
   // ButtonGroup,
 } from '@chakra-ui/core'
-import '../assets/css/sigStyles.css'
+
 import '@reach/dialog/styles.css'
 import '../assets/css/datepicker.css'
 import { groupedCountries } from '../assets/data/groupedCountries'
@@ -48,7 +49,7 @@ import { LanguageContext } from '../locale/LanguageContext'
 import { Layout } from '../components/Layout'
 const api = process.env.REACT_APP_API
 
-export function Declaration() {
+function Declaration() {
   let history = useHistory()
   const toast = useToast()
   // const sigCanvas = useRef({})
@@ -196,7 +197,13 @@ export function Declaration() {
       {!token || token === '' ? (
         <Redirect to="/introducere-telefon" />
       ) : !counties.data ? (
-        <Spinner />
+        <Spinner
+          thickness="2px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="sm"
+        />
       ) : (
         <Box w="100%">
           <WhiteBox py={1} px={[1, 8]} pos="sticky" top="90px" zIndex="sticky">
@@ -1581,3 +1588,4 @@ export function Declaration() {
     </Layout>
   )
 }
+export default Declaration

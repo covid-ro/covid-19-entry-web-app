@@ -28,7 +28,7 @@ import { countriesList } from '../assets/data/groupedCountries'
 
 const api = process.env.REACT_APP_API
 
-export function Success() {
+function Success() {
   const toast = useToast()
   const [show, setShow] = useState(null)
   const [disabled, setDisabled] = useState(false)
@@ -253,3 +253,4 @@ export function Success() {
     </Layout>
   )
 }
+export default Success

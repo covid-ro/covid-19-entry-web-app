@@ -5,7 +5,7 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 import { Layout } from '../components/Layout'
 
-export function Home() {
+function Home() {
   return (
     <Layout title="Acasă">
       <WhiteBox p={[1, 8]}>
@@ -17,3 +17,4 @@ export function Home() {
     </Layout>
   )
 }
+export default Home
