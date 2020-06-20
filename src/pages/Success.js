@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import format from 'date-fns/format'
 import {
   Box,
   Flex,
@@ -41,6 +40,11 @@ function Success() {
     if (declaration) {
       const qrMessage = `${declaration.code}  ${declaration.cnp}`
       const qrcode = jrQrcode.getQrBase64(qrMessage)
+      const documentDate = new Date(
+        declaration.created_at
+          .toString()
+          .substring(0, declaration.created_at.length - 5)
+      ).toLocaleDateString('ro-RO')
       const data = {
         locale: languageContext.language,
         code: declaration.code,
@@ -66,7 +70,7 @@ function Success() {
             languageContext.dictionary['homeAddress']
           : `${declaration.isolation_addresses[0].street}, ${declaration.isolation_addresses[0].number},  ${declaration.isolation_addresses[0].bloc},  ${declaration.isolation_addresses[0].entry},  ${declaration.isolation_addresses[0].apartment},  ${declaration.isolation_addresses[0].city},  ${declaration.isolation_addresses[0].county}, `,
         phoneNumber: declaration.phone,
-        documentDate: format(new Date(declaration.created_at), 'dd-MM-yyyy'),
+        documentDate: documentDate,
       }
       return doc.download(data, qrcode)
     }
