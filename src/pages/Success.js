@@ -251,6 +251,11 @@ function Success() {
                 <Trans id="nuMaiAdaug" />
               </Button>
             </Link>
+            <Link to="/faq">
+              <Button variantColor="brand" size="lg" mt="8" w="320px">
+                <Trans id="questionsAnswers" />
+              </Button>
+            </Link>
           </Box>
         </WhiteBox>
       )}

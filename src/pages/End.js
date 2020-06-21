@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { Box, Heading, Button, useToast, Link as Anchor } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
@@ -39,6 +40,11 @@ function End() {
           flexDirection="column"
           alignItems="center"
           justifyContent="center">
+          <Anchor as={Link} to="/faq">
+            <Button variantColor="brand" size="lg" mt="8" w="320px">
+              <Trans id="questionsAnswers" />
+            </Button>
+          </Anchor>
           <Anchor
             href={`https://reopen.europa.eu/${languageContext.language}/map/ROU`}
             isExternal>

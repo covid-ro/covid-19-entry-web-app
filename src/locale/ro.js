@@ -187,5 +187,6 @@ const ro = {
   noMatch: 'Pagină inexistentă',
   noMatchText:
     'Această pagină nu există. Folosiți navigația pentru a găsi ceea ce căutați.',
+  questionsAnswers: 'Întrebări frecvente',
 }
 export default ro

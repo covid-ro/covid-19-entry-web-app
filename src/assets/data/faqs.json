@@ -1,0 +1,30 @@
+{
+  "ro": [
+    {
+      "question": "Dacă nu mai călătoresc, trebuie să anulez declarația?",
+      "answer": "Declarația nu devine activă decât în momentul în care e preluată la frontieră de DSP, așadar nu e nevoie să o anulați."
+    },
+    {
+      "question": "Călătoresc dintr-o țară din categoria de risc verde. Mai e nevoie de declarație?",
+      "answer": "Declarația este obligatorie indiferent de țara din care veniți. Deocamdată este obligatorie și cerința de a trece o adresă de izolare, însă aceasta nu înseamnă că veți primi automat ca măsură, izolarea la domiciliu. Numai personalul DSP va decide măsura în funcție de țara din care veniți, în baza legii la momentul trecerii frontiere."
+    },
+    {
+      "question": "Nu aterizez în București sau călătoresc cu mașina. Pot folosi aplicația?",
+      "answer": "Puteți folosi aplicația pentru a completa declarația și a vă grăbi trecerea prin punctul de control. Deocamdata însă va trebui să o imprimați și să o prezentați la punctele de control DSP. "
+    }
+  ],
+  "en": [
+    {
+      "question": "If I do not travel anymore, do I need to cancel the statement?",
+      "answer": "The statement becomes active once it is taken by DSP at the border control, therefor cancelling it is not needed."
+    },
+    {
+      "question": "I am traveling from a country with green risk category. Do I still need to fill in the statement?",
+      "answer": "The statement is required regardless of the country you are travelling from. For now it is also required to add the isolation address, but this does not mean you will be asked to isolate at that address. Only DSP personnel decides the measures to be taken based on the country you travel from and the law at the time of crossing the border."
+    },
+    {
+      "question": "I do not land in Bucharest or I am travelling by car. Can I still use this website?",
+      "answer": "You can use this website to fill in the required statement and speed up your passing through the control. For the moment you will need to print it yourself and bring it with you at the border control."
+    }
+  ]
+}

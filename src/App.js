@@ -12,6 +12,7 @@ const Declaration = lazy(() => import('./pages/Form'))
 const Success = lazy(() => import('./pages/Success'))
 const End = lazy(() => import('./pages/End'))
 const NoMatch = lazy(() => import('./pages/NoMatch'))
+const Faq = lazy(() => import('./pages/Faq'))
 
 function App() {
   useEffect(() => {
@@ -51,6 +52,9 @@ function App() {
         </Route>
         <Route path="/multumim">
           <End />
+        </Route>
+        <Route path="/faq">
+          <Faq />
         </Route>
         <Route path="*">
           <NoMatch />

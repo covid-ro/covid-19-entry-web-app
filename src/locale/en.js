@@ -185,5 +185,6 @@ const en = {
   statementsDeleted: 'Your statements have been deleted.',
   noMatch: 'Page does not exist',
   noMatchText: 'Please use the navigation to find what you are looking for.',
+  questionsAnswers: 'Frequently asked questions',
 }
 export default en
