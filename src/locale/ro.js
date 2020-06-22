@@ -101,7 +101,7 @@ const ro = {
   codeError: 'Codul trebuie să contină 6 cifre.',
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
-    'Această aplicație este pusă la dispoziție de Aeroportul Internațional "Henri Coandă" și stă la baza declarației de intrare în țară la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
+    'Această aplicație stă la baza declarației de intrare în țară la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   infoLabelBold:
     ' Vă rugăm să completați formularul din această aplicație cu date reale, ',
   infoLabelEnd:
