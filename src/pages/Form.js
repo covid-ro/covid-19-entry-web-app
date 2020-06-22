@@ -567,6 +567,7 @@ function Declaration() {
                                 placeholder={
                                   languageContext.dictionary['selectDate']
                                 }
+                                className={colorMode === 'dark' ? 'dark' : ''}
                               />
                               <InputRightElement
                                 children={
