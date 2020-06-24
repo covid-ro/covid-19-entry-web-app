@@ -10,19 +10,19 @@ import {
   Link as Anchor,
 } from '@chakra-ui/core'
 import { Link } from 'react-router-dom'
-import { Menu } from 'react-feather'
+import { Menu, Moon, Sun } from 'react-feather'
 import logo from '../assets/images/logo.png'
 import { Trans } from '../locale/Trans'
 import { LanguageContext } from '../locale/LanguageContext'
 const MenuItems = ({ children }) => (
-  <Text mt={{ base: 4, md: 0 }} mr={6} fontWeight="semibold" display="block">
+  <Text mt={{ base: 4, lg: 0 }} mr={6} fontWeight="semibold" display="block">
     {children}
   </Text>
 )
 export function Header(props) {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
-  const { colorMode, toggleColorMode } = useColorMode()
+  const [colorMode, toggleColorMode] = useColorMode()
   const languageContext = useContext(LanguageContext)
   const bgColor = { light: 'white', dark: 'gray.900' }
   const color = { light: 'brand.900', dark: 'brand.100' }
@@ -57,13 +57,27 @@ export function Header(props) {
           </Heading>
         </Flex>
       </Link>
-      <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>
+      <Box display={{ md: 'block', lg: 'none' }} onClick={handleToggle}>
         <Menu size={30} strokeWidth={3} />
       </Box>
       <Box
-        display={{ xs: show ? 'block' : 'none', md: 'flex' }}
-        width={{ xs: 'full', md: 'auto' }}
-        alignItems="center">
+        display={{
+          xs: show ? 'block' : 'none',
+          sm: show ? 'block' : 'none',
+          lg: 'flex',
+        }}
+        alignItems="center"
+        width={{ xs: 'full', md: 'full', lg: 'auto' }}>
+        <MenuItems>
+          <Link to="/succes">
+            <Trans id="codes" />
+          </Link>
+        </MenuItems>
+        <MenuItems>
+          <Link to="/faq">
+            <Trans id="questionsAnswers" />
+          </Link>
+        </MenuItems>
         <MenuItems>
           <Anchor
             href="https://citizennext.ro/proiecte/covid-safe-frontiera"
@@ -73,11 +87,6 @@ export function Header(props) {
           </Anchor>
         </MenuItems>
         <MenuItems>
-          <Link to="/succes">
-            <Trans id="codes" />
-          </Link>
-        </MenuItems>
-        <MenuItems>
           <Anchor
             href={`https://reopen.europa.eu/${languageContext.language}/map/ROU`}
             isExternal>
@@ -85,8 +94,12 @@ export function Header(props) {
           </Anchor>
         </MenuItems>
         <IconButton
+          float={{
+            xs: show ? 'right' : 'none',
+            sm: show ? 'right' : 'none',
+          }}
           onClick={toggleColorMode}
-          icon={colorMode === 'light' ? 'moon' : 'sun'}
+          icon={colorMode === 'light' ? <Moon /> : <Sun />}
         />
       </Box>
     </Flex>

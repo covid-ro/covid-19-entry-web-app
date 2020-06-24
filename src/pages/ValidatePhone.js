@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { useHistory, Link as RLink } from 'react-router-dom'
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
+
 import {
   Heading,
   Box,
@@ -9,7 +11,6 @@ import {
   FormControl,
   InputGroup,
   InputRightElement,
-  Icon,
   Input,
   Text,
   Link,
@@ -36,13 +37,13 @@ function ValidatePhone() {
   return (
     <Layout title="Validare telefon">
       <Flex flexDirection="column" w="100%">
-        <WhiteBox p={[1, 8]}>
+        <WhiteBox p={[2, 8, 8, 8]}>
           <Flex flexDirection="row" width="100%" alignItems="center">
             <Progress value={progress} height="2px" w="90%" grow={1} />
             <Text ml="auto">{`${minutes}:${seconds}`}</Text>
           </Flex>
         </WhiteBox>
-        <WhiteBox p={[1, 8]}>
+        <WhiteBox p={[2, 8, 8, 8]}>
           <Heading size="md" lineHeight="32px" fontWeight="400">
             <Trans id="addSMSCode" />
           </Heading>
@@ -142,13 +143,14 @@ function ValidatePhone() {
                           children={
                             !form.errors.phone_validation_code &&
                             form.touched.phone_validation_code && (
-                              <Icon name="check" color="green.500" />
+                              <CheckIcon color="green.500" />
                             )
                           }
                         />
                       </InputGroup>
 
                       <FormErrorMessage>
+                        <WarningIcon color="red.500" marginRight="2" />
                         {form.errors.phone_validation_code}
                       </FormErrorMessage>
                     </FormControl>
@@ -162,7 +164,7 @@ function ValidatePhone() {
                   alignItems="center"
                   justifyContent="center">
                   <Button
-                    variantColor="brand"
+                    colorScheme="brand"
                     size="lg"
                     mt="8"
                     w="300px"

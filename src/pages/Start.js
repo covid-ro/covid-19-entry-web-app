@@ -8,7 +8,7 @@ import { Layout } from '../components/Layout'
 function Start() {
   return (
     <Layout title="Introducere">
-      <WhiteBox p={[1, 8]}>
+      <WhiteBox p={[2, 8, 8, 8]}>
         <Heading size="md" lineHeight="32px" fontWeight="regular">
           <Trans id="start" />
         </Heading>
@@ -26,7 +26,7 @@ function Start() {
           alignItems="center"
           justifyContent="center">
           <Link to="/introducere-telefon">
-            <Button variantColor="brand" size="lg" mt="8" w="300px">
+            <Button colorScheme="brand" size="lg" mt="8" w="300px">
               <Trans id="completeDeclaration" />
             </Button>
           </Link>

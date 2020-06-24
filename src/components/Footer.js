@@ -4,7 +4,7 @@ import { Trans } from '../locale/Trans'
 import cn from '../assets/images/cn.svg'
 import sts from '../assets/images/logo.png'
 export function Footer() {
-  const { colorMode } = useColorMode()
+  const [colorMode] = useColorMode()
   const bgColor = { light: 'white', dark: 'gray.900' }
   const borderColor = { light: 'gray.200', dark: 'gray.700' }
   const color = { light: 'brand.900', dark: 'brand.100' }
@@ -14,7 +14,7 @@ export function Footer() {
         borderColor={borderColor[colorMode]}
         borderWidth="1px 1px 0 1px"
         p="6"
-        roundedTop="md"
+        borderTopRadius="md"
         textAlign="center"
         bg={bgColor[colorMode]}
         color={color[colorMode]}
@@ -27,10 +27,15 @@ export function Footer() {
         <Link isExternal href="https://sts.ro" color="brand.500">
           <Trans id="sts" />
         </Link>
-        <Stack isInline alignItems="center" justifyContent="center" mt="2">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          mt="2">
           <Link isExternal href="https://citizennext.ro">
             <Image
-              size="40px"
+              width="40px"
+              height="40px"
               objectFit="cover"
               src={cn}
               alt="Citizen Next"
@@ -39,7 +44,8 @@ export function Footer() {
           </Link>
           <Link isExternal href="https://sts.ro">
             <Image
-              size="30px"
+              width="30px"
+              height="30px"
               objectFit="center"
               src={sts}
               alt={<Trans id="sts" />}

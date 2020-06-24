@@ -8,7 +8,7 @@ import { Layout } from '../components/Layout'
 function Home() {
   return (
     <Layout title="Acasă">
-      <WhiteBox p={[1, 8]}>
+      <WhiteBox p={[2, 8, 8, 8]}>
         <Heading size="md" lineHeight="32px" fontWeight="400">
           <Trans id="infoLabelBegin" />
         </Heading>
