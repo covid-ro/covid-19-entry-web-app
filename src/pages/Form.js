@@ -228,6 +228,7 @@ function Declaration() {
             </Flex>
           </WhiteBox>
           <Formik
+            validateOnChange={false}
             initialValues={initialValues}
             validate={(values) => {
               const errors = {}
@@ -414,6 +415,7 @@ function Declaration() {
               values,
               errors,
               setFieldValue,
+              setErrors,
               setFieldTouched,
               isSubmitting,
             }) => {
@@ -970,8 +972,8 @@ function Declaration() {
                             <FormControl
                               w="100%"
                               isInvalid={
-                                form.errors.county_id &&
-                                form.touched?.isolation_addresses?.county_id
+                                form.touched?.isolation_addresses?.county_id &&
+                                form.errors.county_id
                               }>
                               <FormLabel
                                 htmlFor="isolation_addresses.county_id"
@@ -1000,15 +1002,27 @@ function Declaration() {
                                 getOptionLabel={(option) => `${option.name}`}
                                 isLoading={!counties.data}
                                 onChange={(val) => {
-                                  setCountyId(val.id)
-                                  setFieldValue(
-                                    'isolation_addresses.county_id',
-                                    val
-                                  )
-                                  setFieldValue(
-                                    'isolation_addresses.settlement_id',
-                                    ''
-                                  )
+                                  if (val !== null) {
+                                    setCountyId(val.id)
+                                    setFieldValue(
+                                      'isolation_addresses.county_id',
+                                      val
+                                    )
+                                    setFieldValue(
+                                      'isolation_addresses.settlement_id',
+                                      ''
+                                    )
+                                    setErrors('county_id', undefined)
+                                  } else {
+                                    setFieldValue(
+                                      'isolation_addresses.county_id',
+                                      ''
+                                    )
+                                    setFieldValue(
+                                      'isolation_addresses.settlement_id',
+                                      ''
+                                    )
+                                  }
                                 }}
                                 onBlur={() =>
                                   setFieldTouched(
@@ -1060,12 +1074,13 @@ function Declaration() {
                                 getOptionValue={(option) => `${option.id}`}
                                 getOptionLabel={(option) => `${option.name}`}
                                 isLoading={!counties.data}
-                                onChange={(val) =>
+                                onChange={(val) => {
                                   setFieldValue(
                                     'isolation_addresses.settlement_id',
                                     val
                                   )
-                                }
+                                  setErrors('settlement_id', undefined)
+                                }}
                                 onBlur={() =>
                                   setFieldTouched(
                                     'isolation_addresses.settlement_id',

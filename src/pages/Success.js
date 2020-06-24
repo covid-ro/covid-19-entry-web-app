@@ -289,7 +289,9 @@ function Success() {
                   aria-label="Twitter share"
                 />
               </Anchor>
-              <Anchor href="mailto:?subject=Covid-SAFE@Frontieră" isExternal>
+              <Anchor
+                href="mailto:?subject=Covid-SAFE@Frontieră&body=https%3A%2F%2Fchestionar.stsisp.ro"
+                isExternal>
                 <IconButton
                   colorScheme="teal"
                   icon={<Mail color="white" strokeWidth={1} />}
