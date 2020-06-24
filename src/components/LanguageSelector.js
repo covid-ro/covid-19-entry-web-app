@@ -6,7 +6,7 @@ import { LanguageContext } from '../locale/LanguageContext'
 import { Button } from '@chakra-ui/core'
 export function LanguageSelector() {
   let history = useHistory()
-  const { colorMode } = useColorMode()
+  const [colorMode] = useColorMode()
   const languageContext = useContext(LanguageContext)
   function forwardAction(e, lang) {
     e.stopPropagation()
@@ -44,7 +44,7 @@ export function LanguageSelector() {
         justifyContent="center"
         alignItems="center">
         <Button
-          variantColor="brand"
+          colorScheme="brand"
           size="lg"
           mt="8"
           w="300px"
@@ -52,7 +52,7 @@ export function LanguageSelector() {
           <Trans id="ro" />
         </Button>
         <Button
-          variantColor="brand"
+          colorScheme="brand"
           size="lg"
           mt="8"
           w="300px"

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/browser'
 import { Helmet } from 'react-helmet'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
-import { customTheme } from './theme'
+import { ChakraProvider, CSSReset } from '@chakra-ui/core'
+import theme from './chakra'
 import { LanguageProvider } from './locale/LanguageContext'
 
 import App from './App'
@@ -16,17 +16,15 @@ Sentry.init({
 })
 
 ReactDOM.render(
-  <ThemeProvider theme={customTheme}>
-    <ColorModeProvider>
-      <LanguageProvider>
-        <Helmet titleTemplate={`%s | Covid-SAFE@Frontieră`} />
-        <CSSReset />
-        <Router>
-          <ScrollToTop />
-          <App />
-        </Router>
-      </LanguageProvider>
-    </ColorModeProvider>
-  </ThemeProvider>,
+  <ChakraProvider theme={theme}>
+    <LanguageProvider>
+      <Helmet titleTemplate={`%s | Covid-SAFE@Frontieră`} />
+      <CSSReset />
+      <Router>
+        <ScrollToTop />
+        <App />
+      </Router>
+    </LanguageProvider>
+  </ChakraProvider>,
   document.getElementById('root')
 )

@@ -4,7 +4,7 @@ import {
   Heading,
   Accordion,
   AccordionItem,
-  AccordionHeader,
+  AccordionButton,
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/core'
@@ -17,19 +17,19 @@ function Faq() {
   const languageContext = useContext(LanguageContext)
   return (
     <Layout title="La revedere">
-      <WhiteBox p={[1, 8]}>
+      <WhiteBox p={[2, 8, 8, 8]}>
         <Heading size="lg" lineHeight="32px" fontWeight="bold" mb="12">
           <Trans id="questionsAnswers" />
         </Heading>
         <Accordion allowMultiple>
           {faqs[languageContext.language].map((faq, index) => (
             <AccordionItem key={index}>
-              <AccordionHeader pl="0">
+              <AccordionButton pl="0">
                 <Box flex="1" textAlign="left" fontWeight="700">
                   {faq.question}
                 </Box>
                 <AccordionIcon />
-              </AccordionHeader>
+              </AccordionButton>
               <AccordionPanel pl="0" pb={4}>
                 {faq.answer}
               </AccordionPanel>

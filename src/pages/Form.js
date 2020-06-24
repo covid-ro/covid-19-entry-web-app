@@ -12,6 +12,7 @@ import ReactSelect from 'react-select'
 // import SignaturePad from 'react-signature-canvas'
 import fetcher from '../utils/fetcher'
 import useSWR from 'swr'
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Heading,
   Box,
@@ -27,7 +28,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Icon,
   // RadioButtonGroup,
   Slider,
   Button,
@@ -57,7 +57,7 @@ function Declaration() {
   // const clear = () => sigCanvas.current.clear()
   // const [showDialog, setShowDialog] = useState(false)
   const [countyId, setCountyId] = useState('')
-  const { colorMode } = useColorMode()
+  const [colorMode] = useColorMode()
   const bgColor = { light: '#fff', dark: '#171923' }
   const color = { light: '#171923', dark: '#fff' }
   const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
@@ -420,7 +420,7 @@ function Declaration() {
               return (
                 <Form>
                   {/* Step 1 - name, surname, CNP */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(1)}>
+                  <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(1)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form1Label" />
                     </Heading>
@@ -431,7 +431,7 @@ function Declaration() {
                           alignItems="center"
                           w="100%"
                           mt="8">
-                          <FormLabel htmlFor="home_isolated">
+                          <FormLabel htmlFor="nationality">
                             <Trans id="form1Switch" />
                           </FormLabel>
                           <Switch
@@ -440,7 +440,7 @@ function Declaration() {
                             name="is_romanian"
                             id="nationality"
                             size="lg"
-                            color="brand"
+                            colorScheme="brand"
                             ml="auto"
                           />
                         </FormControl>
@@ -469,12 +469,13 @@ function Declaration() {
                               children={
                                 !form.errors.surname &&
                                 form.touched.surname && (
-                                  <Icon name="check" color="green.500" />
+                                  <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
                           <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
                             {form.errors.surname}
                           </FormErrorMessage>
                         </FormControl>
@@ -501,12 +502,13 @@ function Declaration() {
                               children={
                                 !form.errors.name &&
                                 form.touched.name && (
-                                  <Icon name="check" color="green.500" />
+                                  <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
                           <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
                             {form.errors.name}
                           </FormErrorMessage>
                         </FormControl>
@@ -533,12 +535,15 @@ function Declaration() {
                               children={
                                 !form.errors.cnp &&
                                 form.touched.cnp && (
-                                  <Icon name="check" color="green.500" />
+                                  <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>{form.errors.cnp}</FormErrorMessage>
+                          <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
+                            {form.errors.cnp}
+                          </FormErrorMessage>
                         </FormControl>
                       )}
                     </Field>
@@ -573,7 +578,7 @@ function Declaration() {
                                 children={
                                   !form.errors.birth_date &&
                                   form.touched.birth_date && (
-                                    <Icon name="check" color="green.500" />
+                                    <CheckIcon color="green.500" />
                                   )
                                 }
                               />
@@ -587,7 +592,7 @@ function Declaration() {
                     )}
                   </WhiteBox>
                   {/* Step 2 - pasaport/buletin serie numar*/}
-                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
+                  {/* <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form2Label" />
                     </Heading>
@@ -653,7 +658,7 @@ function Declaration() {
                                 children={
                                   !form.errors.document_series &&
                                   form.touched.document_series && (
-                                    <Icon name="check" color="green.500" />
+                                     <CheckIcon color="green.500" />
                                   )
                                 }
                               />
@@ -690,13 +695,13 @@ function Declaration() {
                               children={
                                 !form.errors.document_number &&
                                 form.touched.document_number && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {errors.document_number}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{errors.document_number}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -704,7 +709,7 @@ function Declaration() {
                   </WhiteBox>
                    */}
                   {/* Step 3 - travelling from*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(2)}>
+                  <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(2)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form3LabelTemp" />
                     </Heading>
@@ -744,6 +749,7 @@ function Declaration() {
                             styles={customStyles}
                           />
                           <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
                             {form.errors.travelling_from_country_code}
                           </FormErrorMessage>
                         </FormControl>
@@ -774,13 +780,13 @@ function Declaration() {
                               children={
                                 !form.errors.travelling_from_city &&
                                 form.touched.travelling_from_city && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {errors.travelling_from_city}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{errors.travelling_from_city}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -815,13 +821,13 @@ function Declaration() {
                               children={
                                 !form.errors.travelling_from_date &&
                                 form.touched.travelling_from_date && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.travelling_from_date}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.travelling_from_date}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -859,8 +865,8 @@ function Declaration() {
                             mt="4"
                             styles={customStyles}
                           />
-                          <FormErrorMessage>
-                            {form.errors.itinerary_countries}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.itinerary_countries}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -895,13 +901,13 @@ function Declaration() {
                               children={
                                 !form.errors.travel_route &&
                                 form.touched.travel_route && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.travel_route}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.travel_route}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -1105,7 +1111,7 @@ function Declaration() {
                                     !form.errors.street &&
                                     form.touched?.isolation_addresses
                                       ?.street && (
-                                      <Icon name="check" color="green.500" />
+                                      <CheckIcon color="green.500" />
                                     )
                                   }
                                 />
@@ -1140,7 +1146,7 @@ function Declaration() {
                                     !form.errors.number &&
                                     form.touched?.isolation_addresses
                                       ?.number && (
-                                      <Icon name="check" color="green.500" />
+                                      <CheckIcon color="green.500" />
                                     )
                                   }
                                 />
@@ -1174,7 +1180,7 @@ function Declaration() {
                                   children={
                                     !form.errors.bloc &&
                                     form.touched?.isolation_addresses?.bloc && (
-                                      <Icon name="check" color="green.500" />
+                                      <CheckIcon color="green.500" />
                                     )
                                   }
                                 />
@@ -1208,9 +1214,7 @@ function Declaration() {
                                   children={
                                     !form.errors.entry &&
                                     form.touched?.isolation_addresses
-                                      ?.entry && (
-                                      <Icon name="check" color="green.500" />
-                                    )
+                                      ?.entry && <CheckIcon color="green.500" />
                                   }
                                 />
                               </InputGroup>
@@ -1244,7 +1248,7 @@ function Declaration() {
                                     !form.errors.apartment &&
                                     form.touched?.isolation_addresses
                                       ?.apartment && (
-                                      <Icon name="check" color="green.500" />
+                                      <CheckIcon color="green.500" />
                                     )
                                   }
                                 />
@@ -1259,7 +1263,7 @@ function Declaration() {
                     )}
                   </WhiteBox>
                   {/* Step 5 - phone email*/}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(4)}>
+                  <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(4)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form5Label" />
                     </Heading>
@@ -1279,7 +1283,7 @@ function Declaration() {
                             <InputRightElement
                               children={
                                 !form.errors.phone && (
-                                  <Icon name="check" color="green.500" />
+                                  <CheckIcon color="green.500" />
                                 )
                               }
                             />
@@ -1307,13 +1311,13 @@ function Declaration() {
                               children={
                                 !form.errors.email &&
                                 form.touched.email && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.email}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.email}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -1330,7 +1334,7 @@ function Declaration() {
                     <Trans id="alertMessage" />
                   </WhiteBox>
                   {/* Step 6 */}
-                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(6)}>
+                  {/* <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(6)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label" />
                     </Heading>
@@ -1356,7 +1360,7 @@ function Declaration() {
                   </WhiteBox>
                    */}
                   {/* Step 7 */}
-                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(7)}>
+                  {/* <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(7)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="form9Label2" />
                     </Heading>
@@ -1386,20 +1390,20 @@ function Declaration() {
                               children={
                                 !form.errors.vehicle_registration_no &&
                                 form.touched.vehicle_registration_no && (
-                                  <Icon name="check" color="green.500" />
+                                   <CheckIcon color="green.500" />
                                 )
                               }
                             />
                           </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.vehicle_registration_no}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.vehicle_registration_no}
                           </FormErrorMessage>
                         </FormControl>
                       )}
                     </Field>
                   </WhiteBox> */}
                   {/* Step 9 */}
-                  {/* <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
+                  {/* <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="signatureTitle" />
                     </Heading>
@@ -1412,7 +1416,7 @@ function Declaration() {
                             form.errors.signature && form.touched.signature
                           }>
                           <Button
-                            variantColor="brand"
+                            colorScheme="brand"
                             variant="outline"
                             size="lg"
                             mt="8"
@@ -1455,7 +1459,7 @@ function Declaration() {
                               />
                               <ButtonGroup spacing={4}>
                                 <Button
-                                  variantColor="gray"
+                                  colorScheme="gray"
                                   variant="outline"
                                   size="lg"
                                   mt="8"
@@ -1463,7 +1467,7 @@ function Declaration() {
                                   <Trans id="clear" />
                                 </Button>
                                 <Button
-                                  variantColor="brand"
+                                  colorScheme="brand"
                                   size="lg"
                                   mt="8"
                                   onClick={() => {
@@ -1492,15 +1496,15 @@ function Declaration() {
                             />
                           ) : null}
 
-                          <FormErrorMessage>
-                            {form.errors.signature}
+                           <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />{form.errors.signature}
                           </FormErrorMessage>
                         </FormControl>
                       )}
                     </Field>
                   </WhiteBox> */}
                   {/* Step 10 */}
-                  <WhiteBox p={[1, 8]} onClick={() => setSlide(5)}>
+                  <WhiteBox p={[2, 8, 8, 8]} onClick={() => setSlide(5)}>
                     <Heading size="md" lineHeight="32px" fontWeight="400">
                       <Trans id="acceptanceTitle" />
                     </Heading>
@@ -1524,11 +1528,12 @@ function Declaration() {
                               form.errors.accept_personal_data &&
                               form.touched.accept_personal_data
                             }
-                            variantColor="brand"
+                            colorScheme="brand"
                             mt={4}>
                             <Trans id="acceptPersonalData" />
                           </Checkbox>
                           <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
                             {form.errors.accept_personal_data}
                           </FormErrorMessage>
                         </FormControl>
@@ -1550,11 +1555,12 @@ function Declaration() {
                               form.errors.accept_read_law &&
                               form.touched.accept_read_law
                             }
-                            variantColor="brand"
+                            colorScheme="brand"
                             mt={6}>
                             <Trans id="acceptReadLaw" />
                           </Checkbox>
                           <FormErrorMessage>
+                            <WarningIcon color="red.500" marginRight="2" />
                             {form.errors.accept_read_law}
                           </FormErrorMessage>
                         </FormControl>
@@ -1569,7 +1575,7 @@ function Declaration() {
                     alignItems="center"
                     justifyContent="center">
                     <Button
-                      variantColor="brand"
+                      colorScheme="brand"
                       size="lg"
                       mt="8"
                       w="320px"

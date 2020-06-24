@@ -21,12 +21,12 @@ function App() {
   return (
     <Suspense
       fallback={
-        <Flex size="full" align="center" justify="center" pos="absolute">
+        <Flex w="full" h="full" align="center" justify="center" pos="absolute">
           <Spinner
             thickness="2px"
             speed="0.65s"
             emptyColor="gray.200"
-            color="blue.500"
+            color="brand.500"
             size="xl"
           />
         </Flex>

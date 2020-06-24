@@ -5,7 +5,7 @@ import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
 export default () => (
   <Layout title="404">
-    <WhiteBox p={[1, 8]}>
+    <WhiteBox p={[2, 8, 8, 8]}>
       <Heading size="lg" lineHeight="32px" fontWeight="400">
         <Trans id="noMatch" />
       </Heading>

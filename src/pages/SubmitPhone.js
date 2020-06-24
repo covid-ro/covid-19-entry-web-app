@@ -7,7 +7,7 @@ import Select, { components } from 'react-select'
 import { writeStorage } from '@rehooks/local-storage'
 import { LanguageContext } from '../locale/LanguageContext'
 import { groupedPhoneCodes } from '../assets/data/groupedCountries'
-
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Heading,
   Box,
@@ -21,7 +21,6 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightElement,
-  Icon,
   useToast,
   Button,
   useColorMode,
@@ -56,7 +55,7 @@ function SubmitPhone() {
       duration: 4000,
     })
   }
-  const { colorMode } = useColorMode()
+  const [colorMode] = useColorMode()
   const bgColor = { light: '#fff', dark: '#171923' }
   const color = { light: '#171923', dark: '#fff' }
   const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
@@ -131,7 +130,7 @@ function SubmitPhone() {
 
   return (
     <Layout title="Telefon">
-      <WhiteBox p={[1, 8]}>
+      <WhiteBox p={[2, 8, 8, 8]}>
         <Heading size="md" lineHeight="32px" fontWeight="400">
           <Trans id="validatePhoneNumberInformationLabel" />
         </Heading>
@@ -223,10 +222,10 @@ function SubmitPhone() {
                         <FormLabel htmlFor="phone" mt="8">
                           <Trans id="telefon" />
                         </FormLabel>
-                        <InputGroup>
+                        <InputGroup size="md" width="80%">
                           <InputLeftAddon
                             w="100px"
-                            px="0"
+                            p="0"
                             border="none"
                             borderImageWidth="0"
                             backgroundColor={bgColor[colorMode]}
@@ -250,19 +249,21 @@ function SubmitPhone() {
                             pl="4"
                             variant="flushed"
                             placeholder="72600000"
-                            w="70%"
                           />
                           <InputRightElement
                             children={
                               values.phone !== '' &&
                               !form.errors.phone &&
                               form.touched.phone && (
-                                <Icon name="check" color="green.500" />
+                                <CheckIcon color="green.500" />
                               )
                             }
                           />
                         </InputGroup>
-                        <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
+                        <FormErrorMessage>
+                          <WarningIcon color="red.500" marginRight="2" />
+                          {form.errors.phone}
+                        </FormErrorMessage>
                       </FormControl>
                     )}
                   </Field>
@@ -281,7 +282,10 @@ function SubmitPhone() {
                         setFieldValue('recaptcha', response)
                       }}
                     />
-                    <FormErrorMessage>{form.errors.recaptcha}</FormErrorMessage>
+                    <FormErrorMessage>
+                      <WarningIcon color="red.500" marginRight="2" />
+                      {form.errors.recaptcha}
+                    </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -294,7 +298,7 @@ function SubmitPhone() {
                 alignItems="center"
                 justifyContent="center">
                 <Button
-                  variantColor="brand"
+                  colorScheme="brand"
                   size="lg"
                   mt="8"
                   w="300px"

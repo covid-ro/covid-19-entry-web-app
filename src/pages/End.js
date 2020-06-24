@@ -23,7 +23,7 @@ function End() {
   }
   return (
     <Layout title="La revedere">
-      <WhiteBox p={[1, 8]}>
+      <WhiteBox p={[2, 8, 8, 8]}>
         <Heading size="lg" lineHeight="32px" fontWeight="bold">
           <Trans id="endScreenFirstLine" />
         </Heading>
@@ -41,20 +41,20 @@ function End() {
           alignItems="center"
           justifyContent="center">
           <Anchor as={Link} to="/faq">
-            <Button variantColor="brand" size="lg" mt="8" w="320px">
+            <Button colorScheme="brand" size="lg" mt="8" w="320px">
               <Trans id="questionsAnswers" />
             </Button>
           </Anchor>
           <Anchor
             href={`https://reopen.europa.eu/${languageContext.language}/map/ROU`}
             isExternal>
-            <Button variantColor="brand" size="lg" mt="8" w="320px">
+            <Button colorScheme="brand" size="lg" mt="8" w="320px">
               <Trans id="sfaturiDeCalatorie" />
             </Button>
           </Anchor>
 
           <Button
-            variantColor="brand"
+            colorScheme="brand"
             size="lg"
             mt="8"
             w="320px"
