@@ -5,9 +5,7 @@ import { writeStorage } from '@rehooks/local-storage'
 const storedLanguage = localStorage.getItem('lang') || languageOptions[0].id
 export const LanguageContext = createContext({
   language: storedLanguage,
-  dictionary: storedLanguage
-    ? dictionaryList[storedLanguage]
-    : dictionaryList[languageOptions[0].id],
+  dictionary: dictionaryList[storedLanguage],
 })
 // provider
 export function LanguageProvider(props) {

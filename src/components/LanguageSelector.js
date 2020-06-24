@@ -6,13 +6,13 @@ import { LanguageContext } from '../locale/LanguageContext'
 import { Button } from '@chakra-ui/core'
 export function LanguageSelector() {
   let history = useHistory()
+  const { colorMode } = useColorMode()
   const languageContext = useContext(LanguageContext)
   function forwardAction(e, lang) {
-    languageContext.setLanguage(lang)
     e.stopPropagation()
+    languageContext.setLanguage(lang)
     history.push('/start')
   }
-  const { colorMode } = useColorMode()
   const color = { light: '#2653B0', dark: '#fff' }
   return (
     <Flex flexDirection="column" alignItems="center">
