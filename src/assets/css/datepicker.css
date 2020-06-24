@@ -1,6 +1,46 @@
-.react-datepicker-wrapper {
+.chakra-ui-light .invalid .react-datepicker-wrapper,
+.chakra-ui-dark .invalid .react-datepicker-wrapper {
+  border-bottom: solid 2px #fc8181;
+}
+.chakra-ui-light .react-datepicker-wrapper {
   border-bottom: solid 2px #e7ebed;
   padding: 6px 0;
   height: 2.5rem;
   width: 100%;
+}
+.chakra-ui-dark .react-datepicker-wrapper {
+  border-bottom: solid 2px #3c3e46;
+  padding: 6px 0;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.react-datepicker-wrapper input.dark {
+  background: transparent;
+
+  color: #fff;
+}
+.chakra-ui-dark input::placeholder {
+  color: #dadada;
+}
+.chakra-ui-dark select {
+  color: #dadada;
+  background: #1a202c;
+  border-color: #000;
+}
+.chakra-ui-dark .react-datepicker,
+.chakra-ui-dark .react-datepicker__header {
+  background: #1a202c;
+  color: #dadada;
+  border-color: #000;
+}
+.chakra-ui-dark .react-datepicker__day,
+.chakra-ui-dark .react-datepicker__current-month,
+.chakra-ui-dark .react-datepicker__day-name {
+  color: #dadada;
+}
+.chakra-ui-dark .react-datepicker__triangle {
+  left: 230px !important;
+  border-top-color: #1a202c !important;
+  border-bottom-color: #1a202c !important;
 }

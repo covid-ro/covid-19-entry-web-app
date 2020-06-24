@@ -254,9 +254,9 @@ function SubmitPhone() {
                             children={
                               values.phone !== '' &&
                               !form.errors.phone &&
-                              form.touched.phone && (
+                              form.touched.phone ? (
                                 <CheckIcon color="green.500" />
-                              )
+                              ) : null
                             }
                           />
                         </InputGroup>

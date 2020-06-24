@@ -228,7 +228,7 @@ function Declaration() {
             </Flex>
           </WhiteBox>
           <Formik
-            validateOnChange={false}
+            // validateOnChange={false}
             initialValues={initialValues}
             validate={(values) => {
               const errors = {}
@@ -242,7 +242,7 @@ function Declaration() {
                 errors.cnp = languageContext.dictionary['required']
               }
               if (!values.is_romanian) {
-                if (values.birth_date === '') {
+                if (values.birth_date === '' || values.birth_date === null) {
                   errors.birth_date = languageContext.dictionary['required']
                 }
               }
@@ -560,7 +560,13 @@ function Declaration() {
                             <FormLabel htmlFor="birth_date" mt="4">
                               <Trans id="birthdate" />
                             </FormLabel>
-                            <InputGroup>
+                            <InputGroup
+                              className={
+                                form.errors.birth_date &&
+                                form.touched.birth_date
+                                  ? 'invalid'
+                                  : ''
+                              }>
                               <DatePicker
                                 {...field}
                                 selected={form.values.birth_date}
@@ -586,6 +592,7 @@ function Declaration() {
                               />
                             </InputGroup>
                             <FormErrorMessage>
+                              <WarningIcon color="red.500" marginRight="2" />
                               {form.errors.birth_date}
                             </FormErrorMessage>
                           </FormControl>
