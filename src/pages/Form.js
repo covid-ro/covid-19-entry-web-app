@@ -737,9 +737,13 @@ function Declaration() {
                             isClearable={true}
                             formatGroupLabel={formatGroupLabel}
                             options={groupedCountries}
-                            onChange={(val) =>
+                            onChange={(val) => {
                               setFieldValue('travelling_from_country_code', val)
-                            }
+                              setErrors(
+                                'travelling_from_country_code',
+                                undefined
+                              )
+                            }}
                             onBlur={() =>
                               setFieldTouched(
                                 'travelling_from_country_code',
