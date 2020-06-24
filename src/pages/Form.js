@@ -206,7 +206,12 @@ function Declaration() {
         />
       ) : (
         <Box w="100%">
-          <WhiteBox py={1} px={[1, 8]} pos="sticky" top="90px" zIndex="sticky">
+          <WhiteBox
+            py={1}
+            px={[2, 8, 8, 8]}
+            pos="sticky"
+            top="90px"
+            zIndex="modal">
             <Flex flexDirection="row" width="100%" alignItems="center">
               <Slider
                 defaultValue={0}
@@ -929,7 +934,7 @@ function Declaration() {
                   </WhiteBox>
                   {/* Step 4 - isolation address*/}
                   <WhiteBox
-                    p={[1, 8]}
+                    p={[2, 8, 8, 8]}
                     justifyContent="space-between"
                     d="inline-flex"
                     flexWrap="wrap"

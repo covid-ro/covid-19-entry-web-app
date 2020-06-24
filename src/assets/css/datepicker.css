@@ -1,4 +1,6 @@
-.chakra-ui-light .invalid .react-datepicker-wrapper,
+.chakra-ui-light .invalid .react-datepicker-wrapper {
+  border-bottom: solid 2px #e53e3e;
+}
 .chakra-ui-dark .invalid .react-datepicker-wrapper {
   border-bottom: solid 2px #fc8181;
 }
