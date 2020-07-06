@@ -57,7 +57,7 @@ function Declaration() {
   // const clear = () => sigCanvas.current.clear()
   // const [showDialog, setShowDialog] = useState(false)
   const [countyId, setCountyId] = useState('')
-  const [colorMode] = useColorMode()
+  const { colorMode } = useColorMode()
   const bgColor = { light: '#fff', dark: '#171923' }
   const color = { light: '#171923', dark: '#fff' }
   const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }

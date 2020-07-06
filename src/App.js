@@ -13,6 +13,7 @@ const Success = lazy(() => import('./pages/Success'))
 const End = lazy(() => import('./pages/End'))
 const NoMatch = lazy(() => import('./pages/NoMatch'))
 const Faq = lazy(() => import('./pages/Faq'))
+const Download = lazy(() => import('./pages/Download'))
 
 function App() {
   useEffect(() => {
@@ -55,6 +56,9 @@ function App() {
         </Route>
         <Route path="/faq">
           <Faq />
+        </Route>
+        <Route path="/descarca-tip">
+          <Download />
         </Route>
         <Route path="*">
           <NoMatch />

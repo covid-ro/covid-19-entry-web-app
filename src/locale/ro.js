@@ -13,6 +13,13 @@ const ro = {
   progressHeaderStep: 'din 10',
   form1Switch: 'Dețineți cetățenie română?',
   birthdate: 'Data nașterii',
+  downloadPage: 'Nu primiți SMS-ul de validare?',
+  roaming:
+    'Dacă nu primiți SMS-ul de validare a numărului de telefon vă recomandăm să completați declarația atunci când ajungeți în zona de frontieră a României. Odată cu conectarea numărului de telefon în rețeaua locala (roaming) cel mai probabil veți primi SMS-ul de validare.',
+  problemSms:
+    'Dacă totuși doriți să completați declarația înainte de a pleca spre România, puteți descărca de aici modelul de declarație. Acesta trebuie imprimat și completat cu datele solicitate. Atenție: numărul de telefon completat trebuie să fie unul pe care puteți fi apelat cât timp va aflați pe teritoriul României.',
+  downloadForm: 'Descarcă model declarație',
+  back: 'Înapoi',
   form2Label: 'Selectați unul din actele de identitate.',
   form8Label:
     'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',

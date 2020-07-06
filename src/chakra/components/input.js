@@ -1,13 +1,14 @@
-import { mode, getColor } from '@chakra-ui/theme-tools';
+import { mode, getColor } from '@chakra-ui/theme-tools'
 
-const getDefaults = props => ({
-  focusBorderColor: props.focusBorderColor || mode('blue.500', 'blue.300')(props),
+const getDefaults = (props) => ({
+  focusBorderColor:
+    props.focusBorderColor || mode('blue.500', 'blue.300')(props),
   errorBorderColor: props.errorBorderColor || mode('red.500', 'red.300')(props),
-});
+})
 
 function getOutlineStyle(props) {
-  const {theme: t} = props;
-  const {focusBorderColor: fc, errorBorderColor: ec} = getDefaults(props);
+  const { theme: t } = props
+  const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
     border: '1px solid',
@@ -29,12 +30,12 @@ function getOutlineStyle(props) {
       borderColor: getColor(t, ec),
       boxShadow: `0 0 0 1px ${getColor(t, ec)}`,
     },
-  };
+  }
 }
 
 function getFilledStyle(props) {
-  const {theme: t} = props;
-  const {focusBorderColor: fc, errorBorderColor: ec} = getDefaults(props);
+  const { theme: t } = props
+  const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
     border: '2px solid',
@@ -55,12 +56,12 @@ function getFilledStyle(props) {
     _invalid: {
       borderColor: getColor(t, ec),
     },
-  };
+  }
 }
 
 function getFlushedStyle(props) {
-  const {theme: t} = props;
-  const {focusBorderColor: fc, errorBorderColor: ec} = getDefaults(props);
+  const { theme: t } = props
+  const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
     borderBottom: '2px solid',
@@ -75,14 +76,14 @@ function getFlushedStyle(props) {
     _invalid: {
       borderColor: getColor(t, ec),
     },
-  };
+  }
 }
 
 const unstyled = {
   bg: 'transparent',
   paddingX: 0,
   height: 'auto',
-};
+}
 
 const sizes = {
   lg: {
@@ -106,12 +107,12 @@ const sizes = {
     minHeight: 8,
     borderRadius: 'sm',
   },
-};
+}
 
 const Input = {
   defaultProps: {
     size: 'md',
-    variant: 'outline',
+    variant: 'flushed',
   },
   baseStyle: {
     width: '100%',
@@ -127,19 +128,19 @@ const Input = {
     flushed: getFlushedStyle,
     unstyled,
   },
-};
+}
 
 export const InputSizes = {
   sm: 'sm',
   md: 'md',
   lg: 'lg',
-};
+}
 
 export const InputVariants = {
   outline: 'outline',
   filled: 'filled',
   flushed: 'flushed',
   unstyled: 'unstyled',
-};
+}
 
-export default Input;
+export default Input

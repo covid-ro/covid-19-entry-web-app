@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@chakra-ui/core": "^1.0.0-next.2",
-    "@chakra-ui/icons": "^1.0.0-next.2",
-    "@chakra-ui/theme-tools": "^1.0.0-next.2",
-    "@reach/dialog": "^0.10.4",
+    "@chakra-ui/core": "^1.0.0-next.4",
+    "@chakra-ui/icons": "^1.0.0-next.3",
+    "@chakra-ui/theme-tools": "^1.0.0-next.3",
+    "@reach/dialog": "^0.10.5",
     "@rehooks/local-storage": "^2.4.0",
-    "@sentry/browser": "^5.18.0",
+    "@sentry/browser": "^5.19.0",
     "formik": "^2.1.4",
     "isomorphic-unfetch": "^3.0.0",
     "jr-qrcode": "^1.1.4",
@@ -51,9 +51,9 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.10.1",
-    "@testing-library/react": "^10.4.1",
-    "@testing-library/user-event": "^12.0.7",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.4",
+    "@testing-library/user-event": "^12.0.11",
     "source-map-explorer": "^2.4.2"
   }
 }

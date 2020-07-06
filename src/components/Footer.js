@@ -4,7 +4,7 @@ import { Trans } from '../locale/Trans'
 import cn from '../assets/images/cn.svg'
 import sts from '../assets/images/logo.png'
 export function Footer() {
-  const [colorMode] = useColorMode()
+  const { colorMode } = useColorMode()
   const bgColor = { light: 'white', dark: 'gray.900' }
   const borderColor = { light: 'gray.200', dark: 'gray.700' }
   const color = { light: 'brand.900', dark: 'brand.100' }

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, Link as RLink } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import { ReCaptcha } from 'react-recaptcha-v3'
 import { omit } from 'ramda'
 import Select, { components } from 'react-select'
-import { writeStorage } from '@rehooks/local-storage'
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage'
 import { LanguageContext } from '../locale/LanguageContext'
 import { groupedPhoneCodes } from '../assets/data/groupedCountries'
 import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
@@ -47,6 +47,8 @@ function SubmitPhone() {
   let location = useLocation()
   const languageContext = useContext(LanguageContext)
   const [disabled, setDisabled] = useState(false)
+  const [submitCount] = useLocalStorage('submitCount')
+  const { colorMode } = useColorMode()
   if (location?.state?.message) {
     toast({
       title: languageContext.dictionary['startHere'],
@@ -55,7 +57,6 @@ function SubmitPhone() {
       duration: 4000,
     })
   }
-  const [colorMode] = useColorMode()
   const bgColor = { light: '#fff', dark: '#171923' }
   const color = { light: '#171923', dark: '#fff' }
   const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
@@ -169,6 +170,7 @@ function SubmitPhone() {
               })
               const response = await request.json()
               if (response.status === 'success') {
+                writeStorage('submitCount', !submitCount ? 1 : submitCount + 1)
                 toast({
                   title: languageContext.dictionary['sms'],
                   description: languageContext.dictionary['smsDescription'],
@@ -307,6 +309,18 @@ function SubmitPhone() {
                   type="submit">
                   <Trans id="validatePhoneNumber" />
                 </Button>
+                {submitCount > 2 && (
+                  <Link as={RLink} to="/descarca-tip" mt="8">
+                    <Button
+                      colorScheme="brand"
+                      variant="outline"
+                      size="lg"
+                      w="300px"
+                      isLoading={isSubmitting}>
+                      <Trans id="downloadPage" />
+                    </Button>
+                  </Link>
+                )}
               </Box>
             </Form>
           )}

@@ -35,7 +35,7 @@ function Success() {
   const [show, setShow] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const languageContext = useContext(LanguageContext)
-  const [colorMode] = useColorMode()
+  const { colorMode } = useColorMode()
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   async function download(code) {
     let doc = new Document()

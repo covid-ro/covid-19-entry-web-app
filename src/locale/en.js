@@ -14,6 +14,13 @@ const en = {
   progressHeaderStep: 'of 10',
   form1Switch: 'Are you a romanian citizen?',
   birthdate: 'Birthdate',
+  downloadPage: 'Problems receiving the validation SMS?',
+  roaming:
+    'If you do not receive the phone validation SMS we recommend that you retry filling in the form once you land in Romania. Once you connect to a local operator (roaming) you will most likely receive the validation SMS.',
+  problemSms:
+    'If you prefer to fill in the statement before departing for Romania, you can download below the staement template. This needs to be printed and filled in with required data. Important: the phone number entered must be one where you can be contacted as long as you are on Romanian territory.',
+  downloadForm: 'Download statement template',
+  back: 'Back',
   form2Label: 'Choose an id document',
   form8Label:
     'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',

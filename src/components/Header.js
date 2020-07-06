@@ -22,7 +22,7 @@ const MenuItems = ({ children }) => (
 export function Header(props) {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
-  const [colorMode, toggleColorMode] = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode()
   const languageContext = useContext(LanguageContext)
   const bgColor = { light: 'white', dark: 'gray.900' }
   const color = { light: 'brand.900', dark: 'brand.100' }

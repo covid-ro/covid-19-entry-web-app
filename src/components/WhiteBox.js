@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, useColorMode } from '@chakra-ui/core'
 export function WhiteBox({ children, onClick, ...rest }) {
-  const [colorMode] = useColorMode()
+  const { colorMode } = useColorMode()
   const borderColor = { light: 'gray.200', dark: 'gray.700' }
   const bgColor = { light: 'white', dark: 'gray.900' }
   return (

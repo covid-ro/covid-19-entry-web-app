@@ -78,6 +78,7 @@ function ValidatePhone() {
                 const response = await request.json()
                 if (response.status === 'success') {
                   writeStorage('token', response.token)
+                  writeStorage('submitCount', 0)
                   toast({
                     title: languageContext.dictionary['success'],
                     description: languageContext.dictionary['validateSuccess'],

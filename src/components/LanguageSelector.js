@@ -6,7 +6,7 @@ import { LanguageContext } from '../locale/LanguageContext'
 import { Button } from '@chakra-ui/core'
 export function LanguageSelector() {
   let history = useHistory()
-  const [colorMode] = useColorMode()
+  const { colorMode } = useColorMode()
   const languageContext = useContext(LanguageContext)
   function forwardAction(e, lang) {
     e.stopPropagation()
