@@ -9,11 +9,13 @@ import { LanguageProvider } from './locale/LanguageContext'
 
 import App from './App'
 import ScrollToTop from './components/ScrollToTop'
-Sentry.init({
-  dsn:
-    'https://4b39d10c7bb24d43b0fd04e9417e7138@o395451.ingest.sentry.io/5253033',
-  environment: process.env.NODE_ENV,
-})
+if (process.env.NODE_ENV !== 'development') {
+  Sentry.init({
+    dsn:
+      'https://4b39d10c7bb24d43b0fd04e9417e7138@o395451.ingest.sentry.io/5253033',
+    environment: process.env.NODE_ENV,
+  })
+}
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>

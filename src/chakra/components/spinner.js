@@ -2,6 +2,7 @@ const Spinner = {
   defaultProps: {
     size: 'md',
   },
+  baseStyle: {},
   sizes: {
     xs: {
       width: '0.75rem',
@@ -24,7 +25,7 @@ const Spinner = {
       height: '3rem',
     },
   },
-};
+}
 
 export const SpinnerSizes = {
   xs: 'xs',
@@ -32,6 +33,6 @@ export const SpinnerSizes = {
   md: 'md',
   lg: 'lg',
   xl: 'xl',
-};
+}
 
-export default Spinner;
+export default Spinner

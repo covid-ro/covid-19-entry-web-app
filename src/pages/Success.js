@@ -12,7 +12,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useColorMode,
+  useColorModeValue,
   Stack,
   IconButton,
   Link as Anchor,
@@ -35,7 +35,6 @@ function Success() {
   const [show, setShow] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const languageContext = useContext(LanguageContext)
-  const { colorMode } = useColorMode()
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
   async function download(code) {
     let doc = new Document()
@@ -123,12 +122,9 @@ function Success() {
       })
     }
   }
-  const bgColorQR = { light: 'white', dark: '#171923' }
-  const fgColorQR = { light: '#171923', dark: 'white' }
-  const overlayColor = {
-    light: 'rgba(255,255,255,1)',
-    dark: '#171923',
-  }
+  const bgColorQR = useColorModeValue('white', '#171923')
+  const fgColorQR = useColorModeValue('#171923', 'white')
+  const overlayColor = useColorModeValue('rgba(255,255,255,1)', '#171923')
   return (
     <Layout title="Codurile dumneavoastră">
       {!declarationCodes ? (
@@ -181,8 +177,8 @@ function Success() {
                 <Trans id="download" />
               </Button>
               <QRCode
-                bgColor={bgColorQR[colorMode]}
-                fgColor={fgColorQR[colorMode]}
+                bgColor={bgColorQR}
+                fgColor={fgColorQR}
                 level="Q"
                 onClick={() => setShow(declaration.code)}
                 style={{ width: 256, cursor: 'zoom-in' }}
@@ -193,7 +189,7 @@ function Success() {
                 onClose={() => setShow(null)}
                 isCentered
                 size="full">
-                <ModalOverlay backgroundColor={overlayColor[colorMode]}>
+                <ModalOverlay backgroundColor={overlayColor}>
                   <ModalContent>
                     <ModalHeader>
                       {declaration.name} {declaration.surname}
@@ -204,8 +200,8 @@ function Success() {
                       flexDirection="column"
                       alignItems="center">
                       <QRCode
-                        bgColor={bgColorQR[colorMode]}
-                        fgColor={fgColorQR[colorMode]}
+                        bgColor={bgColorQR}
+                        fgColor={fgColorQR}
                         level="Q"
                         style={{ width: 300 }}
                         value={`${declaration.code}  ${declaration.cnp}`}

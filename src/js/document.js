@@ -1,4 +1,4 @@
-import * as jsPDF from 'jspdf'
+import { jsPDF } from 'jspdf'
 import DocumentTranslator from './document-trans'
 import { fontBold } from './document-font-bold'
 import { fontNormal } from './document-font-normal'

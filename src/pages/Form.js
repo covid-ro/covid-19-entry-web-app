@@ -16,7 +16,7 @@ import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Heading,
   Box,
-  useColorMode,
+  useColorModeValue,
   Checkbox,
   useToast,
   FormErrorMessage,
@@ -57,18 +57,19 @@ function Declaration() {
   // const clear = () => sigCanvas.current.clear()
   // const [showDialog, setShowDialog] = useState(false)
   const [countyId, setCountyId] = useState('')
-  const { colorMode } = useColorMode()
-  const bgColor = { light: '#fff', dark: '#171923' }
-  const color = { light: '#171923', dark: '#fff' }
-  const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
-  const optionColor = {
-    light: { selected: '#2653B0', regular: '#4a4a4a' },
-    dark: { selected: '#ffffff', regular: '#e7ebed' },
-  }
-  const optionHover = {
-    light: { focused: '#a8bfda', regular: '#ffffff' },
-    dark: { focused: '#171923', regular: '#4a4a4a' },
-  }
+
+  const bgColor = useColorModeValue('#fff', '#171923')
+  const color = useColorModeValue('#171923', '#fff')
+  const borderColor = useColorModeValue('#e7ebed', '#4a4a4a')
+  const optionColor = useColorModeValue(
+    { selected: '#2653B0', regular: '#4a4a4a' },
+    { selected: '#ffffff', regular: '#e7ebed' }
+  )
+  const optionHover = useColorModeValue(
+    { focused: '#a8bfda', regular: '#ffffff' },
+    { focused: '#171923', regular: '#4a4a4a' }
+  )
+  const className = useColorModeValue('dark', '')
   const groupBadgeStyles = {
     backgroundColor: '#EBECF0',
     borderRadius: '2em',
@@ -99,7 +100,7 @@ function Declaration() {
     }),
     singleValue: (styles) => ({
       ...styles,
-      color: color[colorMode],
+      color: color,
     }),
     container: (styles, state) => ({
       ...styles,
@@ -108,18 +109,16 @@ function Declaration() {
     menu: (styles) => ({
       ...styles,
       width: '100%',
-      borderColor: borderColor[colorMode],
+      borderColor: borderColor,
       borderWidth: '1px',
-      backgroundColor: bgColor[colorMode],
+      backgroundColor: bgColor,
     }),
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected
-        ? optionColor[colorMode].selected
-        : optionColor[colorMode].regular,
+      color: state.isSelected ? optionColor.selected : optionColor.regular,
       backgroundColor: state.isFocused
-        ? optionHover[colorMode].focused
-        : optionHover[colorMode].regular,
+        ? optionHover.focused
+        : optionHover.regular,
     }),
   }
   const formatGroupLabel = (data) => (
@@ -585,7 +584,7 @@ function Declaration() {
                                 placeholder={
                                   languageContext.dictionary['selectDate']
                                 }
-                                className={colorMode === 'dark' ? 'dark' : ''}
+                                className={className}
                               />
                               <InputRightElement
                                 children={

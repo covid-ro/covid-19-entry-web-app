@@ -7,6 +7,7 @@ import {
   Text,
   IconButton,
   useColorMode,
+  useColorModeValue,
   Link as Anchor,
 } from '@chakra-ui/core'
 import { Link } from 'react-router-dom'
@@ -22,11 +23,13 @@ const MenuItems = ({ children }) => (
 export function Header(props) {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { toggleColorMode } = useColorMode()
+  const SwitchIcon = useColorModeValue(Moon, Sun)
+
   const languageContext = useContext(LanguageContext)
-  const bgColor = { light: 'white', dark: 'gray.900' }
-  const color = { light: 'brand.900', dark: 'brand.100' }
-  const borderColor = { light: 'gray.300', dark: 'gray.700' }
+  const bgColor = useColorModeValue('white', 'gray.900')
+  const color = useColorModeValue('brand.900', 'brand.100')
+  const borderColor = useColorModeValue('gray.300', 'gray.700')
   return (
     <Flex
       as="nav"
@@ -36,12 +39,12 @@ export function Header(props) {
       align="center"
       justify="space-between"
       borderBottom="1px"
-      borderColor={borderColor[colorMode]}
+      borderColor={borderColor}
       wrap="wrap"
       px={[2, 4, 10]}
       py="4"
-      bg={bgColor[colorMode]}
-      color={color[colorMode]}
+      bg={bgColor}
+      color={color}
       {...props}>
       <Link to="/">
         <Flex align="center" flexGrow={1}>
@@ -49,7 +52,7 @@ export function Header(props) {
           <Heading
             as="h1"
             size={['xs', 'lg']}
-            color={color[colorMode]}
+            color={color}
             ml="4"
             fontWeight="normal"
             maxW="200px">
@@ -99,7 +102,7 @@ export function Header(props) {
             sm: show ? 'right' : 'none',
           }}
           onClick={toggleColorMode}
-          icon={colorMode === 'light' ? <Moon /> : <Sun />}
+          icon={<SwitchIcon />}
         />
       </Box>
     </Flex>

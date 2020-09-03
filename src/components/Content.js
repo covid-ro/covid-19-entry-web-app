@@ -1,16 +1,11 @@
 import React from 'react'
-import { Box, useColorMode } from '@chakra-ui/core'
+import { Box, useColorModeValue } from '@chakra-ui/core'
 
 export function Content({ children }) {
-  const { colorMode } = useColorMode()
-  const bgColor = { light: 'gray.100', dark: 'gray.800' }
-  const color = { light: 'gray.700', dark: 'gray.200' }
+  const bgColor = useColorModeValue('gray.100', 'gray.800')
+  const color = useColorModeValue('gray.700', 'gray.200')
   return (
-    <Box
-      color={color[colorMode]}
-      minHeight="100vh"
-      bg={bgColor[colorMode]}
-      width="100%">
+    <Box color={color} minHeight="100vh" backgroundColor={bgColor} width="100%">
       {children}
     </Box>
   )

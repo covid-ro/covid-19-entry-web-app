@@ -23,7 +23,7 @@ import {
   InputRightElement,
   useToast,
   Button,
-  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
 import { WhiteBox } from '../components/WhiteBox'
@@ -48,7 +48,6 @@ function SubmitPhone() {
   const languageContext = useContext(LanguageContext)
   const [disabled, setDisabled] = useState(false)
   const [submitCount] = useLocalStorage('submitCount')
-  const { colorMode } = useColorMode()
   if (location?.state?.message) {
     toast({
       title: languageContext.dictionary['startHere'],
@@ -57,17 +56,17 @@ function SubmitPhone() {
       duration: 4000,
     })
   }
-  const bgColor = { light: '#fff', dark: '#171923' }
-  const color = { light: '#171923', dark: '#fff' }
-  const borderColor = { light: '#e7ebed', dark: '#4a4a4a' }
-  const optionColor = {
-    light: { selected: '#2653B0', regular: '#4a4a4a' },
-    dark: { selected: '#ffffff', regular: '#e7ebed' },
-  }
-  const optionHover = {
-    light: { focused: '#a8bfda', regular: '#ffffff' },
-    dark: { focused: '#171923', regular: '#4a4a4a' },
-  }
+  const bgColor = useColorModeValue('#fff', '#171923')
+  const color = useColorModeValue('#171923', '#fff')
+  const borderColor = useColorModeValue('#e7ebed', '#4a4a4a')
+  const optionColor = useColorModeValue(
+    { selected: '#2653B0', regular: '#4a4a4a' },
+    { selected: '#ffffff', regular: '#e7ebed' }
+  )
+  const optionHover = useColorModeValue(
+    { focused: '#a8bfda', regular: '#ffffff' },
+    { focused: '#171923', regular: '#4a4a4a' }
+  )
   const customStyles = {
     control: (styles, state) => ({
       ...styles,
@@ -87,7 +86,7 @@ function SubmitPhone() {
     singleValue: (styles) => ({
       ...styles,
       right: 10,
-      color: color[colorMode],
+      color: color,
     }),
     container: (styles) => ({
       ...styles,
@@ -96,18 +95,16 @@ function SubmitPhone() {
     menu: (styles) => ({
       ...styles,
       width: 'auto',
-      borderColor: borderColor[colorMode],
+      borderColor: borderColor,
       borderWidth: '1px',
-      backgroundColor: bgColor[colorMode],
+      backgroundColor: bgColor,
     }),
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected
-        ? optionColor[colorMode].selected
-        : optionColor[colorMode].regular,
+      color: state.isSelected ? optionColor.selected : optionColor.regular,
       backgroundColor: state.isFocused
-        ? optionHover[colorMode].focused
-        : optionHover[colorMode].regular,
+        ? optionHover.focused
+        : optionHover.regular,
     }),
   }
   const groupBadgeStyles = {
@@ -230,8 +227,8 @@ function SubmitPhone() {
                             p="0"
                             border="none"
                             borderImageWidth="0"
-                            backgroundColor={bgColor[colorMode]}
-                            color={color[colorMode]}>
+                            backgroundColor={bgColor}
+                            color={color}>
                             <Select
                               {...props.field}
                               name="phone_country_prefix"

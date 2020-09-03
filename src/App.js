@@ -2,7 +2,7 @@ import { hot } from 'react-hot-loader/root'
 import React, { Suspense, lazy, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { loadReCaptcha } from 'react-recaptcha-v3'
-import { Spinner, Flex } from '@chakra-ui/core'
+import { Spinner, Center } from '@chakra-ui/core'
 import './assets/css/sigStyles.css'
 const Home = lazy(() => import('./pages/Home'))
 const Start = lazy(() => import('./pages/Start'))
@@ -22,7 +22,7 @@ function App() {
   return (
     <Suspense
       fallback={
-        <Flex w="full" h="full" align="center" justify="center" pos="absolute">
+        <Center width="full" height="100vh">
           <Spinner
             thickness="2px"
             speed="0.65s"
@@ -30,7 +30,7 @@ function App() {
             color="brand.500"
             size="xl"
           />
-        </Flex>
+        </Center>
       }>
       <Switch>
         <Route exact path="/">
