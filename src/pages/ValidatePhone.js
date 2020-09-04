@@ -133,11 +133,10 @@ function ValidatePhone() {
                       <FormLabel htmlFor="phone_validation_code" mt="20">
                         <Trans id="codValidareSMS" />
                       </FormLabel>
-                      <InputGroup>
+                      <InputGroup variant="flushed">
                         <Input
                           {...field}
                           name="phone_validation_code"
-                          variant="flushed"
                           placeholder="123456"
                         />
                         <InputRightElement

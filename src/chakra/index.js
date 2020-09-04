@@ -1,15 +1,6 @@
-import defaultTheme from '@chakra-ui/theme'
-const zIndices = {
-  hide: -1,
-  auto: 'auto',
-  base: 0,
-  modal: 999,
-  sticky: 9999,
-}
-const theme = {
-  ...defaultTheme,
+import { extendTheme } from '@chakra-ui/core'
+const theme = extendTheme({
   colors: {
-    ...defaultTheme.colors,
     gray: {
       50: '#F7FAFC',
       100: '#f2f2f2',
@@ -34,28 +25,10 @@ const theme = {
       900: '#00468C',
     },
   },
-  zIndices,
   fonts: {
     body: "'Open Sans', sans-serif",
     heading: "'Merriweather', serif",
   },
-}
-export default theme
+})
 
-// import foundations from './foundations'
-// import components from './components'
-// import styles from './styles'
-// /**
-//  * Color mode config
-//  */
-// const config = {
-//   useSystemColorMode: false,
-//   initialColorMode: 'light',
-// }
-// const theme = {
-//   ...foundations,
-//   components,
-//   styles,
-//   config,
-// }
-// export default theme
+export default theme

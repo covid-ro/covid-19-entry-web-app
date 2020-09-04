@@ -32,7 +32,7 @@ const api = process.env.REACT_APP_API
 
 function Success() {
   const toast = useToast()
-  const [show, setShow] = useState(null)
+  const [show, setShow] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const languageContext = useContext(LanguageContext)
   const declarationCodes = JSON.parse(localStorage.getItem('declaration_code'))
@@ -156,7 +156,7 @@ function Success() {
                 size="lg"
                 marginTop="8"
                 width="256px"
-                onClick={() => setShow(declaration.code)}
+                onClick={() => setShow(true)}
                 cursor="zoom-in"
                 fontWeight="bold"
                 letterSpacing="4px">
@@ -180,15 +180,11 @@ function Success() {
                 bgColor={bgColorQR}
                 fgColor={fgColorQR}
                 level="Q"
-                onClick={() => setShow(declaration.code)}
+                onClick={() => setShow(true)}
                 style={{ width: 256, cursor: 'zoom-in' }}
                 value={`${declaration.code}  ${declaration.cnp}`}
               />
-              <Modal
-                isOpen={show === declaration.code}
-                onClose={() => setShow(null)}
-                isCentered
-                size="full">
+              <Modal isOpen={show} onClose={() => setShow(false)} isCentered>
                 <ModalOverlay backgroundColor={overlayColor}>
                   <ModalContent>
                     <ModalHeader>
@@ -212,7 +208,7 @@ function Success() {
                       <Button
                         colorScheme="brand"
                         marginRight={3}
-                        onClick={() => setShow(null)}>
+                        onClick={() => setShow(false)}>
                         <Trans id="close" />
                       </Button>
                     </ModalFooter>
@@ -252,17 +248,29 @@ function Success() {
             alignItems="center"
             justifyContent="center">
             <Link to="/introducere-telefon">
-              <Button colorScheme="brand" size="lg" marginTop="8" width="320px">
+              <Button
+                colorScheme="brand"
+                size="lg"
+                marginTop="8"
+                maxWidth="320px">
                 <Trans id="adaugaMembru" />
               </Button>
             </Link>
             <Link to="/multumim">
-              <Button colorScheme="brand" size="lg" marginTop="8" width="320px">
+              <Button
+                colorScheme="brand"
+                size="lg"
+                marginTop="8"
+                maxWidth="320px">
                 <Trans id="nuMaiAdaug" />
               </Button>
             </Link>
             <Link to="/faq">
-              <Button colorScheme="brand" size="lg" marginTop="8" width="320px">
+              <Button
+                colorScheme="brand"
+                size="lg"
+                marginTop="8"
+                maxWidth="320px">
                 <Trans id="questionsAnswers" />
               </Button>
             </Link>

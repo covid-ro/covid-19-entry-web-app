@@ -462,11 +462,10 @@ function Declaration() {
                           <FormLabel htmlFor="name" mt="8">
                             <Trans id="nume" />
                           </FormLabel>
-                          <InputGroup>
+                          <InputGroup variant="flushed">
                             <Input
                               {...field}
                               name="surname"
-                              variant="flushed"
                               placeholder={
                                 languageContext.dictionary['namePlaceholder']
                               }
@@ -495,11 +494,10 @@ function Declaration() {
                           <FormLabel htmlFor="name" mt="4">
                             <Trans id="prenume" />
                           </FormLabel>
-                          <InputGroup>
+                          <InputGroup variant="flushed">
                             <Input
                               {...field}
                               name="name"
-                              variant="flushed"
                               placeholder={
                                 languageContext.dictionary['surnamePlaceholder']
                               }
@@ -528,11 +526,10 @@ function Declaration() {
                           <FormLabel htmlFor="cnp" mt="4">
                             {values.is_romanian ? 'CNP' : <Trans id="cnp" />}
                           </FormLabel>
-                          <InputGroup>
+                          <InputGroup variant="flushed">
                             <Input
                               name="cnp"
                               {...field}
-                              variant="flushed"
                               placeholder={
                                 languageContext.dictionary['cnpPlaceholder']
                               }
@@ -1125,11 +1122,10 @@ function Declaration() {
                                 mt="4">
                                 <Trans id="adresaStreet" />
                               </FormLabel>
-                              <InputGroup>
+                              <InputGroup variant="flushed">
                                 <Input
                                   {...field}
                                   name="isolation_addresses.street"
-                                  variant="flushed"
                                   placeholder={
                                     languageContext.dictionary[
                                       'streetPlaceholder'
@@ -1165,11 +1161,10 @@ function Declaration() {
                                 mt="4">
                                 <Trans id="adresaNumber" />
                               </FormLabel>
-                              <InputGroup>
+                              <InputGroup variant="flushed">
                                 <Input
                                   {...field}
                                   name="isolation_addresses.number"
-                                  variant="flushed"
                                 />
                                 <InputRightElement
                                   children={
@@ -1200,11 +1195,10 @@ function Declaration() {
                                 mt="4">
                                 <Trans id="adresaBloc" />
                               </FormLabel>
-                              <InputGroup>
+                              <InputGroup variant="flushed">
                                 <Input
                                   {...field}
                                   name="isolation_addresses.bloc"
-                                  variant="flushed"
                                 />
                                 <InputRightElement
                                   children={
@@ -1234,11 +1228,10 @@ function Declaration() {
                                 mt="4">
                                 <Trans id="adresaEntry" />
                               </FormLabel>
-                              <InputGroup>
+                              <InputGroup variant="flushed">
                                 <Input
                                   {...field}
                                   name="isolation_addresses.entry"
-                                  variant="flushed"
                                 />
                                 <InputRightElement
                                   children={
@@ -1267,11 +1260,10 @@ function Declaration() {
                                 mt="4">
                                 <Trans id="adresaApartment" />
                               </FormLabel>
-                              <InputGroup>
+                              <InputGroup variant="flushed">
                                 <Input
                                   {...field}
                                   name="isolation_addresses.apartment"
-                                  variant="flushed"
                                 />
                                 <InputRightElement
                                   children={
@@ -1303,13 +1295,8 @@ function Declaration() {
                           <FormLabel htmlFor="phone" mt="4">
                             <Trans id="telefon" />
                           </FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              name="phone"
-                              isDisabled
-                              variant="flushed"
-                            />
+                          <InputGroup variant="flushed">
+                            <Input {...field} name="phone" isDisabled />
                             <InputRightElement
                               children={
                                 !form.errors.phone && (

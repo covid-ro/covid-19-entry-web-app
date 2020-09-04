@@ -35,7 +35,7 @@ export function Header(props) {
       as="nav"
       pos="sticky"
       top="0"
-      zIndex="sticky"
+      zIndex="2"
       align="center"
       justify="space-between"
       borderBottom="1px"

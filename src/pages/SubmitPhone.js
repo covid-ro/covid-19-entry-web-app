@@ -221,12 +221,11 @@ function SubmitPhone() {
                         <FormLabel htmlFor="phone" mt="8">
                           <Trans id="telefon" />
                         </FormLabel>
-                        <InputGroup size="md" width="80%">
+                        <InputGroup variant="flushed">
                           <InputLeftAddon
                             w="100px"
                             p="0"
                             border="none"
-                            borderImageWidth="0"
                             backgroundColor={bgColor}
                             color={color}>
                             <Select
@@ -246,7 +245,6 @@ function SubmitPhone() {
                             {...field}
                             name="phone"
                             pl="4"
-                            variant="flushed"
                             placeholder="72600000"
                           />
                           <InputRightElement
