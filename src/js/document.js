@@ -17,8 +17,7 @@ let Document = function () {
 }
 
 Document.prototype.reset = function () {
-  this.doc.setFont('TimesNewRoman')
-  this.doc.setFontStyle('normal')
+  this.doc.setFont('TimesNewRoman', 'normal')
   this.doc.setFontSize(10)
   this.doc.setTextColor(0, 0, 0)
 }
@@ -75,7 +74,7 @@ Document.prototype.getName = function (data) {
 }
 
 Document.prototype.draw = function () {
-  this.doc.setFontStyle('bold')
+  this.doc.setFont('TimesNewRoman', 'bold')
   this.doc.setFontSize(12)
   this.doc.text(this.__('declaration'), 105, 15, { align: 'center' })
 
