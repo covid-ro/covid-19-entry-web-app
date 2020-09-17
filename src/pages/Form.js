@@ -69,7 +69,7 @@ function Declaration() {
     { focused: '#a8bfda', regular: '#ffffff' },
     { focused: '#171923', regular: '#4a4a4a' }
   )
-  const className = useColorModeValue('dark', '')
+  const className = useColorModeValue('', 'dark')
   const groupBadgeStyles = {
     backgroundColor: '#EBECF0',
     borderRadius: '2em',
