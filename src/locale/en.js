@@ -174,7 +174,7 @@ const en = {
   codes: 'Your codes',
   otherInfo: 'Travel advice',
   noCodesYet: 'At the moment you have not filled in any statements',
-  footer: 'Platform managed by Special Telecommunication Service, developed by Citizen Next with support from Unicredit',
+  footer: 'Platform managed by Special Telecommunication Service, developed by Citizen Next with support from Unicredit Bank',
   sts: 'Special Telecomunications Service',
   deleteStatements: 'Delete statements',
   statementsDeleted: 'Your statements have been deleted.',

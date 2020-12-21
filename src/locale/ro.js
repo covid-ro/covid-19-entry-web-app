@@ -175,7 +175,7 @@ const ro = {
   otherInfo: 'Sfaturi calatorie',
   noCodesYet: 'Momentan nu aveți nici o declarație completată',
   footer:
-    'Platformă gestionată de Serviciul de Telecomunicații Speciale, dezvoltată de Citizen Next cu sprijin din partea Unicredit',
+    'Platformă gestionată de Serviciul de Telecomunicații Speciale, dezvoltată de Citizen Next cu sprijin din partea Unicredit Bank',
   sts: 'Serviciul de Telecomunicatii Speciale',
   deleteStatements: 'Ștergeți declarațiile',
   statementsDeleted: 'Declarațiile dumneavoastră au fost șterse.',
