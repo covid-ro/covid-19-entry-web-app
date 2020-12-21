@@ -1,63 +1,27 @@
 import React from 'react'
-import {
-  Box,
-  Link,
-  Flex,
-  Image,
-  Stack,
-  useColorModeValue,
-} from '@chakra-ui/core'
+import { Box, Flex, Stack, Text } from '@chakra-ui/core'
 import { Trans } from '../locale/Trans'
-import cn from '../assets/images/cn.svg'
+import cn from '../assets/images/cn-full.svg'
 import sts from '../assets/images/logo.png'
+import uni from '../assets/images/uni.jpg'
 export function Footer() {
-  const bgColor = useColorModeValue('white', 'gray.900')
-  const borderColor = useColorModeValue('gray.200', 'gray.700')
-  const color = useColorModeValue('brand.900', 'brand.100')
   return (
-    <Flex width="100%" maxW="760px" mx="auto" px={[2, 4, 10]}>
+    <Flex width='100%' maxW='760px' mx='auto' px={[2, 4, 10]}>
       <Box
-        borderColor={borderColor}
-        borderWidth="1px 1px 0 1px"
-        p="6"
-        borderTopRadius="md"
-        textAlign="center"
-        bg={bgColor}
-        color={color}
-        w="100%">
-        <Trans id="footer" />{' '}
-        <Link isExternal href="https://citizennext.ro" color="brand.500">
-          Citizen Next
-        </Link>{' '}
-        <Trans id="and" />{' '}
-        <Link isExternal href="https://sts.ro" color="brand.500">
-          <Trans id="sts" />
-        </Link>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          mt="2">
-          <Link isExternal href="https://citizennext.ro">
-            <Image
-              width="40px"
-              height="40px"
-              objectFit="cover"
-              src={cn}
-              alt="Citizen Next"
-              mx="4"
-            />
-          </Link>
-          <Link isExternal href="https://sts.ro">
-            <Image
-              width="30px"
-              height="30px"
-              objectFit="center"
-              src={sts}
-              alt={<Trans id="sts" />}
-              mx="4"
-            />
-          </Link>
+        borderColor='gray.200'
+        borderWidth='1px 1px 0 1px'
+        borderTopRadius='lg'
+        textAlign='center'
+        bg='white'
+        color='brand.900'
+        w='100%'>
+        <Text fontSize='20px' color='black' maxW='50ch' mx='auto' my='6' >
+          <Trans id='footer' />
+        </Text>
+        <Stack direction={['column','row']} alignItems='center' justifyContent='center' >
+          <img src={sts} alt={<Trans id='sts' />} height={30} width={30} style={{marginRight:20}} />
+          <img height={40} src={cn} alt='Citizen Next' />
+          <img width={140} src={uni} alt='Unicredit' />
         </Stack>
       </Box>
     </Flex>
