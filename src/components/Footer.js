@@ -15,11 +15,11 @@ export function Footer() {
         bg='white'
         color='brand.900'
         w='100%'>
-        <Text fontSize='20px' color='black' maxW='50ch' mx='auto' my='6' >
+        <Text fontSize='16px' color='black' maxW='60ch' mx='auto' my='6'>
           <Trans id='footer' />
         </Text>
-        <Stack direction={['column','row']} alignItems='center' justifyContent='center' >
-          <img src={sts} alt={<Trans id='sts' />} height={30} width={30} style={{marginRight:20}} />
+        <Stack direction={['column', 'row']} alignItems='center' justifyContent='center'>
+          <img src={sts} alt={<Trans id='sts' />} height={30} width={30} style={{ marginRight: 20 }} />
           <img height={40} src={cn} alt='Citizen Next' />
           <img width={140} src={uni} alt='Unicredit' />
         </Stack>

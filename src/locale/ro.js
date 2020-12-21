@@ -6,8 +6,7 @@ const ro = {
   intro:
     'Aceasta este o platforma oficiala pusa la dispozitie de Guvernul Romaniei pentru completarea declaratiei de intrare in tara la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
   about: 'Despre proiect',
-  start:
-    'Urmează să completați un chestionar ce va genera declarația pe baza căreia puteți intra în țara.',
+  start: 'Urmează să completați un chestionar ce va genera declarația pe baza căreia puteți intra în țara.',
   startHere: 'Începe aici!',
   declaratie: 'Declarație',
   progressHeaderStep: 'din 10',
@@ -21,10 +20,8 @@ const ro = {
   downloadForm: 'Descarcă model declarație',
   back: 'Înapoi',
   form2Label: 'Selectați unul din actele de identitate.',
-  form8Label:
-    'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',
-  form9Label:
-    'Pentru a mă deplasa la adresa de carantină completată mai sus, folosesc:',
+  form8Label: 'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',
+  form9Label: 'Pentru a mă deplasa la adresa de carantină completată mai sus, folosesc:',
   form9Label2: 'Introduceți numărul automobilului cu care vă deplasați:',
   da: 'DA',
   nu: 'NU',
@@ -58,19 +55,15 @@ const ro = {
   validatePhoneNumber: 'Validează numărul de telefon',
   incorrectCode: 'Codul introdus este incorect sau a expirat',
   incorrectCNP: 'CNP incorect',
-  incorrectName:
-    'Numele și prenumele nu corespund cu cele din actul de identitate',
+  incorrectName: 'Numele și prenumele nu corespund cu cele din actul de identitate',
   incorrectBday: 'Data nașterii incorectă',
-  unauthorized:
-    'Ne pare rău! A trecut prea mult timp de la autentificare. Sesiunea dumneavoastră a expirat!',
+  unauthorized: 'Ne pare rău! A trecut prea mult timp de la autentificare. Sesiunea dumneavoastră a expirat!',
   incorrectDate: 'Data introdusă este incorectă',
   incorrectSerie: 'Seria este incorectă. Doar litere sunt permise. de ex.: AA',
-  incorrectNumber:
-    'Numărul este incorect. Doar cifre sunt permise. de ex.: 123456',
+  incorrectNumber: 'Numărul este incorect. Doar cifre sunt permise. de ex.: 123456',
   incorrectPhone: 'Număr de telefon este incorect.',
   unknownError: 'Ne pare rău! Mai încearca odata!',
-  recaptcha:
-    'Acest site este protejat de reCAPTCHA și pentru folosirea lui se aplică',
+  recaptcha: 'Acest site este protejat de reCAPTCHA și pentru folosirea lui se aplică',
   privacy: 'politica de confidențialitate',
   terms: 'termenii de utilizare',
   and: 'și',
@@ -109,23 +102,19 @@ const ro = {
   completeDeclaration: 'Completează declarația',
   infoLabelBegin:
     'Această aplicație stă la baza declarației de intrare în țară la punctele vamale, urmare a pandemiei de coronavirus COVID-19.',
-  infoLabelBold:
-    ' Vă rugăm să completați formularul din această aplicație cu date reale, ',
-  infoLabelEnd:
-    'declarația pe proprie răspundere fiind ulterior verificată de autoritățile competente.',
+  infoLabelBold: ' Vă rugăm să completați formularul din această aplicație cu date reale, ',
+  infoLabelEnd: 'declarația pe proprie răspundere fiind ulterior verificată de autoritățile competente.',
   adaugaMembru: 'Adaugă un membru nou',
   nuMaiAdaug: 'Nu mai adaug pe nimeni',
   finishScreenFirstLine: 'Felicitări, ai terminat de completat declarația.',
-  finishScreenSecondLine:
-    'Dorești să adaugi încă o declarație pentru alt membru al familiei ce te însoțește? ',
+  finishScreenSecondLine: 'Dorești să adaugi încă o declarație pentru alt membru al familiei ce te însoțește? ',
   finisScreenThirdLine:
     'Continuă procedura de mai jos, respectând câmpurile ce te vor ghida în completarea corectă a formularului. În cazul minorilor, numărul de telefon necesar pentru validare va fi a unuia din aparținători. ',
 
   form10Title: 'Localități prin care ați trecut',
   form13Title: 'Localitate de intrare in tara',
   form13Label: 'Punctul vamal',
-  form10Label:
-    'Introduceți câteva din localitățile de pe drum, diferențiate prin virgulă.',
+  form10Label: 'Introduceți câteva din localitățile de pe drum, diferențiate prin virgulă.',
   form10Placeholder: 'Localitate 1, localitate 2, ...',
   form7Label:
     'Ați venit în contact direct cu persoane suferinde din cauza infecției  cu noul coronavirus (COVID-19) la serviciu, în vecinătatea locuinței sau vizitând unități medicale ori alte genuri de locuri în ultimele 14 zile?',
@@ -152,8 +141,7 @@ const ro = {
   prenume: 'Prenume',
   cnp: 'Număr personal de identificare',
   sms: 'SMS trimis',
-  smsDescription:
-    'În curând veți primi un cod de 6 cifre pe numărul de telefon introdus',
+  smsDescription: 'În curând veți primi un cod de 6 cifre pe numărul de telefon introdus',
   form4Label: 'În România mă voi izola la următoarea adresă:',
   form4Switch: 'Mă izolez la adresa de domiciliu din buletin',
   judet: 'Județ',
@@ -174,8 +162,7 @@ const ro = {
   endScreenThirdLine:
     'Te rugăm să transmiți reprezentantului DSP din punctul vamal că ai utilizat aplicația mobilă pentru completarea datelor.',
   data: 'Data',
-  signatureTitle:
-    'Semnatura dumneavoastra (in cazul minorilor, apartinatorii vor semna pentru ei):',
+  signatureTitle: 'Semnatura dumneavoastra (in cazul minorilor, apartinatorii vor semna pentru ei):',
   signatureLabel: 'Folositi mouse-ul sau degetul pentru a semna',
   transitedCountries: 'Țările prin care ați trecut(inclusiv escale):',
   selectCountries: 'Selectați țările (selecție multiplă)',
@@ -187,13 +174,13 @@ const ro = {
   codes: 'Vezi codurile tale',
   otherInfo: 'Sfaturi calatorie',
   noCodesYet: 'Momentan nu aveți nici o declarație completată',
-  footer: 'Dezvoltat de',
+  footer:
+    'Platformă gestionată de Serviciul de Telecomunicații Speciale, dezvoltată de Citizen Next cu sprijin din partea Unicredit',
   sts: 'Serviciul de Telecomunicatii Speciale',
   deleteStatements: 'Ștergeți declarațiile',
   statementsDeleted: 'Declarațiile dumneavoastră au fost șterse.',
   noMatch: 'Pagină inexistentă',
-  noMatchText:
-    'Această pagină nu există. Folosiți navigația pentru a găsi ceea ce căutați.',
+  noMatchText: 'Această pagină nu există. Folosiți navigația pentru a găsi ceea ce căutați.',
   questionsAnswers: 'Întrebări frecvente',
 }
 export default ro

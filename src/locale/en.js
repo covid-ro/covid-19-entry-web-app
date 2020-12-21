@@ -6,8 +6,7 @@ const en = {
   intro:
     'This is an official platform provided by the Governent of Romania to facilitate creation of the entry statement at the border control as a result of the corona virus COVID-19 pandemic.',
   about: 'About project',
-  start:
-    'You are about to fill in a form that will generate the statement you must have so you can enter the country.',
+  start: 'You are about to fill in a form that will generate the statement you must have so you can enter the country.',
   startHere: 'Start here!',
 
   declaratie: 'Statement',
@@ -22,8 +21,7 @@ const en = {
   downloadForm: 'Download statement template',
   back: 'Back',
   form2Label: 'Choose an id document',
-  form8Label:
-    'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',
+  form8Label: 'Ați avut unul sau mai multe dintre următoarele simptome (selecție multiplă) :',
   form9Label: 'I travel to the above mentioned quarantine address by:',
   form9Label2: 'Enter the license plate of the vehicle',
   da: 'YES',
@@ -61,13 +59,11 @@ const en = {
   incorrectCNP: 'Incorrect ID number',
   incorrectName: 'Your first and last name do not match your ID card',
   incorrectBday: 'Incorrect birthdate',
-  unauthorized:
-    'We are sorry! It has been too long since authentication. You are no longer authenticated',
+  unauthorized: 'We are sorry! It has been too long since authentication. You are no longer authenticated',
   incorrectDate: 'Incorrect date entered',
   incorrectSerie: 'Incorrect series. Only letters are allowed eg.: AA',
   incorrectNumber: 'Incorrect number. Only numbers are allowed eg.: 123456',
-  recaptcha:
-    'This site is protected by reCAPTCHA and for its usage, the Google',
+  recaptcha: 'This site is protected by reCAPTCHA and for its usage, the Google',
   privacy: 'Privacy Policy',
   terms: 'Terms of Service',
   and: 'and',
@@ -77,8 +73,7 @@ const en = {
   selectDate: 'Choose date',
   acceptanceTitle: 'One last step',
   acceptanceLabel: 'I declare on my own responsibility that:',
-  acceptPersonalData:
-    'I agree that the personal data and information provided shall be processed by the competent authorities.',
+  acceptPersonalData: 'I agree that the personal data and information provided shall be processed by the competent authorities.',
   acceptReadLaw:
     'I have taken note of the provisions of art. 326 of the Criminal Code regarding the false statements and those of art. 352 of the Criminal Code regarding obstruction of efforts to combat diseases.',
   validatePhoneNumberInformationLabel:
@@ -108,16 +103,12 @@ const en = {
   completeDeclaration: 'Fill in statement',
   infoLabelBegin:
     'This application is the basis for the statement of entry into the country at border checks, following the COVID-19 coronavirus pandemic.',
-  infoLabelBold:
-    ' Please fill in the form in this application with real data, ',
-  infoLabelEnd:
-    'the information given will be verified by competent authorities.',
+  infoLabelBold: ' Please fill in the form in this application with real data, ',
+  infoLabelEnd: 'the information given will be verified by competent authorities.',
   adaugaMembru: 'Add a new member',
   nuMaiAdaug: 'I am done adding members',
-  finishScreenFirstLine:
-    'Congratulations, you are done filling in the statement.',
-  finishScreenSecondLine:
-    'Would you like to add another statement for another family member accompanying you? ',
+  finishScreenFirstLine: 'Congratulations, you are done filling in the statement.',
+  finishScreenSecondLine: 'Would you like to add another statement for another family member accompanying you? ',
   finisScreenThirdLine:
     'Continue the procedure below, respecting the fields that will guide you in the correct filling of the form. In the case of minors, the telephone number required for validation will be that of one of the relatives. ',
 
@@ -151,8 +142,7 @@ const en = {
   prenume: 'Name',
   cnp: 'National ID Number',
   sms: 'SMS was sent',
-  smsDescription:
-    'You will soon receive a 6-digit code on the phone number entered',
+  smsDescription: 'You will soon receive a 6-digit code on the phone number entered',
   form4Label: 'In Romania I will self isolate at the following address:',
   form4Switch: 'I will self isolate at the address on my ID card',
   judet: 'County',
@@ -168,13 +158,11 @@ const en = {
   trimite: 'Submit statement',
   sfaturiDeCalatorie: 'Travel advice',
   endScreenFirstLine: 'Thank you for your cooperation.',
-  endScreenSecondLine:
-    'By using the application we save valuable time that we can spend to ensure public health.',
+  endScreenSecondLine: 'By using the application we save valuable time that we can spend to ensure public health.',
   endScreenThirdLine:
     'Please inform the DSP representative at the customs point that you have used the mobile application to complete the data.',
   data: 'Date',
-  signatureTitle:
-    'Your signature (in the case of minors, the relatives will sign for them):',
+  signatureTitle: 'Your signature (in the case of minors, the relatives will sign for them):',
   signatureLabel: 'Use mouse or finger to sign',
   transitedCountries: 'Countries you have transitted (including stops):',
   selectCountries: 'Select countries (multiple selection)',
@@ -186,7 +174,7 @@ const en = {
   codes: 'Your codes',
   otherInfo: 'Travel advice',
   noCodesYet: 'At the moment you have not filled in any statements',
-  footer: 'Developed by',
+  footer: 'Platform managed by Special Telecommunication Service, developed by Citizen Next with support from Unicredit',
   sts: 'Special Telecomunications Service',
   deleteStatements: 'Delete statements',
   statementsDeleted: 'Your statements have been deleted.',
