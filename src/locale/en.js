@@ -13,6 +13,26 @@ const en = {
   progressHeaderStep: 'of 10',
   form1Switch: 'Are you a romanian citizen?',
   birthdate: 'Birthdate',
+  arrivalDate: 'Date',
+  arrivalLabel: 'Arrival date in Romania',
+  testNecessary: 'Este necesar un test coronavirus?',
+  testNecesarryAnswer:
+    'Călătorii din țările cu risc ridicat (cod galben sau roșu) trebuie să prezinte un rezultat negativ al testului PCR pentru SARS-Cov-2, efectuat cu cel mult 72 de ore înainte de intrarea pe teritoriul național. Copiii cu vârsta sub 3 ani sunt scutiți de obligația de testare.',
+  quarantineNecesarry: 'Este necesară o carantină?',
+  quarantineNecesarryAnswer: 'In principiu da.',
+  exceptionCategoryTitle: 'Faceți parte din una din următoarele categorii?',
+  vaccinatedPerson: 'Persoane vaccinate',
+  vaccinatedPersonDetails:
+    'Călătorii care au primit vaccinarea finală pentru COVID-19 în urmă cu mai mult de 10 de zile sunt scutiți de carantină. Este necesar să se prezinte dovada vaccinării, inclusiv datele.',
+  confirmedPozitive: 'Persoane confirmate pozitiv',
+  confirmedPozitiveDetails:
+    'Călătorii care au fost confirmați pozitivi pentru boala SARS-CoV-2 în ultimele 90 de zile înainte de intrarea în țară sunt scutiți. Dovada trebuie furnizată sub formă de documente medicale (testul PCR pozitiv la data diagnosticului, biletul de externare din spital sau testul care demonstrează prezența anticorpilor IgG efectuat cu cel mult 14 de zile înainte de intrarea în țară).',
+  persoaneTransiting: 'Persoane în tranzit',
+  persoaneTransitingDetails:
+    'Călătorii care rămân în România mai puțin de 3 de zile (72 de ore) și prezintă un test negativ pentru SARS-CoV-2, efectuat cu cel mult 48 de ore înainte de intrarea pe teritoriul național, sunt scutiți de obligația de carantină.',
+  businessPerson: 'Ești într-o vizită de business?',
+  businessPersonDetails: 'Ai dovada unei calatorii de business. akjlakjslka',
+  noException: 'Niciuna de mai sus',
   downloadPage: 'Problems receiving the validation SMS?',
   roaming:
     'If you do not receive the phone validation SMS we recommend that you retry filling in the form once you land in Romania. Once you connect to a local operator (roaming) you will most likely receive the validation SMS.',

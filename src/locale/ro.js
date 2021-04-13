@@ -12,6 +12,7 @@ const ro = {
   progressHeaderStep: 'din 10',
   form1Switch: 'Dețineți cetățenie română?',
   birthdate: 'Data nașterii',
+  arrivalDate: 'Data',
   downloadPage: 'Nu primiți SMS-ul de validare?',
   roaming:
     'Dacă nu primiți SMS-ul de validare a numărului de telefon vă recomandăm să completați declarația atunci când ajungeți în zona de frontieră a României. Odată cu conectarea numărului de telefon în rețeaua locala (roaming) cel mai probabil veți primi SMS-ul de validare.',
@@ -122,9 +123,30 @@ const ro = {
     'Ați locuit / vizitat zone în care se aflau persoane suferinde din cauza infecției cu noul coronavirus (COVID-19)?',
   form6SecondQuestion: 'Ați fost spitalizat în ultimele 3 săptămâni?',
   form5Label: 'Pe perioada șederii pot fi contactat la',
+  arrivalLabel: 'Data sosirii în țară',
+  romanianSystem:
+    'România adoptă propria clasificare națională a zonelor de risc, prin urmare, restricțiile de călătorie pentru România nu se bazează pe harta comună „UE Traffic Lights”.',
+  testNecessary: 'Este necesar un test coronavirus?',
+  testNecesarryAnswer:
+    'Călătorii din țările cu risc ridicat (cod galben sau roșu) trebuie să prezinte un rezultat negativ al testului PCR pentru SARS-Cov-2, efectuat cu cel mult 72 de ore înainte de intrarea pe teritoriul național. Copiii cu vârsta sub 3 ani sunt scutiți de obligația de testare.',
+  quarantineNecesarry: 'Este necesară o carantină?',
+  quarantineNecesarryAnswer: 'In principiu da.',
   alertLabel: 'ATENȚIE!',
   alertMessage:
     'Numărul de telefon completat trebuie să fie activ pe toată perioada autoizolării. Veți fi contactat pe acest număr de telefon de către autoritățile responsabile. \n \nOrice omisiune va fi pedepsită conform legii pentru combaterea bolilor contagioase.',
+  exceptionCategoryTitle: 'Faceți parte din una din următoarele categorii?',
+  vaccinatedPerson: 'Persoane vaccinate',
+  vaccinatedPersonDetails:
+    'Călătorii care au primit vaccinarea finală pentru COVID-19 în urmă cu mai mult de 10 de zile sunt scutiți de carantină. Este necesar să se prezinte dovada vaccinării, inclusiv datele.',
+  confirmedPozitive: 'Persoane confirmate pozitiv',
+  confirmedPozitiveDetails:
+    'Călătorii care au fost confirmați pozitivi pentru boala SARS-CoV-2 în ultimele 90 de zile înainte de intrarea în țară sunt scutiți. Dovada trebuie furnizată sub formă de documente medicale (testul PCR pozitiv la data diagnosticului, biletul de externare din spital sau testul care demonstrează prezența anticorpilor IgG efectuat cu cel mult 14 de zile înainte de intrarea în țară).',
+  persoaneTransiting: 'Persoane în tranzit',
+  persoaneTransitingDetails:
+    'Călătorii care rămân în România mai puțin de 3 de zile (72 de ore) și prezintă un test negativ pentru SARS-CoV-2, efectuat cu cel mult 48 de ore înainte de intrarea pe teritoriul național, sunt scutiți de obligația de carantină.',
+  businessPerson: 'Ești într-o vizită de business?',
+  businessPersonDetails: 'Ai dovada unei calatorii de business. akjlakjslka',
+  noException: 'Niciuna de mai sus',
   telefonValid: 'Telefon valid',
   email: 'E-mail',
   emailPlaceholder: 'ion.nicolaescu@tld.ro',
